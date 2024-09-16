@@ -58,7 +58,6 @@ public class Player extends Entity {
 
 	public BufferedImage getSpriteSheet() {
 		BufferedImage sprite = null;
-
 		try {
 			sprite = ImageIO.read(getClass().getResourceAsStream("/res/player/player.png"));
 		} catch (IOException e) {
