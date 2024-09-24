@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import mae.game.Entity;
 import mae.game.GamePanel;
+import mae.game.puzzle.Puzzle;
 
 public class Object extends Entity {
 	private final Color correct =
@@ -14,6 +15,8 @@ public class Object extends Entity {
 	protected boolean isCorrect = false;
 	protected boolean isWrong = false;
 	protected int input;
+	public Puzzle puzzle;
+	protected int ans[] = new int[5];
 	public Object(GamePanel gp) {
 		super(gp);
 		key = -1;
@@ -32,7 +35,14 @@ public class Object extends Entity {
 	}
 	
 	public String submitAns() {
-	    return description.replace("?", Integer.toString(gp.kc[gp.currentCard].useCard()));
+		String desc = description;
+		if(description.contains("a")) {
+			desc = description.replace("a", Integer.toString(ans[0]));
+			desc = desc.replace("b", Integer.toString(ans[1]));
+		} if (description.contains("?")) {
+			desc = description.replace("?", Integer.toString(gp.kc[gp.currentCard].useCard()));
+		}
+	    return desc;
 	}
 	
 	public void drawSpeechBubble(Graphics2D g2, int x, int y) {

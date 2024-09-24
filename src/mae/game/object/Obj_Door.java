@@ -16,7 +16,6 @@ public class Obj_Door extends Object {
 	//int doorId;
 	public boolean open = false;
 	public int floor;
-	public Puzzle puzzle;
 	public int input = 0;
 	public boolean correct = true;
 
@@ -54,11 +53,13 @@ public class Obj_Door extends Object {
 				} else {
 					correct = false;
 				}
+				ans[input] = gp.kc[gp.currentCard].useCard();
 				input++;
-			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && !locked && correct || gp.testing) {
+			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && !locked && correct || gp.testDoor) {
 				isCorrect = true;
 				gp.playSE(4);
 				moving = true;
+				ans[input] = gp.kc[gp.currentCard].useCard();
 				input = 0;
 			} else {
 				correct = true;

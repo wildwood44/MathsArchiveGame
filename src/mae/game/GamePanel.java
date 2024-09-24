@@ -74,8 +74,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public Entity[][] obj = new Entity[maxMap][25];
 	public NPC[][] npc = new NPC[maxMap][5];
 	public Map[] maps;
-	public DoorPuzzle doorPuzzle = new DoorPuzzle();
-	public ConsolePuzzle consPuzzle = new ConsolePuzzle();
+	public DoorPuzzle doorPuzzle = new DoorPuzzle(this);
+	public ConsolePuzzle consPuzzle = new ConsolePuzzle(this);
 	public SaveLoad saveLoad = new SaveLoad(this);
 	public EntityGenerator eGenerator = new EntityGenerator(this);
 	public Player player = new Player(this, keyH);
@@ -83,7 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
-	public boolean testing = true;
+	public boolean testDoor = true;
+	public boolean testKey = true;
+	public int startFloor = 6;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -104,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setNPC();
 		aSetter.setMaps();
 		gameState = GameState.titleState;
-		currentMap = maps[0];
+		currentMap = maps[startFloor];
 		kc[0].opened = true;
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);

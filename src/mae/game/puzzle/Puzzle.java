@@ -1,10 +1,13 @@
 package mae.game.puzzle;
 
-import java.util.Iterator;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 
+import mae.game.GamePanel;
 import mae.game.object.SumType;
 
 public class Puzzle {
+	GamePanel gp;
 	private int a, b, c, d;
 	private String text;
 	private int res;
@@ -12,19 +15,22 @@ public class Puzzle {
 	private PuzzleType puzzle;
 	private int input = 0;
 	private int count = 0;
-	
-	public Puzzle(String text, SumType sum) {
-		this(text, sum, PuzzleType.MISSING);
+	private double[] ans = new double[5];
+	private static final DecimalFormat df = new DecimalFormat("0.00");
+
+	public Puzzle(GamePanel gp, String text, SumType sum) {
+		this(gp, text, sum, PuzzleType.MISSING);
 	}
 	
-	public Puzzle(String text, SumType sum, PuzzleType puzzle) {
-		this(text, 1, sum, puzzle);
+	public Puzzle(GamePanel gp, String text, SumType sum, PuzzleType puzzle) {
+		this(gp, text, 1, sum, puzzle);
 		this.text = text;
 		this.sum = sum;
 		this.puzzle = puzzle;
 	}
 	
-	public Puzzle(String text, int input, SumType sum, PuzzleType puzzle) {
+	public Puzzle(GamePanel gp, String text, int input, SumType sum, PuzzleType puzzle) {
+		this.gp = gp;
 		this.text = text;
 		this.sum = sum;
 		this.puzzle = puzzle;
@@ -42,7 +48,12 @@ public class Puzzle {
 		case MISSING:return findMissing();
 		case PERCENTAGE:return findPercentage();
 		case FRACTION:return findFraction(input);
-		case ALGEBRA:return findAlgebra();
+		case ALGEBRA:return findAlgebra(input);
+		case MEASURE:return findMeasurement();
+		case TIME:return findTime();
+		case GEOMATRY:return findGeomatry();
+		case WEIGHT:return findWeight();
+		case STAT:return findStatistic();
 		default: return -145;
 		}
 	}
@@ -93,7 +104,6 @@ public class Puzzle {
 	    // and split
 	    String regex = "[+\\-\\*\\/\\=\\%]";
 	    String[] ss = text.split(regex);
-	    System.out.println(ss[0] + ss[1]);
 	    int pos = -1;
 	     
 	    // Find position of missing character
@@ -122,7 +132,6 @@ public class Puzzle {
 		        default: a=a - convert(b); break;
 		        }
 	    	}
-	    	System.out.println(a + " : " + b);
 	    	return a;
 	    }
 		return 0;
@@ -137,7 +146,6 @@ public class Puzzle {
 	    String fractions2Lower = ss[3];
 	    String fractions3Upper = ss[4];
 	    String fractions3Lower = ss[5];
-	    System.out.println(input);
 	    int pos = 0;
 	    if(input == 0) {
 		    if (fractions1Upper.contains("a")) {
@@ -170,13 +178,242 @@ public class Puzzle {
         return greatestCommonFactor(denom, num % denom);
     }
     
-    public double findAlgebra() {
+    public double findAlgebra(int input) {
 	    String regex = "[+\\-\\*\\=]";
 	    String[] ss = text.split(regex);
-	    for(String s:ss) {
-	    	
+	    double count = 0;
+	    double res = 0;
+	    ans[0] = 0; 
+	    ans[1] = 0; 
+	    //Check for whole numbers
+	    if(!ss[2].contains("a") && !ss[2].contains("b") && 
+	    	!ss[2].contains("x") && !ss[2].contains("y")) {
+	    	res = convert(ss[2]);
 	    }
+	    for(int i = 0; i < ss.length; i++) {
+		    	if(ss[i].contains("x")) {
+		    		if(Character.isDigit(ss[i].charAt(0))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[0] += convert(ss[i]);
+		    		} else if(Character.isDigit(ss[i].charAt(ss[i].length()-1))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[0] += convert(ss[i]);
+		    		} else if(ss[i].length() == 1) {
+		    			ans[0]++;
+		    		}
+		    	} else if(ss[i].contains("a")) {
+		    		if(Character.isDigit(ss[i].charAt(0))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[0] = convert(ss[i]);// * gp.kc[gp.currentCard].useCard();
+		    		} else if(Character.isDigit(ss[i].charAt(ss[i].length()-1))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[0] = convert(ss[i]);// * gp.kc[gp.currentCard].useCard();
+		    		}
+		    	}
+		    	//ans[0] = count;
+		    //}
+		    //if(input == 1 && ss[i] != null) {
+		    	if(ss[i].contains("y")) {
+		    		if(Character.isDigit(ss[i].charAt(0))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[1] += convert(ss[i]);
+		    		} else if(Character.isDigit(ss[i].charAt(ss[i].length()-1))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[1] += convert(ss[i]);
+		    		} else if(ss[i].length() == 1) {
+		    			ans[1]++;
+		    		}
+		    	} else if(ss[i].contains("b")) {
+		    		if(Character.isDigit(ss[i].charAt(0))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[1] = convert(ss[i]);// * gp.kc[gp.currentCard].useCard();
+		    		} else if(Character.isDigit(ss[i].charAt(ss[i].length()-1))) {
+		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    			ans[1] += convert(ss[i]);// * gp.kc[gp.currentCard].useCard();;
+		    		}
+		    	}
+	    }
+	    if(res != 0) {
+	    	count = findMuliple(ans[0], ans[1], res, input);
+	    	return count;
+	    } else {
+	    	System.out.println("Count  "+input+": "+ans[input]);
+	    	return ans[input];
+	    }
+	    //System.out.println("Count: "+count);
+    	//return count;
+    }
+    
+    public double findMuliple(double input1, double input2, double res, int pos) {
+    	for(int i = 1; i < 10; i++) {
+    		for(int j = 1; j < 10; j++) {
+        		if(calculate(2, Double.toString(input1 * i), Double.toString(input2 * j), Double.toString(res)) == res) {
+        			if(pos == 0) {
+        				return i;
+        			} else if(pos == 1) {
+        				return j;
+        			} else {
+        				return res;
+        			}
+        		}
+        	}
+    	}
     	return -145;
+    }
+    
+    public double findMeasurement() {
+	    String regex = "[+\\-\\*\\=]";
+	    String[] ss = text.split(regex);
+	    System.out.println(ss[0] + " " + ss[1]);
+	    if(ss[0].contains("?")){
+	    	double convert = toMeter(ss[1]);
+	    	convert = fromMeter(""+convert);
+	    	return convert;
+	    } else if(ss[1].contains("?")){
+	    	double convert = toMeter(ss[0]);
+	    	convert = fromMeter(""+convert);
+	    	return convert;
+	    }
+	    return -145;
+    }
+    
+    public double toMeter(String unit2){
+    	if(unit2.contains("cm")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) / 100;
+		} else if(unit2.contains("km")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) * 1000;
+		} else if(unit2.contains("mm")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) / 1000;
+		}
+    	String to = unit2.replaceAll("[^\\d.]", "");
+    	return convert(to);
+    }
+    
+    public double fromMeter(String unit2){
+    	if(unit2.contains("cm")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) * 100;
+		} else if(unit2.contains("km")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) / 1000;
+		} else if(unit2.contains("mm")) {
+			String to = unit2.replaceAll("[^\\d.]", "");
+			return convert(to) * 1000;
+		}
+    	String to = unit2.replaceAll("[^\\d.]", "");
+    	return convert(to);
+    }
+    
+    public double findTime() {
+	    String regex = "[+\\-\\*\\/\\=]";
+	    String[] ss = text.split(regex);
+	    int pos = -1;
+	    if(ss[0].contains("?")) {
+	        pos = 0;}
+	    else if(ss[1].contains("?")) {
+	        pos = 1;}
+	    else {
+	        pos = 2;}
+	    if(ss[0].contains("mi")) {
+	    	ss[0] = ss[0].replaceAll("[^\\d.]", "");
+	    }
+	    if(ss[1].contains("min")) {
+	    	ss[1] = ss[1].replaceAll("[^\\d.]", "");
+	    	ss[1] = ""+ (convert(ss[1]) * 0.016666667);
+	    }
+    	ss[2] = ss[2].replaceAll("[^\\d.]", "");
+	    double i = calculate(pos, ss[0], ss[1], ss[2]);
+    	i = round(i, 2);
+	    return i;
+    }
+    
+    public double findGeomatry() {
+	    String regex = "[+\\-\\*\\/\\,\\(]";
+	    String[] ss = text.split(regex);
+	    int pos = 0;
+	    double ans = 0;
+	    double value = 0;
+	    if(ss[0].contains("Triangle=")) {
+	    	ans = 180;
+	    	if(ss[1].contains("?")) {
+		    	ss[1] = ss[1].replaceAll("[^\\d.]", "");
+		        value = convert(ss[2]) + convert(ss[3]);
+		        return calculate(pos, ss[1], ""+value, ""+ans);
+		    } else if(ss[2].contains("?")) {
+		    	ss[2] = ss[2].replaceAll("[^\\d.]", "");
+		        value = convert(ss[1]) + convert(ss[3]);
+		        return calculate(pos, ss[2], ""+value, ""+ans);
+		    } else if(ss[3].contains("?")) {
+		    	ss[3] = ss[3].replaceAll("[^\\d.]", "");
+		        value = convert(ss[1]) + convert(ss[2]);
+		        return calculate(pos, ss[3], ""+value, ""+ans);
+		    }
+	    } else if(ss[0].contains("Square=")) {
+	    	ans = 360;
+	    }
+	    
+	    return -145;
+    }
+    
+    public double findWeight() {
+    	if(text.contains("lb")) {
+	    	text = text.replaceAll("[^\\d.]", "");
+    		return convert(text) * 2.20462;
+    	} else if(text.contains("mg")) {
+    		text = text.replaceAll("[^\\d.]", "");
+    		return convert(text) / 1000000;
+    	} else if(text.contains("g")) {
+    		text = text.replaceAll("[^\\d.]", "");
+    		return convert(text) * 1000;
+    	}  else if(text.contains("t")) {
+    		text = text.replaceAll("[^\\d.]", "");
+    		return convert(text) / 1000;
+    	} 
+    	return -145;
+    }
+    
+    public double findStatistic() {
+	    String regex = "[\\(]";
+	    String[] ss = text.split(regex);
+	    int pos = 0;
+	    double sum = 0;
+	    double value = 0;
+	    String regex2 = "[\\,\\)]";
+	    String[] sss = ss[1].split(regex2);
+	    if(ss[0].contains("mean=")) {
+	    	for(int i=0; i<sss.length; i++) {
+	    		sum+=convert(sss[i]);
+	    	}
+	    	return sum / sss.length;
+	    	
+	    } else if(ss[0].contains("mode=")) {
+	    	int maxCount = 0;
+	    	for (int i = 0; i < sss.length; ++i) {
+	            //System.out.println(sss[i]);
+	    		int count = 0;
+	            for (int j = 0; j < sss.length; ++j) {
+	                if (convert(sss[j]) == convert(sss[i])) ++count;
+	            }
+	            if (count > maxCount) {
+	                maxCount = count;
+	                sum = convert(sss[i]);
+	            }
+	        }
+	        return sum;
+	    } else if(ss[0].contains("medium=")) {
+	    	int middle = sss.length/2;
+	    	Arrays.sort(sss);
+	        if (sss.length%2 == 1) {
+	        	System.out.println(sss[middle]);
+	            return convert(sss[middle]);
+	        } else {
+	            return convert((sss[middle-1]) + convert(sss[middle])) / 2.0;
+	        }
+	    }
+	    return -145;
     }
 	
 	public String drawFraction() {
@@ -234,6 +471,15 @@ public class Puzzle {
     	return foo;
     }
     
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+    
     public double calculate(int pos, String num1, String num2, String result) {
 
     	if(pos == 0)
@@ -250,7 +496,6 @@ public class Puzzle {
 	        case DIVIDE: a=convert(c) * convert(b); break;
 	        default: a=convert(c) - convert(b); break;
 	        }
-	         
 	        return a;
 	    }
 	    else if(pos==1)

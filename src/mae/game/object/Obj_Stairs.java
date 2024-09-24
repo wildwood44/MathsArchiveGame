@@ -73,7 +73,7 @@ public class Obj_Stairs extends Object {
 
 	public void interact() {
 		if(gp.keyH.upPressed && floor != 11) {
-			if(locked || gp.testing) {
+			if(locked || gp.testDoor) {
 				int changeMap = gp.currentMap.getId()+1;
 				gp.eHandler.teleport(gp.maps[changeMap], 14, 3);
 			} else {
