@@ -38,15 +38,21 @@ public class DoorPuzzle {
 		problems[6][0] = new Puzzle(gp, "300cm=?m", 2, SumType.EQUAL, PuzzleType.MEASURE);
 		problems[6][6] = new Puzzle(gp, "?mi/35min=6mph", 2, SumType.DIVIDE, PuzzleType.TIME);
 		problems[6][10] = new Puzzle(gp, "?m=7000mm", SumType.EQUAL, PuzzleType.MEASURE);
-		problems[7][4] = new Puzzle(gp, "Triangle=(120,50,?0)", SumType.PLUS, PuzzleType.GEOMATRY);
+		problems[7][4] = new Puzzle(gp, "Triangle=(120,50,?)", SumType.PLUS, PuzzleType.GEOMATRY);
 		//problems[8][0] = new Puzzle(gp, "0.042mg", SumType.EQUAL, PuzzleType.WEIGHT);
 		//problems[8][4] = new Puzzle(gp, "2.2lb", SumType.EQUAL, PuzzleType.WEIGHT);
 		//problems[8][6] = new Puzzle(gp, "7000g", SumType.EQUAL, PuzzleType.WEIGHT);
 		//problems[8][10] = new Puzzle(gp, "6lb", SumType.EQUAL, PuzzleType.WEIGHT);
-		problems[8][0] = new Puzzle(gp, "0.042mg", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][0] = new Puzzle(gp, "range=(27,23,26,29,24)", SumType.EQUAL, PuzzleType.STAT);
 		problems[8][4] = new Puzzle(gp, "mode=(1,2,2,4,4,4,6,10)", SumType.EQUAL, PuzzleType.STAT);
 		problems[8][6] = new Puzzle(gp, "mean=(3,4,5,8,8,11,12,13)", SumType.EQUAL, PuzzleType.STAT);
-		problems[8][10] = new Puzzle(gp, "medium=s(35,23,76,34,56)", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][10] = new Puzzle(gp, "medium=(35,23,76,34,56)", SumType.EQUAL, PuzzleType.STAT);
+		problems[9][0] = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		problems[9][4] = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
+		problems[10][6] = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		problems[10][10] = new Puzzle(gp, "Transform(1,7)+(left(2),up(2))=(a,b)",2, SumType.PLUS, PuzzleType.GRAPH);
+		problems[11][4] = new Puzzle(gp, "even(1,2,3,4,5,6)=?%", 2, SumType.EQUAL, PuzzleType.PROBABIL);
+		problems[11][6] = new Puzzle(gp, "prime(1,2,3,5,7,11,13,17,19,23=a/b)", SumType.EQUAL, PuzzleType.PROBABIL);
 	}
 	
 	public Puzzle getPuzzle(int floor, int room) {

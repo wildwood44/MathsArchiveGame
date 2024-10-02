@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import mae.game.Entity;
 import mae.game.GamePanel;
 import mae.game.puzzle.Puzzle;
+import mae.game.puzzle.PuzzleType;
 
 public class Object extends Entity {
 	private final Color correct =
@@ -70,6 +71,11 @@ public class Object extends Entity {
 			g2.setColor(Color.white);
 		}
 		//g2.drawString(text, textX, y+gp.tileSize);
+		if(puzzle.getPuzzleType()==PuzzleType.GEOMATRY) {
+			puzzle.getGeomatry(g2, text, x, y);
+		} else if(puzzle.getPuzzleType()==PuzzleType.GRAPH) {
+			puzzle.drawGraph(g2, text, x+gp.tileSize, y+gp.tileSize/2);
+		} else {
 		y=y+gp.tileSize;
 		try {
 			for(String line : text.split("£")) {
@@ -90,7 +96,7 @@ public class Object extends Entity {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}}
 	}
 
 }

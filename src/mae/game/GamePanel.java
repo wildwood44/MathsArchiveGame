@@ -85,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 	//Testing
 	public boolean testDoor = true;
 	public boolean testKey = true;
-	public int startFloor = 6;
+	public int startFloor = 7;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -108,6 +108,8 @@ public class GamePanel extends JPanel implements Runnable {
 		gameState = GameState.titleState;
 		currentMap = maps[startFloor];
 		kc[0].opened = true;
+		//Test
+		kc[0].setValue(10);
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);
 		cChecker = new CollisionChecker(this);

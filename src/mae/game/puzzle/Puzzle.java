@@ -1,5 +1,8 @@
 package mae.game.puzzle;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
@@ -54,6 +57,9 @@ public class Puzzle {
 		case GEOMATRY:return findGeomatry();
 		case WEIGHT:return findWeight();
 		case STAT:return findStatistic();
+		case RADICAL:return findRadical(input);
+		case GRAPH:return findGraph(input);
+		case PROBABIL:return findProbability(input);
 		default: return -145;
 		}
 	}
@@ -62,6 +68,9 @@ public class Puzzle {
 	}
 	public int getInputCount() {
 		return input;
+	}
+	public PuzzleType getPuzzleType() {
+		return puzzle;
 	}
 	public double isEqualToNumber() {
 	    String regex = "=";
@@ -237,7 +246,6 @@ public class Puzzle {
 	    	count = findMuliple(ans[0], ans[1], res, input);
 	    	return count;
 	    } else {
-	    	System.out.println("Count  "+input+": "+ans[input]);
 	    	return ans[input];
 	    }
 	    //System.out.println("Count: "+count);
@@ -260,11 +268,9 @@ public class Puzzle {
     	}
     	return -145;
     }
-    
     public double findMeasurement() {
 	    String regex = "[+\\-\\*\\=]";
 	    String[] ss = text.split(regex);
-	    System.out.println(ss[0] + " " + ss[1]);
 	    if(ss[0].contains("?")){
 	    	double convert = toMeter(ss[1]);
 	    	convert = fromMeter(""+convert);
@@ -357,6 +363,32 @@ public class Puzzle {
 	    
 	    return -145;
     }
+    public void getGeomatry(Graphics2D g2, String text, int x, int y) {
+    	x += gp.tileSize;
+    	y += gp.tileSize/2;
+	    String regex = "[\\,\\(\\)]";
+	    String[] ss = text.split(regex);
+	    if(ss[0].contains("Triangle=")) {
+			g2.drawPolygon(new int[] {x, x+30, x+60}, new int[] {y+50, y, y+50}, 3);
+		    int[] arr = new int[ss.length];
+		    x-=gp.tileSize/2;
+		    for(int i = 0; i < ss.length; i++) {
+		    	if(ss[i].contains("?")) {
+		    		g2.drawString("?", x, y);
+		    	} else { 
+			    	ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    		g2.drawString(ss[i], x, y);
+		    	}
+		    	x+=30;
+		    	if(i==0 || i==2) {
+		    		y+=50;
+		    	}else if(i==1) {
+		    		y-=50;
+		    	}
+		    }
+	    }
+    	//return arr;
+    }
     
     public double findWeight() {
     	if(text.contains("lb")) {
@@ -407,13 +439,240 @@ public class Puzzle {
 	    	int middle = sss.length/2;
 	    	Arrays.sort(sss);
 	        if (sss.length%2 == 1) {
-	        	System.out.println(sss[middle]);
 	            return convert(sss[middle]);
 	        } else {
 	            return convert((sss[middle-1]) + convert(sss[middle])) / 2.0;
 	        }
+	    } else if(ss[0].contains("range=")) {
+	    	Arrays.sort(sss);
+	        sum = convert(sss[sss.length-1]) - convert(sss[0]);
+	        return sum;
 	    }
 	    return -145;
+    }
+    
+    public double findRadical(int input) {
+	    String regex = "[\\=\\√]";
+	    String[] ss = text.split(regex);
+	    double[] result = new double[2];
+	    double outside = 1;
+        double inside = convert(ss[1]);
+        double[] simplified = { 1, convert(ss[1]) };
+        
+        // Check if it's already a perfect square
+	    ss[1] = ss[1].replaceAll("[^\\d.]", "");
+        outside = Math.sqrt(convert(ss[1]));
+        if (outside == Math.floor(outside))
+        {
+            simplified[0] = (long)outside;
+            simplified[1] = 1;
+            if(ss[0] != "") {
+            	return convert(ss[0]) * simplified[0];
+            }
+            return simplified[0];
+        }
+
+        // Find all the squares that could be factors and see if they are
+        for (long factor = 2, sqr = 4; sqr <= (convert(ss[1]) / 2); factor++, sqr = (factor * factor))
+        {
+            // Is this square a factor?
+            double in = (double)convert(ss[1]) / sqr;
+            if (in == Math.floor(in))
+            {
+                simplified[0] = factor;
+                simplified[1] = (long)in;
+                //if(ss[2] != "") {
+                //	return convert(ss[0]) * simplified[input];
+                //}
+                return simplified[input];
+            }
+        }
+
+        // Otherwise, since it hasn't simplified, return the original radical
+        return simplified[0];
+    	//return -145;
+    }
+    
+    public double findGraph(int input) {
+	    String regex = "[+\\-\\*\\=\\/]";
+	    String[] ss = text.split(regex);
+	    String regex2 = "[\\,\\(\\)]";
+	    String[] point = ss[0].split(regex2);
+    	String[] point2 = ss[1].split(regex2);
+	    if(point[0].contains("Transform")) {
+	    	if(input == 0) {
+			    if(point2[1].contains("up")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case MULTI: return convert(point[1]) * convert(point2[2]);
+			        default: return convert(point[1]) + convert(point2[2]);
+			    	}
+			    } else if(point2[1].contains("down")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case DIVIDE: return convert(point[1]) / convert(point2[2]);
+			        default: return convert(point[1]) - convert(point2[2]);
+			    	}
+			    }
+	    	} else if(input == 1) {
+			    if(point2[4].contains("left")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case MULTI: return convert(point[2]) * convert(point2[5]);
+			        default: return convert(point[2]) + convert(point2[5]);
+			    	}
+			    } else if(point2[4].contains("right")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case DIVIDE: return convert(point[2]) / convert(point2[5]);
+			        default: return convert(point[2]) - convert(point2[5]);
+			    	}
+			    }
+	    	}
+	    } else if(point[0].equals("ReflectX")) {
+	    	if(input == 0) {
+		    	double x = convert(point[1]);
+		    	x = x - x - x;
+		    	return x;
+	    	} else {
+	    		return convert(point[2]);
+	    	}
+	    } else if(point[0].equals("ReflectY")) {
+	    	if(input == 0) {
+	    		return convert(point[1]);
+	    	} else {
+		    	double y = convert(point[2]);
+		    	y = y - y - y;
+		    	return y;
+	    	}
+	    }
+    	return -145;
+    }
+    
+    public void drawGraph(Graphics2D g2, String text, int x, int y) {
+    	int lineX = x;
+    	int lineY = y;
+    	int pointX=x;
+    	int pointY=y;
+    	int start = -2;
+    	int length = (gp.tileSize/4)-4;
+	    String regex = "[+\\-\\*\\=\\/]";
+	    String[] ss = text.split(regex);
+	    String txt = "";
+	    if(ss[0].contains("Transform")) {
+	    	start = -2;
+	    	length = (gp.tileSize/4)-4;
+	    	txt = ss[1];
+	    } else if(ss[0].contains("ReflectY")) {
+	    	start = -5;
+	    	length = (gp.tileSize/4)-7;
+	    	txt = ss[1];
+	    }
+	    //System.out.println(ss[2]);
+	    String regex2 = "[\\,\\(\\)]";
+	    String[] point = ss[0].split(regex2);
+    	for(int i = length; i > start; i--) {
+			g2.setStroke(new BasicStroke(1));
+    		if(i == 0) {
+    			g2.setStroke(new BasicStroke(2));
+    		}
+    		if(i == (int)(convert(point[1]))){
+    			pointY=lineY;
+    		}
+    		g2.drawLine(x, lineY, x +gp.tileSize+1, lineY);
+    		lineY = lineY + 5;
+    	}
+    	for(int i = start; i < length; i++) {
+			g2.setStroke(new BasicStroke(1));
+    		if(i == 0) {
+    			g2.setStroke(new BasicStroke(2));
+    		}
+    		if(i == (int)(convert(point[2]))){
+    			pointX=lineX;
+    		}
+    		g2.drawLine(lineX, y, lineX, y +gp.tileSize+1);
+    		lineX = lineX + 5;
+    	}
+	    if(ss[0].contains("Transform")) {
+	    	txt = ss[1];
+	    } else if(ss[0].contains("ReflectY")) {
+	    	txt = point[0];
+	    }
+    	drawPoint(g2, (int)(pointX-0.5), (int)(pointY-0.5));
+    	g2.drawString(txt, pointX, pointY);
+    }
+    
+    public void drawPoint(Graphics2D g2, int x, int y) {
+	    //g2.setColor(Color.BLUE);
+    	g2.drawOval(x,y, 3, 3);
+    	g2.fillOval(x, y, 3, 3);
+    }
+    
+    public double findProbability(int input) {
+	    String regex = "[+\\-\\*\\=\\/\\(]";
+	    String[] ss = text.split(regex);
+	    String regex2 = "[,]";
+	    String[] numbers = ss[1].split(regex2);
+	    double count = 0;
+	    if(ss[0].contains("even")) {
+	    	for(String n : numbers) {
+		        n = n.replaceAll("[^\\d.]", "");
+		    	if(isEven(convert(n))) {
+		    		count++;
+		    	}
+		    }
+	    	//return count;
+	    } else if(ss[0].contains("odd")) {
+	    	for(String n : numbers) {
+		        n = n.replaceAll("[^\\d.]", "");
+		    	if(!isEven(convert(n))) {
+		    		count++;
+		    	}
+		    }
+	    	//return count;
+	    } else if(ss[0].contains("prime")) {
+	    	for(String n : numbers) {
+		        n = n.replaceAll("[^\\d.]", "");
+		    	if(isPrime(convert(n))) {
+		    		count++;
+		    	}
+		    }
+	    	//return count;
+	    }
+	    System.out.println(input+" "+count + " " + numbers.length);
+	    if(input==0) {
+	    	if(ss[2].contains("%")) {
+	    		double a = (count*100) / numbers.length;
+	    		System.out.println(a);
+	    		return a;
+	    	} else {
+	    		return count;
+	    	}
+	    } else {
+	    	System.out.println("Lower: " + numbers.length);
+	    	return numbers.length;
+	    }
+    	//return count;
+    }
+    
+    public static boolean isEven(double input) {
+    	if(input % 2 == 0) { return true; }
+    	else { return false; }
+    }
+    public static boolean isPrime(double n)
+    {
+        // Corner case
+        if (n <= 1) {
+            return false;
+        }
+
+        // Check from 2 to n-1
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 	
 	public String drawFraction() {

@@ -108,5 +108,35 @@ public class PuzzleTest {
 		assertEquals(puzzle.isCorrect(4), true);
 		puzzle = new Puzzle(gp, "medium=(35,23,76,34,56)", SumType.EQUAL, PuzzleType.STAT);
 		assertEquals(puzzle.isCorrect(35), true);
+		puzzle = new Puzzle(gp, "range=(27,23,26,29,24)", SumType.EQUAL, PuzzleType.STAT);
+		assertEquals(puzzle.isCorrect(6), true);
+	}
+	@Test
+	public void findRadical() {
+		GamePanel gp = null;
+		Puzzle puzzle = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		assertEquals(puzzle.isCorrect(5), true);
+		assertEquals(puzzle.isCorrect(2), true);
+		puzzle = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
+		assertEquals(puzzle.isCorrect(16), true);
+	}
+	@Test
+	public void findGraph() {
+		GamePanel gp = null;
+		Puzzle puzzle = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(2), true);
+		assertEquals(puzzle.isCorrect(-3), true);
+		puzzle = new Puzzle(gp, "Transform(1,7)+(up(2),left(2))=(a,b)",2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(3), true);
+		assertEquals(puzzle.isCorrect(9), true);
+	}
+	@Test
+	public void findProbability() {
+		GamePanel gp = null;
+		Puzzle puzzle = new Puzzle(gp, "even(1,2,3,4,5,6)=?%", 2, SumType.EQUAL, PuzzleType.PROBABIL);
+		assertEquals(puzzle.isCorrect(50), true);
+		puzzle = new Puzzle(gp, "prime(1,2,3,5,7,11,13,17,19,23=a/b)",2, SumType.EQUAL, PuzzleType.PROBABIL);
+		assertEquals(puzzle.isCorrect(9), true);
+		assertEquals(puzzle.isCorrect(10), true);
 	}
 }

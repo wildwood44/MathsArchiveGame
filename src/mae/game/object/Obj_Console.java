@@ -14,7 +14,6 @@ public class Obj_Console extends Object {
 	public boolean open = false;
 	private int floor;
 	private int unlock;
-	public Puzzle puzzle;
 
 	public Obj_Console(GamePanel gp, int floor, Puzzle puzzle, int unlock) {
 		super(gp);
