@@ -22,7 +22,7 @@ public class ConsolePuzzle {
 		problems[6] = new Puzzle(gp, "6+?=8", SumType.PLUS);
 		problems[7] = new Puzzle(gp, "2+2=?", SumType.PLUS);
 		problems[8] = new Puzzle(gp, "2-1=?", SumType.MINUS);
-		problems[9] = new Puzzle(gp, "0=?", SumType.EQUAL);//"0=?";
+		problems[9] = new Puzzle(gp, "3*3=?", SumType.MULTI);//"0=?";
 		problems[10] = new Puzzle(gp, "6+?=8", SumType.PLUS);
 		problems[11] = new Puzzle(gp, "2+2=?", SumType.PLUS);
 	}

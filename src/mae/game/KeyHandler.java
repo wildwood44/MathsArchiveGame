@@ -31,6 +31,10 @@ public class KeyHandler implements KeyListener {
 			pauseState(code);
 		} else if (gp.gameState == GameState.notifyState) {
 			notificationState(code);
+		} else if (gp.gameState == GameState.saveState) {
+			saveState(code);
+		} else if (gp.gameState == GameState.optionsState) {
+			optionsState(code);
 		} else if (gp.gameState == GameState.playState) {
 			playState(code);
 		}
@@ -82,6 +86,15 @@ public class KeyHandler implements KeyListener {
 	public void	menuState(int code) {
 		switch (code) {
 		case KeyEvent.VK_ENTER :
+			if (gp.ui.playerSlotCol == 0) { //Save game
+				gp.gameState = GameState.saveState;
+			} else if (gp.ui.playerSlotCol == 1) { //Open options
+				gp.gameState = GameState.optionsState;
+				gp.ui.resetSlots();
+			} else if (gp.ui.playerSlotCol == 2) { //Quit game
+				gp.gameState = GameState.titleState;
+				//gp.restart();
+			}
 			break;
 		case KeyEvent.VK_ESCAPE :
 			gp.gameState = GameState.playState;
@@ -89,12 +102,12 @@ public class KeyHandler implements KeyListener {
 		case KeyEvent.VK_UP :
 		case KeyEvent.VK_W :
 			//gp.playSE(2);
-			gp.ui.playerSlotCol = getNext(gp.ui.playerSlotCol, 6);
+			gp.ui.playerSlotCol = getNext(gp.ui.playerSlotCol, 2);
 			break;
 		case KeyEvent.VK_DOWN :
 		case KeyEvent.VK_S :
 			//gp.playSE(2);
-			gp.ui.playerSlotCol = getPrev(gp.ui.playerSlotCol, 6);
+			gp.ui.playerSlotCol = getPrev(gp.ui.playerSlotCol, 2);
 		}
 	}
 	
@@ -106,6 +119,7 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_ENTER :
 			gp.playSE(3);
+			System.out.println("ping");
 			if(gp.ui.commandNum == 0) {
 				gp.saveLoad.save(1);
 			} else if(gp.ui.commandNum == 1) {

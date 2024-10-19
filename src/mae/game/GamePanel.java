@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import mae.game.sound.Sound;
 import mae.game.tile.CollisionChecker;
 import mae.game.tile.TileManager;
+import mae.game.cutscenes.CutsceneManager;
 import mae.game.items.KeyCard;
 import mae.game.tile.Map;
 import mae.game.npc.NPC;
@@ -78,14 +79,16 @@ public class GamePanel extends JPanel implements Runnable {
 	public ConsolePuzzle consPuzzle = new ConsolePuzzle(this);
 	public SaveLoad saveLoad = new SaveLoad(this);
 	public EntityGenerator eGenerator = new EntityGenerator(this);
+	public CutsceneManager csManager = new CutsceneManager(this);
 	public Player player = new Player(this, keyH);
+	public Story s = new Story();
 	public KeyCard kc[] = new KeyCard[10];
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
 	public boolean testDoor = true;
 	public boolean testKey = true;
-	public int startFloor = 7;
+	public int startFloor = 11;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -109,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
 		currentMap = maps[startFloor];
 		kc[0].opened = true;
 		//Test
-		kc[0].setValue(10);
+		kc[0].setValue(16);
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);
 		cChecker = new CollisionChecker(this);
@@ -190,10 +193,15 @@ public class GamePanel extends JPanel implements Runnable {
 			drawStart = System.nanoTime();
 		}
 		// TITLE SCREEN
-		if (gameState == GameState.titleState) {
+		if (gameState == GameState.titleState || gameState == GameState.menuState ||
+				gameState == GameState.saveState || gameState == GameState.optionsState) {
 			ui.draw(g2);
-		// OTHER
-		} else {
+		// CUTSCENE
+		} else if (gameState == GameState.cutsceneState) {
+			csManager.draw(g2);
+			ui.draw(g2);
+		// PLAY
+		} else if (gameState == GameState.playState) {
 				tileM.draw(g2);
 				// ADD ENTITIES TO LIST
 				entityList.add(player);

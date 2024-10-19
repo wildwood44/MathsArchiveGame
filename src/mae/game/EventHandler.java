@@ -1,5 +1,6 @@
 package mae.game;
 
+import mae.game.cutscenes.CutsceneManager;
 import mae.game.tile.Map;
 import mae.game.tile.TileManager;
 
@@ -38,10 +39,6 @@ public class EventHandler {
 				}
 			}
 		}
-		setDialogue();
-	}
-	
-	public void setDialogue() {
 	}
 
 	public void checkEvent() {
@@ -57,7 +54,17 @@ public class EventHandler {
 		}
 	}
 
-	public void checkCutscene() {}
+	public void checkCutscene() {
+		if(gp.s.credits) {
+			credits(1);
+		}
+	}
+
+	public void credits(int read) {
+		gp.gameState = GameState.cutsceneState;
+		CutsceneManager cm = gp.csManager;
+		cm.sceneNum = read;
+	}
 
 	public boolean hit(int map, int col, int row, String reqDirection) {
 		boolean hit = false;

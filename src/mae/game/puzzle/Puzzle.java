@@ -494,13 +494,27 @@ public class Puzzle {
     }
     
     public double findGraph(int input) {
-	    String regex = "[+\\-\\*\\=\\/]";
+	    String regex = "[+\\*\\=\\/]";
 	    String[] ss = text.split(regex);
 	    String regex2 = "[\\,\\(\\)]";
 	    String[] point = ss[0].split(regex2);
     	String[] point2 = ss[1].split(regex2);
 	    if(point[0].contains("Transform")) {
 	    	if(input == 0) {
+			    if(point2[4].contains("right")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case MULTI: return convert(point[2]) * convert(point2[5]);
+			        default: return convert(point[2]) + convert(point2[5]);
+			    	}
+			    } else if(point2[4].contains("left")) {
+			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
+			    	switch (sum) {
+			        case DIVIDE: return convert(point[2]) / convert(point2[5]);
+			        default: return convert(point[2]) - convert(point2[5]);
+			    	}
+			    }
+	    	} else if(input == 1) {
 			    if(point2[1].contains("up")) {
 			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
 			    	switch (sum) {
@@ -514,71 +528,74 @@ public class Puzzle {
 			        default: return convert(point[1]) - convert(point2[2]);
 			    	}
 			    }
-	    	} else if(input == 1) {
-			    if(point2[4].contains("left")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	switch (sum) {
-			        case MULTI: return convert(point[2]) * convert(point2[5]);
-			        default: return convert(point[2]) + convert(point2[5]);
-			    	}
-			    } else if(point2[4].contains("right")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	switch (sum) {
-			        case DIVIDE: return convert(point[2]) / convert(point2[5]);
-			        default: return convert(point[2]) - convert(point2[5]);
-			    	}
-			    }
 	    	}
 	    } else if(point[0].equals("ReflectX")) {
 	    	if(input == 0) {
-		    	double x = convert(point[1]);
-		    	x = x - x - x;
-		    	return x;
+	    		System.out.println(point[1]);
+	    		return convert(point[1]);
 	    	} else {
-	    		return convert(point[2]);
+	    		System.out.println(point[2]);
+		    	double x = convert(point[2]);
+		    	x = x - x*2;
+		    	System.out.println(x);
+		    	return x;
 	    	}
 	    } else if(point[0].equals("ReflectY")) {
 	    	if(input == 0) {
-	    		return convert(point[1]);
-	    	} else {
-		    	double y = convert(point[2]);
-		    	y = y - y - y;
+	    		System.out.println(point[1]);
+		    	double y = convert(point[1]);
+		    	y = y - y*2;
+		    	System.out.println(y);
 		    	return y;
+	    	} else {
+	    		System.out.println(point[2]);
+	    		return convert(point[2]);
 	    	}
 	    }
     	return -145;
     }
     
-    public void drawGraph(Graphics2D g2, String text, int x, int y) {
+    public void drawGraph(Graphics2D g2, String text, int x, int y, boolean res, double ans1, double ans2) {
     	int lineX = x;
     	int lineY = y;
     	int pointX=x;
     	int pointY=y;
+    	int resPointX=x;
+    	int resPointY=y;
     	int start = -2;
     	int length = (gp.tileSize/4)-4;
-	    String regex = "[+\\-\\*\\=\\/]";
+	    String regex = "[+\\*\\=\\/]";
 	    String[] ss = text.split(regex);
 	    String txt = "";
 	    if(ss[0].contains("Transform")) {
 	    	start = -2;
 	    	length = (gp.tileSize/4)-4;
 	    	txt = ss[1];
-	    } else if(ss[0].contains("ReflectY")) {
+	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
 	    	start = -5;
 	    	length = (gp.tileSize/4)-7;
 	    	txt = ss[1];
 	    }
-	    //System.out.println(ss[2]);
-	    String regex2 = "[\\,\\(\\)]";
+	    String regex2 = "[,\\(\\)]";
 	    String[] point = ss[0].split(regex2);
     	for(int i = length; i > start; i--) {
 			g2.setStroke(new BasicStroke(1));
     		if(i == 0) {
     			g2.setStroke(new BasicStroke(2));
     		}
-    		if(i == (int)(convert(point[1]))){
-    			pointY=lineY;
-    		}
+
+    	    if(ss[0].contains("Transform")) {
+    	    	if(i == (int)(convert(point[1]))){
+        			pointY=lineY;
+        		}
+    	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+    	    	if(i == (int)(convert(point[2]))){
+        			pointY=lineY;
+        		}
+    	    }
+    	    if(i == ans2) {
+    	    	resPointY=lineY;
+    	    }
     		g2.drawLine(x, lineY, x +gp.tileSize+1, lineY);
     		lineY = lineY + 5;
     	}
@@ -587,16 +604,28 @@ public class Puzzle {
     		if(i == 0) {
     			g2.setStroke(new BasicStroke(2));
     		}
-    		if(i == (int)(convert(point[2]))){
-    			pointX=lineX;
-    		}
+    		if(ss[0].contains("Transform")) {
+	    		if(i == (int)(convert(point[2]))){
+	    			pointX=lineX;
+	    		}
+    		} else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+    	    	if(i == (int)(convert(point[1]))){
+        			pointX=lineX;
+        		}
+    	    }
+    	    if(i == ans1) {
+    	    	resPointX=lineX;
+    	    }
     		g2.drawLine(lineX, y, lineX, y +gp.tileSize+1);
     		lineX = lineX + 5;
     	}
 	    if(ss[0].contains("Transform")) {
 	    	txt = ss[1];
-	    } else if(ss[0].contains("ReflectY")) {
+	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
 	    	txt = point[0];
+	    }
+	    if(res) {
+	    	drawPoint(g2, (int)(resPointX-0.5), (int)(resPointY-0.5));
 	    }
     	drawPoint(g2, (int)(pointX-0.5), (int)(pointY-0.5));
     	g2.drawString(txt, pointX, pointY);
@@ -639,17 +668,17 @@ public class Puzzle {
 		    }
 	    	//return count;
 	    }
-	    System.out.println(input+" "+count + " " + numbers.length);
 	    if(input==0) {
-	    	if(ss[2].contains("%")) {
+	    	if(ss[2].contains("?0")) {
 	    		double a = (count*100) / numbers.length;
-	    		System.out.println(a);
+	    		return a / 10;
+	    	} else if(ss[2].contains("%")) {
+	    		double a = (count*100) / numbers.length;
 	    		return a;
 	    	} else {
 	    		return count;
 	    	}
 	    } else {
-	    	System.out.println("Lower: " + numbers.length);
 	    	return numbers.length;
 	    }
     	//return count;

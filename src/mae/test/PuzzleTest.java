@@ -14,6 +14,8 @@ public class PuzzleTest {
 		GamePanel gp = null;
 		Puzzle puzzle = new Puzzle(gp, "0=?", SumType.EQUAL, PuzzleType.EQUALS);
 		assertEquals(puzzle.isCorrect(0), true);
+		puzzle = new Puzzle(gp, "0=?", SumType.EQUAL, PuzzleType.EQUALS);
+		assertEquals(puzzle.isCorrect(0), true);
 	}
 	@Test
 	public void findMissing(){
@@ -63,6 +65,9 @@ public class PuzzleTest {
 		puzzle = new Puzzle(gp, "4x+3y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		assertEquals(puzzle.isCorrect(4), true);
 		assertEquals(puzzle.isCorrect(7), true);
+		puzzle = new Puzzle(gp, "4x+5y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
+		assertEquals(puzzle.isCorrect(4), true);
+		assertEquals(puzzle.isCorrect(9), true);
 		puzzle = new Puzzle(gp, "x*x*x*x*x*x=x?", SumType.MULTI, PuzzleType.ALGEBRA);
 		assertEquals(puzzle.isCorrect(6), true);
 	}
@@ -124,17 +129,22 @@ public class PuzzleTest {
 	public void findGraph() {
 		GamePanel gp = null;
 		Puzzle puzzle = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
-		assertEquals(puzzle.isCorrect(2), true);
-		assertEquals(puzzle.isCorrect(-3), true);
-		puzzle = new Puzzle(gp, "Transform(1,7)+(up(2),left(2))=(a,b)",2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(-2), true);
 		assertEquals(puzzle.isCorrect(3), true);
-		assertEquals(puzzle.isCorrect(9), true);
+		puzzle = new Puzzle(gp, "ReflectX(4,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(4), true);
+		assertEquals(puzzle.isCorrect(2), true);
+		puzzle = new Puzzle(gp, "Transform(1,5)+(up(2),right(2))=(a,b)",2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(3), true);
+		assertEquals(puzzle.isCorrect(7), true);
 	}
 	@Test
 	public void findProbability() {
 		GamePanel gp = null;
 		Puzzle puzzle = new Puzzle(gp, "even(1,2,3,4,5,6)=?%", 2, SumType.EQUAL, PuzzleType.PROBABIL);
 		assertEquals(puzzle.isCorrect(50), true);
+		puzzle = new Puzzle(gp, "even(1,2,3,4,5,6)=?0%", 2, SumType.EQUAL, PuzzleType.PROBABIL);
+		assertEquals(puzzle.isCorrect(5), true);
 		puzzle = new Puzzle(gp, "prime(1,2,3,5,7,11,13,17,19,23=a/b)",2, SumType.EQUAL, PuzzleType.PROBABIL);
 		assertEquals(puzzle.isCorrect(9), true);
 		assertEquals(puzzle.isCorrect(10), true);

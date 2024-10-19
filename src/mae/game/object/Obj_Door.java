@@ -45,21 +45,20 @@ public class Obj_Door extends Object {
 
 	public void interact() {
 		if(!opened) {
-			System.out.println(puzzle.getInputCount() + " " + gp.kc[gp.currentCard].useCard() +" "+ !locked +" "+ correct);
+			ans[input] = gp.kc[gp.currentCard].useCard();
 			if(puzzle.getInputCount() -1 > input) {
-				System.out.println("ping");
 				if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
 					correct = true;
 				} else {
 					correct = false;
 				}
-				ans[input] = gp.kc[gp.currentCard].useCard();
+				//ans[input] = gp.kc[gp.currentCard].useCard();
 				input++;
 			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && !locked && correct || gp.testDoor) {
 				isCorrect = true;
 				gp.playSE(4);
 				moving = true;
-				ans[input] = gp.kc[gp.currentCard].useCard();
+				//ans[input] = gp.kc[gp.currentCard].useCard();
 				input = 0;
 			} else {
 				correct = true;

@@ -2,13 +2,15 @@ package mae.game.items;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
+import java.text.DecimalFormat;
 
 import mae.game.GamePanel;
 
 public class KeyCard extends Item {
 	GamePanel gp;
 	private int id;
-	private int value;
+	private double value;
+	private static final DecimalFormat df = new DecimalFormat("0.#");
 
 	public KeyCard(GamePanel gp, int value) {
 		super(gp);
@@ -52,11 +54,12 @@ public class KeyCard extends Item {
 		return temp;
 	}
 	
-	public void setValue(int value) {
+	public void setValue(double value) {
+		System.out.println("Value: " + value);
 		this.value = value;
 	}
 	
-	public int useCard() {
+	public double useCard() {
 		return value;
 	}
 
@@ -64,7 +67,7 @@ public class KeyCard extends Item {
 		g2.drawImage(image, x, y, null);
         g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	    if (id == 0) {
-			String text = value + "";
+			String text = df.format(value) + "";
 			int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 			int textX = x + gp.tileSize - length/2; 
         	g2.drawString(text, textX, (y+gp.tileSize)-10);
