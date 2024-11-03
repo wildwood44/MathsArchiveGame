@@ -93,7 +93,8 @@ public class KeyHandler implements KeyListener {
 				gp.ui.resetSlots();
 			} else if (gp.ui.playerSlotCol == 2) { //Quit game
 				gp.gameState = GameState.titleState;
-				//gp.restart();
+				gp.ui.commandNum = 0;
+				gp.restart();
 			}
 			break;
 		case KeyEvent.VK_ESCAPE :

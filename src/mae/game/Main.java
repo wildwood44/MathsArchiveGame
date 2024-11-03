@@ -11,7 +11,7 @@ public class Main {
 		window.setTitle("Escape the archives - A maths game");
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
-		//gamePanel.config.loadConfig();
+		gamePanel.config.loadConfig();
 		if(gamePanel.fullScreenOn) {
 			window.setUndecorated(true);
 		}

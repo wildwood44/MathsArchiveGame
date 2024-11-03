@@ -2,39 +2,32 @@ package mae.game.object;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
-import mae.game.puzzle.Puzzle;
 
 public class Obj_Console extends Object {
 	GamePanel gp;
-	//private static int id = -1;
+	public final static int objId = 2;
 	public boolean open = false;
-	private int floor;
-	private int unlock;
 
-	public Obj_Console(GamePanel gp, int floor, Puzzle puzzle, int unlock) {
+	public Obj_Console(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		this.puzzle = puzzle;
-		this.floor = floor;
-		this.description = puzzle.printPuzzle();
-		this.unlock = unlock;
+		this.enId = objId;
 		id = -1;
 		type = EntityType.Object;
+		getImage();
 		if(!opened) {
-			image = setup("/res/objects/Obj_Console1", gp.tileSize, gp.tileSize);
+			image = idle1;
 		} else {
-			image = setup("/res/objects/Obj_Console2", gp.tileSize, gp.tileSize);
+			image = idle2;
 		}
-		getImage(image);
 		solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize*2);
-		int size = gp.tileSize;
+		size = gp.tileSize;
 		//for(int lock: unlock) {
 			for(int j = 0; j < gp.obj[floor].length - 1; j++) {
-				if(gp.obj[floor][j] != null && gp.obj[floor][j].id == unlock){
+				if(gp.obj[floor][j] != null && gp.obj[floor][j].id == key){
 					gp.obj[floor][j].setLock(true);
 					break;
 				}
@@ -45,12 +38,12 @@ public class Obj_Console extends Object {
 	public void interact() {
 		if(!opened) {
 			System.out.println(description);
-			System.out.println(gp.kc[gp.currentCard].useCard() + " " + floor +" "+ unlock);
+			System.out.println(gp.kc[gp.currentCard].useCard() + " " + floor +" "+ key);
 			if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
 				isCorrect = true;
 				gp.playSE(2);
 				for(int j = 0; j < gp.obj[floor].length - 1; j++) {
-					if(gp.obj[floor][j] != null && gp.obj[floor][j].id == unlock){
+					if(gp.obj[floor][j] != null && gp.obj[floor][j].id == key){
 						gp.obj[floor][j].setLock(false);
 						break;
 					}
@@ -67,7 +60,7 @@ public class Obj_Console extends Object {
 	}
 	
 	@Override
-	public void getImage(BufferedImage image) {
+	public void getImage() {
 		idle1 = setup("/res/objects/Obj_Console1", gp.tileSize, gp.tileSize);
 		idle2 = setup("/res/objects/Obj_Console2", gp.tileSize, gp.tileSize);
 	}

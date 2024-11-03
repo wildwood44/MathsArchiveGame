@@ -86,9 +86,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
-	public boolean testDoor = true;
-	public boolean testKey = true;
-	public int startFloor = 11;
+	public boolean testDoor = false;
+	public boolean testKey = false;
+	public int startFloor = 0;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -112,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
 		currentMap = maps[startFloor];
 		kc[0].opened = true;
 		//Test
-		kc[0].setValue(16);
+		kc[0].setValue(0);
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);
 		cChecker = new CollisionChecker(this);
@@ -261,6 +261,10 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics g = getGraphics();
 		g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, (ImageObserver) null);
 		g.dispose();
+	}
+	
+	public void restart() {
+		aSetter.setObject();
 	}
 	
 	public void playMusic(int i) {

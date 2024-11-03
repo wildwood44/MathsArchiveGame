@@ -6,7 +6,7 @@ import mae.game.object.SumType;
 public class DoorPuzzle {
 	GamePanel gp;
 	final int levels = 12;
-	Puzzle problems[][] = new Puzzle[levels][levels];
+	Puzzle problems[][] = new Puzzle[levels][25];
 	public int[] input = new int[5];
 	
 	public DoorPuzzle(GamePanel gp) {

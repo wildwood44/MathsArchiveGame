@@ -2,7 +2,6 @@ package mae.game.object;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
@@ -10,32 +9,32 @@ import mae.game.GameState;
 
 public class Obj_Card_Holder extends Object {
 	GamePanel gp;
-	//private static int id = -1;
+	public final static int objId = 5;
 	public boolean open = false;
-	private int card;
 
-	public Obj_Card_Holder(GamePanel gp, int card) {
+	public Obj_Card_Holder(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		this.card = card;
 		id = -1;
+		enId = objId;
 		type = EntityType.Object;
+		getImage();
 		if(!opened) {
-			image = setup("/res/objects/card_holder1", gp.tileSize, gp.tileSize);
+			image = idle1;
 		} else {
-			image = setup("/res/objects/card_holder2", gp.tileSize, gp.tileSize);
+			image = idle2;
 		}
-		getImage(image);
 		solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
-		int size = gp.tileSize;
+		size = gp.tileSize;
 	}
 
 	public void interact() {
 		if(!opened) {
 			opened = true;
-			gp.kc[card].opened = true;
+			System.out.println(key);
+			gp.kc[key].opened = true;
 			image = idle2;
-			gp.ui.message = "Press \"" + card + "\" to select card " + card;
+			gp.ui.message = "Press \"" + key + "\" to select card " + key;
 			gp.gameState = GameState.notifyState;
 		}
 		gp.keyH.enterPressed = false;
@@ -44,7 +43,7 @@ public class Obj_Card_Holder extends Object {
 	}
 	
 	@Override
-	public void getImage(BufferedImage image) {
+	public void getImage() {
 		idle1 = setup("/res/objects/card_holder1", gp.tileSize, gp.tileSize);
 		idle2 = setup("/res/objects/card_holder2", gp.tileSize, gp.tileSize);
 	}

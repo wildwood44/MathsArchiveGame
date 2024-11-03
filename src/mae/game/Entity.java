@@ -6,12 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
+import mae.game.object.SumType;
+import mae.game.puzzle.Puzzle;
 import mae.game.tile.UtilityTool;
 
 public class Entity {
@@ -22,12 +22,12 @@ public class Entity {
 	public GamePanel gp;
 	public int x;
 	public int y;
-	public int width;
-	public int height;
+	public int width;// = gp.tileSize;
+	public int height;// = gp.tileSize;
 	public float alpha = 1f;
-	public int id;
+	public int id, enId;
+	public int floor;
 	public String name;
-	public int expDrop;
 	public int worldX;
 	public int worldY;
 	public BufferedImage[][] sprites = new BufferedImage[100][100];
@@ -42,7 +42,9 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	public EntityType type;
-	public int key;
+	public int key;	
+	public SumType sum;
+	public Puzzle puzzle;
 	//Status
 	public boolean facingLeft = true;
 	public boolean moving = false;
@@ -88,7 +90,7 @@ public class Entity {
 		}
 	}
 	
-	public void getImage(BufferedImage image) {
+	public void getImage() {
 		idle1 = image;
 	}
 
@@ -113,9 +115,9 @@ public class Entity {
 	
 	public void setLock(boolean locked) {
 		if(!locked) {
-			this.locked = true;
+			opened = true;
 		} else {
-			this.locked = false;
+			opened = false;
 		}
 	}
 	
@@ -171,6 +173,18 @@ public class Entity {
 	public int GetCentreY() {
 		int centreY = worldY + solidArea.height;
 		return centreY;
+	}
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+	public void setPuzzle(Puzzle puzzle) {
+		this.puzzle = puzzle;
+		this.description = puzzle.printPuzzle();
+	}
+	public void setSumType(SumType sum) {
+		this.sum = sum;
+		//image = setup("/res/objects/skg_explained_"+sum.name(), width, height);
+		getImage();
 	}
 
 	public void draw(Graphics2D g2) {

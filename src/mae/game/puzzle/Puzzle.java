@@ -3,23 +3,21 @@ package mae.game.puzzle;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import mae.game.GamePanel;
 import mae.game.object.SumType;
 
-public class Puzzle {
+public class Puzzle implements Serializable {
 	GamePanel gp;
-	private int a, b, c, d;
 	private String text;
-	private int res;
 	private SumType sum;
 	private PuzzleType puzzle;
 	private int input = 0;
 	private int count = 0;
 	private double[] ans = new double[5];
-	private static final DecimalFormat df = new DecimalFormat("0.00");
 
 	public Puzzle(GamePanel gp, String text, SumType sum) {
 		this(gp, text, sum, PuzzleType.MISSING);

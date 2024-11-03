@@ -2,27 +2,23 @@ package mae.game.object;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
 
 public class Obj_Skeleton_Card_Gen extends Object {
-	SumType sum;
+	public final static int objId = 4;
 	int slot1 = -1, slot2 = -1;
 
-	public Obj_Skeleton_Card_Gen(GamePanel gp, SumType sum) {
+	public Obj_Skeleton_Card_Gen(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		this.sum = sum;
 		id = -1;
+		enId = objId;
+		width = gp.tileSize;
+		height = gp.tileSize;
 		type = EntityType.Object;
-		image = setup("/res/objects/skeleton_card_generator1_"+sum.name(), gp.tileSize, gp.tileSize);
-
-		getImage(image);
-		solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
-		int size = gp.tileSize;
+		solidArea = new Rectangle(0, 0, width, height);
 	}
 
 	public void interact() {
@@ -56,11 +52,10 @@ public class Obj_Skeleton_Card_Gen extends Object {
 	}
 	
 	@Override
-	public void getImage(BufferedImage image) {
+	public void getImage() {
 		idle1 = setup("/res/objects/skeleton_card_generator1_"+sum.name(), gp.tileSize, gp.tileSize);
 		idle2 = setup("/res/objects/skeleton_card_generator2_"+sum.name(), gp.tileSize, gp.tileSize);		
 		left1 = setup("/res/objects/skeleton_card_generator3_"+sum.name(), gp.tileSize, gp.tileSize);
-
 	}
 	
 	public void display(Graphics2D g2, int screenX, int screenY) {

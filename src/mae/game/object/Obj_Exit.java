@@ -4,14 +4,14 @@ import mae.game.GamePanel;
 import mae.game.puzzle.Puzzle;
 
 public class Obj_Exit extends Obj_Door {
-	//private static int id = 1;
+	public final static int objId = 7;
 
-	public Obj_Exit(GamePanel gp, int id, int floor) {
-		super(gp, id, floor);
+	public Obj_Exit(GamePanel gp) {
+		super(gp);
 	}
 	
 	public Obj_Exit(GamePanel gp, int id, int floor, Puzzle puzzle) {
-		this(gp, id, floor);
+		this(gp);
 		this.puzzle = puzzle;
 		this.description = puzzle.printPuzzle();
 		//this.key = solution;

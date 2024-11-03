@@ -3,44 +3,32 @@ package mae.game.object;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
-import mae.game.puzzle.Puzzle;
 import mae.game.tile.MapType;
 
 public class Obj_Door extends Object {
 	GamePanel gp;
-	//private static int id = 1;
-	//int doorId;
+	public final static int objId = 1;
 	public boolean open = false;
-	public int floor;
 	public int input = 0;
 	public boolean correct = true;
 
-	public Obj_Door(GamePanel gp, int id, int floor) {
+	public Obj_Door(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
-		this.id = id;
-		this.floor = floor;
+		this.enId = objId;
 		type = EntityType.Object;
+		getImage();
 		if(!opened) {
-			image = setup("/res/objects/lab_door1", gp.tileSize*2, gp.tileSize*2);
+			image = idle1;
 		} else {
-			image = setup("/res/objects/lab_door4", gp.tileSize*2, gp.tileSize*2);
+			spriteNum = 4;
+			image = left2;
 		}
-		getImage(image);
 		solidArea = new Rectangle(0, 0, gp.tileSize*2, gp.tileSize*2);
-		int size = gp.tileSize * 2;
-	}
-	
-	public Obj_Door(GamePanel gp, int id, int floor, Puzzle puzzle) {
-		this(gp, id, floor);
-		this.puzzle = puzzle;
-		this.description = puzzle.printPuzzle();
-		//this.key = solution;
-		//System.out.println(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()));
+		size = gp.tileSize * 2;
 	}
 
 	public void interact() {
@@ -52,13 +40,11 @@ public class Obj_Door extends Object {
 				} else {
 					correct = false;
 				}
-				//ans[input] = gp.kc[gp.currentCard].useCard();
 				input++;
 			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && !locked && correct || gp.testDoor) {
 				isCorrect = true;
 				gp.playSE(4);
 				moving = true;
-				//ans[input] = gp.kc[gp.currentCard].useCard();
 				input = 0;
 			} else {
 				correct = true;
@@ -95,7 +81,6 @@ public class Obj_Door extends Object {
 		super.update();
 		if(moving) {
 			spriteCounter++;
-			int i = 5;
 			if (spriteCounter > 30) {
 				if(spriteNum == 1) {
 					spriteNum = 2;
@@ -110,11 +95,17 @@ public class Obj_Door extends Object {
 		}
 	}
 	
-	public void getImage(BufferedImage image) {
-		idle1 = image;
+	public void getImage() {
+		idle1 = setup("/res/objects/lab_door1", gp.tileSize*2, gp.tileSize*2);
 		idle2 = setup("/res/objects/lab_door2", gp.tileSize*2, gp.tileSize*2);
 		left1 = setup("/res/objects/lab_door3", gp.tileSize*2, gp.tileSize*2);
 		left2 = setup("/res/objects/lab_door4", gp.tileSize*2, gp.tileSize*2);
+		if(!opened) {
+			image = idle1;
+		} else {
+			spriteNum = 4;
+			image = left2;
+		}
 	}
 
 	

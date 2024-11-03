@@ -18,7 +18,7 @@ public class KeyCard extends Item {
 		id = value;
 		this.value = value;
 		image = setup(("/res/keycard/number_cards"+value), gp.tileSize*2, gp.tileSize*2);
-		getImage(image);
+		getImage();
 		x = 5;
 		y = (4 * gp.tileSize) + 5;
 	}
