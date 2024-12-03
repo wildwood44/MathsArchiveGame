@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -276,7 +277,7 @@ public class UI {
 		int textX = frameX + gp.tileSize;
 		int textY = frameY + gp.tileSize*2;
 		currentDialogue = "The change will take effect after restarting the game";
-		for (String line : breakLines(currentDialogue,30)) {
+		for (String line : breakLines(currentDialogue,30," ")) {
 			g2.drawString(line, textX, textY);
 			textY += 40;
 		}
@@ -348,23 +349,18 @@ public class UI {
 	}
 	
 	//Automatic line breaks
-		public String[] breakLines(String text, int size) {
+		public String[] breakLines(String text, int size, String regex) {
 			ArrayList<String> lines = new ArrayList<String>();
 			try {
 				while(text.length() > 0){
-					int pos = text.lastIndexOf(" ", size);
-					//Manual line break
-					if(text.contains("£")) {
-						pos = text.lastIndexOf("£", size);
-						if (pos == -1) {
-							pos = text.lastIndexOf(" ", size);
-						}
-						//text = text.replaceFirst("£", "");
-						//pos -= 1;
-					}
+					int pos = text.lastIndexOf(regex, size);
 					if (size > text.length()) {
 						pos = text.length() - 1;
+					} else if (pos <= 0) {
+						pos = text.lastIndexOf("(", size);
+						size++;
 					}
+					//System.out.println(pos + " " + text + " " + size + " " + regex);
 					try {
 						String found = text.substring(0, pos + 1);
 						text = text.substring(pos + 1);
@@ -378,6 +374,7 @@ public class UI {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
+			lines.removeAll(Arrays.asList("", null));
 			String[] lineBreaks = lines.toArray(new String[lines.size()]);
 			return lineBreaks;
 		}
@@ -386,18 +383,6 @@ public class UI {
 		BufferedImage image;
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/res/icons/icons8-sort-up-30.png"));
-			if (image != null) {
-				g2.drawImage(image, x, y, width, height, null);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void drawLockIcon(int x, int y, int width, int height) {
-		BufferedImage image;
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/res/icons/icons8-sort-down-30.png"));
 			if (image != null) {
 				g2.drawImage(image, x, y, width, height, null);
 			}

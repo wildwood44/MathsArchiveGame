@@ -24,7 +24,7 @@ public class KeyCard extends Item {
 	}
 	
 	public int setCard(int card) {
-		if(gp.kc[card].opened || gp.testKey) {
+		if(gp.kc[card].opened && !gp.kc[card].locked || gp.testKey) {
 			gp.currentCard = card;
 		}
 		return gp.currentCard;
@@ -36,7 +36,7 @@ public class KeyCard extends Item {
 		if(temp > 9) {
 			temp = 0;
 		}
-		if(!gp.kc[temp].opened && !gp.testKey) {
+		if(!gp.kc[temp].opened || gp.kc[temp].locked && !gp.testKey) {
 			temp = nextCard(temp);
 		}
 		return temp;
@@ -48,14 +48,13 @@ public class KeyCard extends Item {
 		if(temp < 0) {
 			temp = 9;
 		}
-		if(!gp.kc[temp].opened && !gp.testKey) {
+		if(!gp.kc[temp].opened || gp.kc[temp].locked && !gp.testKey) {
 			temp = prevCard(temp);
 		}
 		return temp;
 	}
 	
 	public void setValue(double value) {
-		System.out.println("Value: " + value);
 		this.value = value;
 	}
 	

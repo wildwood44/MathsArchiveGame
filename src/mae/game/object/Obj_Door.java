@@ -24,7 +24,6 @@ public class Obj_Door extends Object {
 		if(!opened) {
 			image = idle1;
 		} else {
-			spriteNum = 4;
 			image = left2;
 		}
 		solidArea = new Rectangle(0, 0, gp.tileSize*2, gp.tileSize*2);
@@ -132,7 +131,7 @@ public class Obj_Door extends Object {
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		if(isSelected && gp.currentMap.getMapType() == MapType.LEVEL && !opened) {
-			drawSpeechBubble(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
+			drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
 		}
 	    g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}

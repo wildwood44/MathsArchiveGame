@@ -10,6 +10,8 @@ public class Obj_Console extends Object {
 	GamePanel gp;
 	public final static int objId = 2;
 	public boolean open = false;
+	public int input = 0;
+	public boolean correct = true;
 
 	public Obj_Console(GamePanel gp) {
 		super(gp);
@@ -26,20 +28,20 @@ public class Obj_Console extends Object {
 		solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize*2);
 		size = gp.tileSize;
 		//for(int lock: unlock) {
-			for(int j = 0; j < gp.obj[floor].length - 1; j++) {
-				if(gp.obj[floor][j] != null && gp.obj[floor][j].id == key){
-					gp.obj[floor][j].setLock(true);
-					break;
-				}
-			}
 		//}
 	}
 
 	public void interact() {
 		if(!opened) {
-			System.out.println(description);
-			System.out.println(gp.kc[gp.currentCard].useCard() + " " + floor +" "+ key);
-			if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
+			ans[input] = gp.kc[gp.currentCard].useCard();
+			if(puzzle.getInputCount() -1 > input) {
+				if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
+					correct = true;
+				} else {
+					correct = false;
+				}
+				input++;
+			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && correct) {
 				isCorrect = true;
 				gp.playSE(2);
 				for(int j = 0; j < gp.obj[floor].length - 1; j++) {
@@ -48,15 +50,27 @@ public class Obj_Console extends Object {
 						break;
 					}
 				}
+				input = 0;
 				opened = true;
 			} else {
 				isWrong = true;
 				gp.playSE(3);
+				input = 0;
 			}
 		}
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
+	}
+	
+	public void lock(int key) {
+		this.key = key;
+		for(int j = 0; j < gp.obj[floor].length - 1; j++) {
+			if(gp.obj[floor][j] != null && gp.obj[floor][j].id == key){
+				gp.obj[floor][j].setLock(true);
+				break;
+			}
+		}
 	}
 	
 	@Override
@@ -76,7 +90,7 @@ public class Obj_Console extends Object {
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		if(isSelected) {
-			drawSpeechBubble(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize*2);
+			drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - (int)(gp.tileSize*1.5));
 		}
 		
 	}

@@ -26,7 +26,7 @@ import mae.game.object.AssetManager;
 import mae.game.object.AssetSetter;
 import mae.game.player.Player;
 import mae.game.puzzle.ConsolePuzzle;
-import mae.game.puzzle.DoorPuzzle;
+import mae.game.puzzle.PuzzleSetter;
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -75,8 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public Entity[][] obj = new Entity[maxMap][25];
 	public NPC[][] npc = new NPC[maxMap][5];
 	public Map[] maps;
-	public DoorPuzzle doorPuzzle = new DoorPuzzle(this);
-	public ConsolePuzzle consPuzzle = new ConsolePuzzle(this);
+	public PuzzleSetter ps = new PuzzleSetter(this);
 	public SaveLoad saveLoad = new SaveLoad(this);
 	public EntityGenerator eGenerator = new EntityGenerator(this);
 	public CutsceneManager csManager = new CutsceneManager(this);
@@ -86,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
-	public boolean testDoor = false;
+	public boolean testDoor = true;
 	public boolean testKey = false;
 	public int startFloor = 0;
 
@@ -194,7 +193,8 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		// TITLE SCREEN
 		if (gameState == GameState.titleState || gameState == GameState.menuState ||
-				gameState == GameState.saveState || gameState == GameState.optionsState) {
+				gameState == GameState.saveState || gameState == GameState.optionsState||
+				gameState == GameState.notifyState) {
 			ui.draw(g2);
 		// CUTSCENE
 		} else if (gameState == GameState.cutsceneState) {

@@ -1,16 +1,13 @@
 package mae.game.puzzle;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import mae.game.GamePanel;
 import mae.game.object.SumType;
 
-public class Puzzle implements Serializable {
+public class Puzzle {
 	GamePanel gp;
 	private String text;
 	private SumType sum;
@@ -48,6 +45,7 @@ public class Puzzle implements Serializable {
 		case EQUALS:return isEqualToNumber();
 		case MISSING:return findMissing();
 		case PERCENTAGE:return findPercentage();
+		case D_PERCENTAGE:return findDPercentage();
 		case FRACTION:return findFraction(input);
 		case ALGEBRA:return findAlgebra(input);
 		case MEASURE:return findMeasurement();
@@ -112,21 +110,25 @@ public class Puzzle implements Serializable {
 	    String regex = "[+\\-\\*\\/\\=\\%]";
 	    String[] ss = text.split(regex);
 	    int pos = -1;
-	     
+	    System.out.println(ss[1]);
 	    // Find position of missing character
 	    if(ss[0].equals("?0")) {
 	        pos = 0;}
-	    else if(ss[2].equals("?")) {
+	    else if(ss[1].contains("?")) {
 	        pos = 1;}
 	    else {
-	        pos = 1;}
+	        pos = 2;}
 	    if(pos == 0) {
 	    	double a;
 	        ss[1] = ss[1].replaceAll("[^\\d.]", "");
 	    	a =convert(ss[2]) / convert(ss[1]) * 10;
 	    	return a;
-	    }
-	    else if(pos == 1) {
+	    }else if(pos == 1) {
+	        double a;
+	        ss[1] = ss[1].replaceAll("[^\\d.]", "");
+	    	a =convert(ss[2]) / convert(ss[0]) * 100;
+	    	return a;
+	    }else if(pos == 2) {
 	        double a;
 	        ss[1] = ss[1].replaceAll("[^\\d.]", "");
 	    	a = (convert(ss[0])/100) * convert(ss[1]);
@@ -140,6 +142,18 @@ public class Puzzle implements Serializable {
 		        }
 	    	}
 	    	return a;
+	    }
+		return 0;
+	}
+	
+	public double findDPercentage() {
+	    String regex = "[\\ \\%]";
+	    String[] ss = text.split(regex);
+        double a = convert(ss[1]) * (convert(ss[3])/100);
+		if(ss[0].contains("Decrease")) {
+	    	return convert(ss[1]) - a;
+	    } else if(ss[0].contains("Increase")) {
+	    	return convert(ss[1]) + a;
 	    }
 		return 0;
 	}
@@ -357,18 +371,35 @@ public class Puzzle implements Serializable {
 		    }
 	    } else if(ss[0].contains("Square=")) {
 	    	ans = 360;
+	    	if(ss[1].contains("?")) {
+		    	ss[1] = ss[1].replaceAll("[^\\d.]", "");
+		        value = convert(ss[2]) + convert(ss[3]) + convert(ss[4]);
+		        return calculate(pos, ss[1], ""+value, ""+ans);
+		    } else if(ss[2].contains("?")) {
+		    	ss[2] = ss[2].replaceAll("[^\\d.]", "");
+		        value = convert(ss[1]) + convert(ss[3]) + convert(ss[4]);
+		        return calculate(pos, ss[2], ""+value, ""+ans);
+		    } else if(ss[3].contains("?")) {
+		    	ss[3] = ss[3].replaceAll("[^\\d.]", "");
+		        value = convert(ss[1]) + convert(ss[2]) + convert(ss[4]);
+		        return calculate(pos, ss[3], ""+value, ""+ans);
+		    } else if(ss[4].contains("?")) {
+		    	ss[4] = ss[4].replaceAll("[^\\d.]", "");
+		        value = convert(ss[1]) + convert(ss[2]) + convert(ss[3]);
+		        return calculate(pos, ss[4], ""+value, ""+ans);
+		    }
 	    }
 	    
 	    return -145;
     }
-    public void getGeomatry(Graphics2D g2, String text, int x, int y) {
+    public void drawGeomatry(Graphics2D g2, String text, int x, int y) {
     	x += gp.tileSize;
     	y += gp.tileSize/2;
 	    String regex = "[\\,\\(\\)]";
 	    String[] ss = text.split(regex);
+		g2.setStroke(new BasicStroke());
 	    if(ss[0].contains("Triangle=")) {
 			g2.drawPolygon(new int[] {x, x+30, x+60}, new int[] {y+50, y, y+50}, 3);
-		    int[] arr = new int[ss.length];
 		    x-=gp.tileSize/2;
 		    for(int i = 0; i < ss.length; i++) {
 		    	if(ss[i].contains("?")) {
@@ -384,8 +415,24 @@ public class Puzzle implements Serializable {
 		    		y-=50;
 		    	}
 		    }
+	    }else if(ss[0].contains("Square=")) {
+			g2.drawPolygon(new int[] {x,x,x+60,x+60}, new int[] {y, y+50, y+50, y}, 4);
+		    x-=gp.tileSize;
+		    for(int i = 0; i < ss.length; i++) {
+		    	System.out.println(ss[i] + " " + x + " " + y);
+		    	if(ss[i].contains("?")) {
+		    		g2.drawString("?", x, y);
+		    	} else { 
+			    	ss[i] = ss[i].replaceAll("[^\\d.]", "");
+		    		g2.drawString(ss[i], x, y);
+		    	}
+		    	x+=60;
+		    	if(i==2) {
+		    		y+=50;
+			    	x-=120;
+		    	}
+		    }
 	    }
-    	//return arr;
     }
     
     public double findWeight() {
@@ -397,29 +444,29 @@ public class Puzzle implements Serializable {
     		return convert(text) / 1000000;
     	} else if(text.contains("g")) {
     		text = text.replaceAll("[^\\d.]", "");
-    		return convert(text) * 1000;
+    		return convert(text) / 1000;
     	}  else if(text.contains("t")) {
     		text = text.replaceAll("[^\\d.]", "");
-    		return convert(text) / 1000;
+    		return convert(text) * 1000;
     	} 
     	return -145;
     }
     
     public double findStatistic() {
-	    String regex = "[\\(]";
+	    String regex = "[\\(\\)]";
 	    String[] ss = text.split(regex);
 	    int pos = 0;
 	    double sum = 0;
-	    double value = 0;
-	    String regex2 = "[\\,\\)]";
+	    String regex2 = "[\\,]";
 	    String[] sss = ss[1].split(regex2);
-	    if(ss[0].contains("mean=")) {
+	    System.out.println(sss);
+	    if(ss[0].contains("mean")) {
 	    	for(int i=0; i<sss.length; i++) {
 	    		sum+=convert(sss[i]);
 	    	}
 	    	return sum / sss.length;
 	    	
-	    } else if(ss[0].contains("mode=")) {
+	    } else if(ss[0].contains("mode")) {
 	    	int maxCount = 0;
 	    	for (int i = 0; i < sss.length; ++i) {
 	            //System.out.println(sss[i]);
@@ -433,7 +480,7 @@ public class Puzzle implements Serializable {
 	            }
 	        }
 	        return sum;
-	    } else if(ss[0].contains("medium=")) {
+	    } else if(ss[0].contains("medium")) {
 	    	int middle = sss.length/2;
 	    	Arrays.sort(sss);
 	        if (sss.length%2 == 1) {
@@ -441,7 +488,7 @@ public class Puzzle implements Serializable {
 	        } else {
 	            return convert((sss[middle-1]) + convert(sss[middle])) / 2.0;
 	        }
-	    } else if(ss[0].contains("range=")) {
+	    } else if(ss[0].contains("range")) {
 	    	Arrays.sort(sss);
 	        sum = convert(sss[sss.length-1]) - convert(sss[0]);
 	        return sum;
@@ -499,18 +546,21 @@ public class Puzzle implements Serializable {
     	String[] point2 = ss[1].split(regex2);
 	    if(point[0].contains("Transform")) {
 	    	if(input == 0) {
+	    		//System.out.println(point[2] + " " + point2[5]);
 			    if(point2[4].contains("right")) {
 			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	switch (sum) {
+			    	/*switch (sum) {
 			        case MULTI: return convert(point[2]) * convert(point2[5]);
 			        default: return convert(point[2]) + convert(point2[5]);
-			    	}
+			    	}*/
+			    	return convert(point[2]) + convert(point2[5]);
 			    } else if(point2[4].contains("left")) {
 			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	switch (sum) {
+			    	/*switch (sum) {
 			        case DIVIDE: return convert(point[2]) / convert(point2[5]);
 			        default: return convert(point[2]) - convert(point2[5]);
-			    	}
+			    	}*/
+			    	return convert(point[2]) - convert(point2[5]);
 			    }
 	    	} else if(input == 1) {
 			    if(point2[1].contains("up")) {
@@ -529,16 +579,37 @@ public class Puzzle implements Serializable {
 	    	}
 	    } else if(point[0].equals("ReflectX")) {
 	    	if(input == 0) {
-	    		System.out.println(point[1]);
 	    		return convert(point[1]);
 	    	} else {
-	    		System.out.println(point[2]);
 		    	double x = convert(point[2]);
 		    	x = x - x*2;
-		    	System.out.println(x);
 		    	return x;
 	    	}
 	    } else if(point[0].equals("ReflectY")) {
+	    	if(input == 0) {
+		    	double y = convert(point[1]);
+		    	y = y - y*2;
+		    	return y;
+	    	} else {
+	    		return convert(point[2]);
+	    	}
+	    } else if(point[0].equals("Rotate90")) {
+	    	if(input == 0) {
+		    	return convert(point[2]);
+	    	} else {
+		    	double x = convert(point[1]);
+		    	x = x - x*2;
+	    		return x;
+	    	}
+	    } else if(point[0].equals("Rotate-90")) {
+	    	if(input == 0) {
+		    	double y = convert(point[2]);
+		    	y = y - y*2;
+	    		return y;
+	    	} else {
+		    	return convert(point[1]);
+	    	}
+	    } else if(point[0].equals("Rotate180")) {
 	    	if(input == 0) {
 	    		System.out.println(point[1]);
 		    	double y = convert(point[1]);
@@ -546,8 +617,9 @@ public class Puzzle implements Serializable {
 		    	System.out.println(y);
 		    	return y;
 	    	} else {
-	    		System.out.println(point[2]);
-	    		return convert(point[2]);
+		    	double x = convert(point[2]);
+		    	x = x - x*2;
+		    	return x;
 	    	}
 	    }
     	return -145;
@@ -569,7 +641,11 @@ public class Puzzle implements Serializable {
 	    	start = -2;
 	    	length = (gp.tileSize/4)-4;
 	    	txt = ss[1];
-	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+	    } else if(ss[0].contains("Reflect")) {
+	    	start = -5;
+	    	length = (gp.tileSize/4)-7;
+	    	txt = ss[1];
+	    } else if(ss[0].contains("Rotate")) {
 	    	start = -5;
 	    	length = (gp.tileSize/4)-7;
 	    	txt = ss[1];
@@ -586,7 +662,7 @@ public class Puzzle implements Serializable {
     	    	if(i == (int)(convert(point[1]))){
         			pointY=lineY;
         		}
-    	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+    	    } else if(ss[0].contains("Reflect")||ss[0].contains("Rotate")) {
     	    	if(i == (int)(convert(point[2]))){
         			pointY=lineY;
         		}
@@ -597,6 +673,7 @@ public class Puzzle implements Serializable {
     		g2.drawLine(x, lineY, x +gp.tileSize+1, lineY);
     		lineY = lineY + 5;
     	}
+    	//System.out.println(ans1 + " " + ans2);
     	for(int i = start; i < length; i++) {
 			g2.setStroke(new BasicStroke(1));
     		if(i == 0) {
@@ -606,7 +683,7 @@ public class Puzzle implements Serializable {
 	    		if(i == (int)(convert(point[2]))){
 	    			pointX=lineX;
 	    		}
-    		} else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+    		} else if(ss[0].contains("Reflect")||ss[0].contains("Rotate")) {
     	    	if(i == (int)(convert(point[1]))){
         			pointX=lineX;
         		}
@@ -619,14 +696,21 @@ public class Puzzle implements Serializable {
     	}
 	    if(ss[0].contains("Transform")) {
 	    	txt = ss[1];
-	    } else if(ss[0].contains("ReflectX")||ss[0].contains("ReflectY")) {
+	    } else if(ss[0].contains("Reflect")||ss[0].contains("Rotate")) {
 	    	txt = point[0];
 	    }
 	    if(res) {
 	    	drawPoint(g2, (int)(resPointX-0.5), (int)(resPointY-0.5));
 	    }
     	drawPoint(g2, (int)(pointX-0.5), (int)(pointY-0.5));
-    	g2.drawString(txt, pointX, pointY);
+		g2.setFont(g2.getFont().deriveFont(1, 18.0F));
+    	//g2.drawString(txt, pointX, pointY);
+    	//g2.drawString(txt, x-gp.tileSize/2, y-gp.tileSize/3);
+    	lineY = y-gp.tileSize/3;
+    	for(String lines: gp.ui.breakLines(txt, 9, ",")) {
+    		g2.drawString(lines, x-gp.tileSize/3, lineY);
+    		lineY += gp.tileSize/3;
+    	}
     }
     
     public void drawPoint(Graphics2D g2, int x, int y) {

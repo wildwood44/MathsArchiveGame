@@ -120,7 +120,6 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_ENTER :
 			gp.playSE(3);
-			System.out.println("ping");
 			if(gp.ui.commandNum == 0) {
 				gp.saveLoad.save(1);
 			} else if(gp.ui.commandNum == 1) {

@@ -1,20 +1,15 @@
 package mae.game.object;
 
 import mae.game.GamePanel;
-import mae.game.puzzle.Puzzle;
 
 public class Obj_Exit extends Obj_Door {
+	GamePanel gp;
 	public final static int objId = 7;
 
 	public Obj_Exit(GamePanel gp) {
 		super(gp);
-	}
-	
-	public Obj_Exit(GamePanel gp, int id, int floor, Puzzle puzzle) {
-		this(gp);
-		this.puzzle = puzzle;
-		this.description = puzzle.printPuzzle();
-		//this.key = solution;
+		this.gp = gp;
+		this.enId = objId;
 	}
 
 	public void interact() {

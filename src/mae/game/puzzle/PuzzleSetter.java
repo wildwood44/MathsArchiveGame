@@ -3,14 +3,15 @@ package mae.game.puzzle;
 import mae.game.GamePanel;
 import mae.game.object.SumType;
 
-public class DoorPuzzle {
+public class PuzzleSetter {
 	GamePanel gp;
 	final int levels = 12;
-	Puzzle problems[][] = new Puzzle[levels][25];
+	Puzzle problems[][];
 	public int[] input = new int[5];
 	
-	public DoorPuzzle(GamePanel gp) {
+	public PuzzleSetter(GamePanel gp) {
 		this.gp = gp;
+		problems = new Puzzle[gp.maxMap][25];
 	}
 	
 	public void setPuzzle() {
@@ -32,32 +33,43 @@ public class DoorPuzzle {
 		problems[3][10] = new Puzzle(gp, "35% of 200=?*10", SumType.MULTI, PuzzleType.PERCENTAGE);
 		problems[4][4] = new Puzzle(gp, "3/4+1/3=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
 		problems[4][10] = new Puzzle(gp, "1/2*a/b=1/24", 2, SumType.MULTI, PuzzleType.FRACTION);
-		//problems[5][0] = new Puzzle(gp, "8a+3b=28", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		problems[5][0] = new Puzzle(gp, "Transform(1,5)+(up(2),right(2))=(a,b)",2, SumType.PLUS, PuzzleType.GRAPH);
-		//problems[5][6] = new Puzzle(gp, "4x+3y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		problems[5][6] = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
-		//problems[5][10] = new Puzzle(gp, "x*x*x*x*x*x=x?", SumType.MULTI, PuzzleType.ALGEBRA);
 		problems[5][10] = new Puzzle(gp, "ReflectX(4,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
 		problems[6][0] = new Puzzle(gp, "300cm=?m", 2, SumType.EQUAL, PuzzleType.MEASURE);
 		problems[6][6] = new Puzzle(gp, "?mi/35min=6mph", 2, SumType.DIVIDE, PuzzleType.TIME);
 		problems[6][10] = new Puzzle(gp, "?m=7000mm", SumType.EQUAL, PuzzleType.MEASURE);
 		problems[7][4] = new Puzzle(gp, "Triangle=(120,50,?)", SumType.PLUS, PuzzleType.GEOMATRY);
-		//problems[8][0] = new Puzzle(gp, "0.042mg", SumType.EQUAL, PuzzleType.WEIGHT);
-		//problems[8][4] = new Puzzle(gp, "2.2lb", SumType.EQUAL, PuzzleType.WEIGHT);
-		//problems[8][6] = new Puzzle(gp, "7000g", SumType.EQUAL, PuzzleType.WEIGHT);
-		//problems[8][10] = new Puzzle(gp, "6lb", SumType.EQUAL, PuzzleType.WEIGHT);
-		problems[8][0] = new Puzzle(gp, "range=(27,23,26,29,24)", SumType.EQUAL, PuzzleType.STAT);
-		problems[8][4] = new Puzzle(gp, "mode=(1,2,2,4,4,4,6,10)", SumType.EQUAL, PuzzleType.STAT);
-		problems[8][6] = new Puzzle(gp, "mean=(3,4,5,8,8,11,12,13)", SumType.EQUAL, PuzzleType.STAT);
-		problems[8][10] = new Puzzle(gp, "medium=(35,23,76,34,56)", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][0] = new Puzzle(gp, "range(27,23,26,29,24)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][4] = new Puzzle(gp, "mode(1,2,2,4,4,4,6,10)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][6] = new Puzzle(gp, "mean(3,4,5,8,8,11,12,13)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][10] = new Puzzle(gp, "medium(35,23,76,34,56)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[9][0] = new Puzzle(gp, "even(1,2,3,4,5,6)=?0%", SumType.EQUAL, PuzzleType.PROBABIL);
-		problems[9][4] = new Puzzle(gp, "prime(1,2,3,5,7,11,13,17,19=a/b)", 2, SumType.EQUAL, PuzzleType.PROBABIL);
-		//problems[10][6] = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		problems[9][4] = new Puzzle(gp, "prime(1,2,3,5,7,11,13,17,19)=a/b", 2, SumType.EQUAL, PuzzleType.PROBABIL);
 		problems[10][6] = new Puzzle(gp, "8a+3b=28", 2, SumType.PLUS, PuzzleType.ALGEBRA);
-		//problems[10][10] = new Puzzle(gp, "Transform(1,7)+(left(2),up(2))=(a,b)",2, SumType.PLUS, PuzzleType.GRAPH);
 		problems[10][10] = new Puzzle(gp, "4x+5y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
-		problems[11][4] = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		problems[11][4] = new Puzzle(gp, "√81=?", 2, SumType.EQUAL, PuzzleType.RADICAL);
 		problems[11][6] = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
+		problems[16][1] = new Puzzle(gp, "13-?=11", SumType.MINUS);
+		problems[28][1] = new Puzzle(gp, "3/3=?", SumType.DIVIDE);
+		problems[30][1] = new Puzzle(gp, "?*6=24", SumType.MULTI);
+		problems[40][1] = new Puzzle(gp, "?*4=0.75", SumType.DIVIDE);
+		problems[48][1] = new Puzzle(gp, "20% of 20=?", SumType.PERSN, PuzzleType.PERCENTAGE);
+		problems[54][1] = new Puzzle(gp, "50% of 10=?", SumType.PERSN, PuzzleType.PERCENTAGE);
+		problems[58][1] = new Puzzle(gp, "Decrease 24 by 75%=?", SumType.PERSN, PuzzleType.D_PERCENTAGE);
+		problems[70][1] = new Puzzle(gp, "3/5-1/2=a/b", 2, SumType.MINUS, PuzzleType.FRACTION);
+		problems[72][1] = new Puzzle(gp, "Rotate90(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		problems[82][1] = new Puzzle(gp, "Rotate180(-1,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		problems[90][1] = new Puzzle(gp, "7000g=?kg", SumType.EQUAL, PuzzleType.WEIGHT);
+		problems[94][1] = new Puzzle(gp, "42000000mg=?kg", SumType.EQUAL, PuzzleType.WEIGHT);
+		problems[100][1] = new Puzzle(gp, "Square=(115,145,70,?)", SumType.PLUS, PuzzleType.GEOMATRY);
+		problems[108][1] = new Puzzle(gp, "range(18,22,14,12,15,16)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[112][1] = new Puzzle(gp, "mode(7,2,13,7,3,5,11,1)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[114][1] = new Puzzle(gp, "mean(4,5,6,7,8)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[118][1] = new Puzzle(gp, "medium(7,8,2,4,2)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[124][1] = new Puzzle(gp, "odd(1,2,3,4,5,6)=?0%", SumType.EQUAL, PuzzleType.PROBABIL);
+		problems[142][1] = new Puzzle(gp, "x*x*x*x=x?", SumType.MULTI, PuzzleType.ALGEBRA);
+		problems[148][1] = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
 	}
 	
 	public Puzzle getPuzzle(int floor, int room) {
@@ -72,12 +84,5 @@ public class DoorPuzzle {
 			return problems[floor][room].printPuzzle();
 		}
 		return "X";
-	}
-	
-	public boolean submit(int floor, int room, int card) {
-		if (problems[floor][room]!=null) {
-			//return problems[floor][room].isCorrect(card);
-		}
-		return false;
 	}
 }

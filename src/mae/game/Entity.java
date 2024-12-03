@@ -178,8 +178,13 @@ public class Entity {
 		this.floor = floor;
 	}
 	public void setPuzzle(Puzzle puzzle) {
+		//System.out.println(puzzle.printPuzzle());
 		this.puzzle = puzzle;
 		this.description = puzzle.printPuzzle();
+	}
+	
+	public void lock(int key) {
+		this.key = key;
 	}
 	public void setSumType(SumType sum) {
 		this.sum = sum;

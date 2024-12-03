@@ -7,9 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import mae.data.DataStorage;
-import mae.game.items.KeyCard;
 import mae.game.object.SumType;
-import mae.game.puzzle.Puzzle;
 
 public class SaveLoad {
 	GamePanel gp;
@@ -121,16 +119,17 @@ public class SaveLoad {
 						gp.obj[mapNum][i] = null;
 					} else {
 						gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectEnId[mapNum][i], ds.mapObjectFloor[mapNum][i]);
-						System.out.println(mapNum + " " + i + " " + gp.obj[mapNum][i] + " " + gp.obj[mapNum][i].worldX);
 						gp.obj[mapNum][i].id = ds.mapObjectId[mapNum][i];
 						gp.obj[mapNum][i].setFloor(ds.mapObjectFloor[mapNum][i]);
 						gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
 						gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
 						gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
-						gp.obj[mapNum][i].key = ds.mapObjectKey[mapNum][i];
+						if(!gp.obj[mapNum][i].opened) {
+							gp.obj[mapNum][i].lock(ds.mapObjectKey[mapNum][i]);
+						}
 						gp.obj[mapNum][i].setSumType(ds.mapObjectSum[mapNum][i]);
 						gp.obj[mapNum][i].getImage();
-						gp.obj[mapNum][i].setPuzzle(gp.doorPuzzle.getPuzzle(ds.mapObjectFloor[mapNum][i], i));
+						gp.obj[mapNum][i].setPuzzle(gp.ps.getPuzzle(mapNum, i));
 					}
 				}
 				//NPCs on map

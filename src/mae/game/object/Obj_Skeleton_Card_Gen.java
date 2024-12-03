@@ -25,13 +25,13 @@ public class Obj_Skeleton_Card_Gen extends Object {
 		//Remove 2 cards + Card should not be skeleton
 		if(slot1 == -1 && gp.currentCard != 0) {
 			slot1 = (int) gp.kc[gp.currentCard].useCard();
-			gp.kc[gp.currentCard].opened = false;
+			gp.kc[gp.currentCard].locked = true;
 			gp.currentCard = gp.kc[gp.currentCard].nextCard(gp.currentCard);
 		}
 		else if(slot2 == -1 && gp.currentCard != 0) {
 			slot2 = (int) gp.kc[gp.currentCard].useCard();
-			gp.kc[gp.currentCard].opened = false;
-			gp.currentCard = gp.kc[gp.currentCard].nextCard(gp.currentCard);
+			gp.kc[gp.currentCard].locked = true;
+			gp.currentCard = gp.kc[gp.currentCard].nextCard(9);
 		}
 		//Return cards + Skeleton card changed
 		if(slot1 != -1 && slot2 != -1) {
@@ -41,9 +41,9 @@ public class Obj_Skeleton_Card_Gen extends Object {
 			case MULTI: gp.kc[0].setValue(slot1 * slot2); break;
 			case DIVIDE: gp.kc[0].setValue((double)slot1 / (double)slot2); break;
 			}
-			gp.kc[slot1].opened = true;
+			gp.kc[slot1].locked = false;
 			slot1 = -1;
-			gp.kc[slot2].opened = true;
+			gp.kc[slot2].locked = false;
 			slot2 = -1;
 		}
 		gp.keyH.enterPressed = false;
