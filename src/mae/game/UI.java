@@ -301,12 +301,14 @@ public class UI {
 		textX = frameX + gp.tileSize;
 		textY += gp.tileSize;
 		g2.drawString("Move", textX, textY);textY+=gp.tileSize/2;
+		g2.drawString("Select", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("Confirm", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("Menu", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("Pause", textX, textY);textY+=gp.tileSize/2;
 		textX = frameX + gp.tileSize * 6;
 		textY = frameY + gp.tileSize * 2;
 		g2.drawString("WASD", textX, textY);textY+=gp.tileSize/2;
+		g2.drawString("1-9", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("ENTER", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("ESC", textX, textY);textY+=gp.tileSize/2;
 		g2.drawString("Space", textX, textY);textY+=gp.tileSize/2;

@@ -59,6 +59,12 @@ public class Puzzle {
 		default: return -145;
 		}
 	}
+	public boolean isNotNull(){
+		if(text == "X") {
+			return false;
+		}
+		return true;
+	}
 	public void setInput(int input) {
 		this.input = input;
 	}
@@ -110,7 +116,6 @@ public class Puzzle {
 	    String regex = "[+\\-\\*\\/\\=\\%]";
 	    String[] ss = text.split(regex);
 	    int pos = -1;
-	    System.out.println(ss[1]);
 	    // Find position of missing character
 	    if(ss[0].equals("?0")) {
 	        pos = 0;}
@@ -419,7 +424,6 @@ public class Puzzle {
 			g2.drawPolygon(new int[] {x,x,x+60,x+60}, new int[] {y, y+50, y+50, y}, 4);
 		    x-=gp.tileSize;
 		    for(int i = 0; i < ss.length; i++) {
-		    	System.out.println(ss[i] + " " + x + " " + y);
 		    	if(ss[i].contains("?")) {
 		    		g2.drawString("?", x, y);
 		    	} else { 
@@ -459,7 +463,6 @@ public class Puzzle {
 	    double sum = 0;
 	    String regex2 = "[\\,]";
 	    String[] sss = ss[1].split(regex2);
-	    System.out.println(sss);
 	    if(ss[0].contains("mean")) {
 	    	for(int i=0; i<sss.length; i++) {
 	    		sum+=convert(sss[i]);
@@ -611,10 +614,8 @@ public class Puzzle {
 	    	}
 	    } else if(point[0].equals("Rotate180")) {
 	    	if(input == 0) {
-	    		System.out.println(point[1]);
 		    	double y = convert(point[1]);
 		    	y = y - y*2;
-		    	System.out.println(y);
 		    	return y;
 	    	} else {
 		    	double x = convert(point[2]);

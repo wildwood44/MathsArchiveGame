@@ -178,7 +178,6 @@ public class Entity {
 		this.floor = floor;
 	}
 	public void setPuzzle(Puzzle puzzle) {
-		//System.out.println(puzzle.printPuzzle());
 		this.puzzle = puzzle;
 		this.description = puzzle.printPuzzle();
 	}

@@ -85,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
-	public boolean testDoor = true;
+	public boolean testDoor = false;
 	public boolean testKey = false;
 	public int startFloor = 0;
 

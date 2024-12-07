@@ -15,7 +15,7 @@ public class PuzzleSetter {
 	}
 	
 	public void setPuzzle() {
-		problems[0][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
+		//problems[0][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[0][1] = new Puzzle(gp, "0=?", SumType.EQUAL, PuzzleType.EQUALS);
 		problems[0][2] = new Puzzle(gp, "6+?=8", SumType.PLUS);
 		problems[0][4] = new Puzzle(gp, "2+2=?", SumType.PLUS);
