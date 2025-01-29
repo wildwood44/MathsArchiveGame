@@ -63,6 +63,10 @@ public class UI {
 			drawTitleScreen();
 		}
 
+		else if (gp.gameState == GameState.loadingState) {
+			drawLoadingScreen();
+		}
+
 		else if (gp.gameState == GameState.playState) {
 			drawPlayerMenu();
 		}
@@ -91,9 +95,9 @@ public class UI {
 	public void drawLabel(String text) {
 		int x = 8 * gp.tileSize;
 		int y = 5 * gp.tileSize;
+		message = text;
 		g2.setFont(g2.getFont().deriveFont(0, 44.0F));
 		g2.setColor(Color.white);
-		message = text;
 		g2.drawString(message, x, y);
 	}
 	
@@ -101,16 +105,35 @@ public class UI {
 		g2.setColor(Color.black);
 		g2.fillRect(0, gp.tileSize*4, gp.maxWorldRow * gp.tileSize, gp.maxWorldCol * (gp.tileSize/2));
 		gp.kc[gp.currentCard].draw(g2);
+		if(gp.items[gp.currentCard]!=null) {
+			if(gp.items[gp.currentCard].opened) {
+				gp.items[gp.currentCard].draw(g2);
+			}
+		}
+		//drawUpIcon(gp.tileSize/2, gp.tileSize*6, gp.tileSize, gp.tileSize);
+		/*g2.setColor(Color.WHITE);
+		g2.drawRect(4, (int)(gp.tileSize*4.1), gp.tileSize*2, gp.tileSize*2);
+		drawLabel(gp.currentMap.getName());*/
 		g2.setFont(g2.getFont().deriveFont(0, 22.0F));
-		g2.setColor(Color.white);
-		drawLabel(gp.currentMap.getName());
+		if(gp.keyH.tagPressed) {
+			g2.setColor(Color.CYAN);
+			g2.drawRect(gp.tileSize*3, (int)(gp.tileSize*4.1), gp.tileSize*2, gp.tileSize*2);
+		}
 	}
 	
 	public void drawMessage() {
 		String text = message;
 		int x = getXforCenteredText(text);
 		int y = gp.screenHeight/3;
-		g2.drawString(text, x, y);
+		int lineY = y;
+		for(String line : breakLines(message, 30, " ")) {
+			x = getXforCenteredText(line);
+			g2.setColor(Color.black);
+			g2.drawString(line, x-1, lineY-1);
+			g2.setColor(Color.white);
+			g2.drawString(line, x, lineY);
+			lineY += gp.tileSize;
+		}
 	}
 	
 	// DRAW PAUSE SCREEN
@@ -479,6 +502,30 @@ public class UI {
 		if (commandNum == 2) {
 			g2.drawString(">", x - gp.tileSize, y);
 		}
+	}
+	//LOADING SCREEN
+	public void drawLoadingScreen() {
+		g2.setColor(new Color(0,0,0));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		String text = "Loading...";
+		int x = getXforCenteredText(text);
+		int y = gp.screenHeight / 3;
+		//SHADOW
+		g2.setColor(Color.gray);
+		g2.drawString(text, x+5, y+5);
+		//MAIN COLOUR
+		g2.setColor(Color.white);
+		g2.drawString(text, x, y);
+		g2.setFont(g2.getFont().deriveFont(1, 40.0F));
+		//DRAW RECT
+		y += gp.tileSize/2;
+		int loadingComplete = 240;
+		int loadingProgress = 0;
+		if(gp.loadingProgress!=0) {
+			loadingProgress = (gp.loadingProgress/100)*loadingComplete;
+		}
+		g2.drawRect(x, y, loadingComplete, 24);
+		g2.fillRect(x, y, loadingProgress, 24);
 	}
 	
 	public void drawLoadScreen() {

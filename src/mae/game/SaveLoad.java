@@ -93,7 +93,6 @@ public class SaveLoad {
 	
 	public void load(int sf) {
 		try {
-			//System.out.println("Loaded");
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 			if(sf == 0) {
 				ois = new ObjectInputStream(new FileInputStream(new File("save1.dat")));
@@ -103,7 +102,6 @@ public class SaveLoad {
 				ois = new ObjectInputStream(new FileInputStream(new File("save3.dat")));
 			}
 			DataStorage ds = (DataStorage)ois.readObject();
-
 			// Key Cards
 			gp.kc[0].setValue(ds.sk_value);;
 			for(int i = 0; i < gp.kc.length; i++) {

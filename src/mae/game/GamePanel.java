@@ -19,13 +19,13 @@ import mae.game.sound.Sound;
 import mae.game.tile.CollisionChecker;
 import mae.game.tile.TileManager;
 import mae.game.cutscenes.CutsceneManager;
+import mae.game.items.Item;
 import mae.game.items.KeyCard;
 import mae.game.tile.Map;
 import mae.game.npc.NPC;
 import mae.game.object.AssetManager;
 import mae.game.object.AssetSetter;
 import mae.game.player.Player;
-import mae.game.puzzle.ConsolePuzzle;
 import mae.game.puzzle.PuzzleSetter;
 
 
@@ -67,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
 	int playerY = 100;
 	int playerX = 100;
 	int playerSpeed = 4;
+	public int loadingProgress = 0;
 	public GameState gameState;
 	public boolean cutsceneOn = false;
 	public Map currentMap;
@@ -82,11 +83,12 @@ public class GamePanel extends JPanel implements Runnable {
 	public Player player = new Player(this, keyH);
 	public Story s = new Story();
 	public KeyCard kc[] = new KeyCard[10];
+	public Item items[] = new Item[10];
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	//Testing
-	public boolean testDoor = false;
-	public boolean testKey = false;
+	public boolean testDoor = true;
+	public boolean testKey = true;
 	public int startFloor = 0;
 
 	public GamePanel() {
@@ -102,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void setupGame() {
+		gameState = GameState.loadingState;
 		aSetter.setPuzzles();
 		aSetter.setItem();
 		aSetter.setObject();
@@ -112,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
 		kc[0].opened = true;
 		//Test
 		kc[0].setValue(0);
+		//Set Tiles
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);
 		cChecker = new CollisionChecker(this);
@@ -178,8 +182,7 @@ public class GamePanel extends JPanel implements Runnable {
 					//iTile[currentMap.getId()][i].draw(g2);
 				}
 			}
-		}
-		if (gameState == GameState.pauseState) {
+		} else if (gameState == GameState.pauseState) {
 			
 		}
 
@@ -197,43 +200,45 @@ public class GamePanel extends JPanel implements Runnable {
 				gameState == GameState.notifyState) {
 			ui.draw(g2);
 		// CUTSCENE
+		} else if (gameState == GameState.loadingState) {
+			ui.draw(g2);
 		} else if (gameState == GameState.cutsceneState) {
 			csManager.draw(g2);
 			ui.draw(g2);
 		// PLAY
 		} else if (gameState == GameState.playState) {
-				tileM.draw(g2);
-				// ADD ENTITIES TO LIST
-				entityList.add(player);
-				//OBJECTS
-				for (int i = 0; i < obj[currentMap.getId()].length; i++) {
-					if (obj[currentMap.getId()][i] != null) {
-						entityList.add(obj[currentMap.getId()][i]);
-					}
+			tileM.draw(g2);
+			// ADD ENTITIES TO LIST
+			entityList.add(player);
+			//OBJECTS
+			for (int i = 0; i < obj[currentMap.getId()].length; i++) {
+				if (obj[currentMap.getId()][i] != null) {
+					entityList.add(obj[currentMap.getId()][i]);
 				}
-				//NPC
-				for (int i = 0; i < npc[currentMap.getId()].length; i++) {
-					if (npc[currentMap.getId()][i] != null) {
-						entityList.add(npc[currentMap.getId()][i]);
-					}
+			}
+			//NPC
+			for (int i = 0; i < npc[currentMap.getId()].length; i++) {
+				if (npc[currentMap.getId()][i] != null) {
+					entityList.add(npc[currentMap.getId()][i]);
 				}
-				//tileM.draw(g2);
-				Collections.sort(entityList, new Comparator<Entity>() {
-					@Override
-					public int compare(Entity e1, Entity e2) {
-						int result = Integer.compare(e1.worldY - 1, e2.worldY);
-						return result;
-					}
-	
-				});
-	
-				for (Entity element : entityList) {
-					element.update();
-					element.draw(g2);
+			}
+			//tileM.draw(g2);
+			Collections.sort(entityList, new Comparator<Entity>() {
+				@Override
+				public int compare(Entity e1, Entity e2) {
+					int result = Integer.compare(e1.worldY - 1, e2.worldY);
+					return result;
 				}
-				entityList.clear();
-				// UI
-				ui.draw(g2);
+
+			});
+
+			for (Entity element : entityList) {
+				element.update();
+				element.draw(g2);
+			}
+			entityList.clear();
+			// UI
+			ui.draw(g2);
 		}
 
 		if (keyH.showDebugText) {

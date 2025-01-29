@@ -236,9 +236,6 @@ public class Puzzle {
 		    			ans[0] = convert(ss[i]);// * gp.kc[gp.currentCard].useCard();
 		    		}
 		    	}
-		    	//ans[0] = count;
-		    //}
-		    //if(input == 1 && ss[i] != null) {
 		    	if(ss[i].contains("y")) {
 		    		if(Character.isDigit(ss[i].charAt(0))) {
 		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
@@ -459,7 +456,7 @@ public class Puzzle {
     public double findStatistic() {
 	    String regex = "[\\(\\)]";
 	    String[] ss = text.split(regex);
-	    int pos = 0;
+	    //int pos = 0;
 	    double sum = 0;
 	    String regex2 = "[\\,]";
 	    String[] sss = ss[1].split(regex2);
@@ -502,9 +499,9 @@ public class Puzzle {
     public double findRadical(int input) {
 	    String regex = "[\\=\\√]";
 	    String[] ss = text.split(regex);
-	    double[] result = new double[2];
+	    //double[] result = new double[2];
 	    double outside = 1;
-        double inside = convert(ss[1]);
+        //double inside = convert(ss[1]);
         double[] simplified = { 1, convert(ss[1]) };
         
         // Check if it's already a perfect square

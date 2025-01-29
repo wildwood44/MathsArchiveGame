@@ -1,6 +1,7 @@
 package mae.game.object;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -130,8 +131,15 @@ public class Obj_Door extends Object {
 			break;
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
-		if(isSelected && gp.currentMap.getMapType() == MapType.LEVEL && !opened) {
-			drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
+		if(gp.currentMap.getMapType() == MapType.LEVEL) {
+			//DRAW ROOM NUMBER	
+			g2.setFont(g2.getFont().deriveFont(0, 10.0F));
+			g2.setColor(Color.WHITE);
+		    g2.drawString(id+"", tempScreenX+8, tempScreenY+gp.tileSize/2);
+	    	//DRAW SPEECH BUBBLE
+			if(isSelected && !opened) {
+				drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
+			}
 		}
 	    g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}

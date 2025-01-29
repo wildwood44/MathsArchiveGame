@@ -15,32 +15,41 @@ public class PuzzleSetter {
 	}
 	
 	public void setPuzzle() {
-		//problems[0][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
+		problems[0][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[0][1] = new Puzzle(gp, "0=?", SumType.EQUAL, PuzzleType.EQUALS);
 		problems[0][2] = new Puzzle(gp, "6+?=8", SumType.PLUS);
+		problems[0][3] = new Puzzle(gp, "?+56=61", SumType.PLUS);
 		problems[0][4] = new Puzzle(gp, "2+2=?", SumType.PLUS);
 		problems[0][6] = new Puzzle(gp, "2-1=?", SumType.MINUS);
+		problems[0][8] = new Puzzle(gp, "65-45=?", SumType.MINUS);
 		problems[0][10] = new Puzzle(gp, "?+?=6", SumType.PLUS);
 		problems[1][0] = new Puzzle(gp, "6/2=?", SumType.DIVIDE);
+		problems[1][3] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[1][4] = new Puzzle(gp, "?/1=2", SumType.DIVIDE);
 		problems[1][6] = new Puzzle(gp, "?*?=25", SumType.MULTI);
 		problems[1][10] = new Puzzle(gp, "?*8=24", SumType.MULTI);
+		problems[2][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[2][4] = new Puzzle(gp, "1-?=2", SumType.MINUS);
 		problems[2][6] = new Puzzle(gp, "?/5=0.2", SumType.DIVIDE);
+		problems[2][11] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[3][0] = new Puzzle(gp, "10% of 20=?", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[3][4] = new Puzzle(gp, "?0% of 144=72", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[3][6] = new Puzzle(gp, "?0% of 1=0.2", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[3][10] = new Puzzle(gp, "35% of 200=?*10", SumType.MULTI, PuzzleType.PERCENTAGE);
+		problems[4][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[4][4] = new Puzzle(gp, "3/4+1/3=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
 		problems[4][10] = new Puzzle(gp, "1/2*a/b=1/24", 2, SumType.MULTI, PuzzleType.FRACTION);
 		problems[5][0] = new Puzzle(gp, "Transform(1,5)+(up(2),right(2))=(a,b)",2, SumType.PLUS, PuzzleType.GRAPH);
+		problems[5][3] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[5][6] = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
 		problems[5][10] = new Puzzle(gp, "ReflectX(4,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
 		problems[6][0] = new Puzzle(gp, "300cm=?m", 2, SumType.EQUAL, PuzzleType.MEASURE);
 		problems[6][6] = new Puzzle(gp, "?mi/35min=6mph", 2, SumType.DIVIDE, PuzzleType.TIME);
+		problems[6][8] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[6][10] = new Puzzle(gp, "?m=7000mm", SumType.EQUAL, PuzzleType.MEASURE);
 		problems[7][4] = new Puzzle(gp, "Triangle=(120,50,?)", SumType.PLUS, PuzzleType.GEOMATRY);
 		problems[8][0] = new Puzzle(gp, "range(27,23,26,29,24)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[8][3] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[8][4] = new Puzzle(gp, "mode(1,2,2,4,4,4,6,10)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[8][6] = new Puzzle(gp, "mean(3,4,5,8,8,11,12,13)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[8][10] = new Puzzle(gp, "medium(35,23,76,34,56)=?", SumType.EQUAL, PuzzleType.STAT);
@@ -50,6 +59,7 @@ public class PuzzleSetter {
 		problems[10][10] = new Puzzle(gp, "4x+5y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		problems[11][4] = new Puzzle(gp, "√81=?", 2, SumType.EQUAL, PuzzleType.RADICAL);
 		problems[11][6] = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
+		problems[11][11] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[16][1] = new Puzzle(gp, "13-?=11", SumType.MINUS);
 		problems[28][1] = new Puzzle(gp, "3/3=?", SumType.DIVIDE);
 		problems[30][1] = new Puzzle(gp, "?*6=24", SumType.MULTI);

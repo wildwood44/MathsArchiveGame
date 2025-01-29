@@ -20,9 +20,7 @@ public class Player extends Entity {
 	KeyHandler keyH;
 	public final int screenX;
 	public final int screenY;
-	private int shillings;
 	public Boolean approval;
-	private long start;
 	public Object currentLight;
 
 	public Player(GamePanel gp, KeyHandler keyH) {

@@ -13,6 +13,7 @@ public class KeyHandler implements KeyListener {
 	public boolean rightPressed;
 	public boolean enterPressed;
 	public boolean skipPressed;
+	public boolean tagPressed;
 	public boolean showDebugText = false;
 
 	public KeyHandler(GamePanel gp) {
@@ -61,8 +62,10 @@ public class KeyHandler implements KeyListener {
 		if (code == KeyEvent.VK_ENTER) {
 			if(gp.ui.subState == 0) {
 				if (gp.ui.commandNum == 0) {
-					//gp = new GamePanel();
+					gp.gameState = GameState.loadingState;
+					gp.loadingProgress = 0;
 					gp.ui.resetSlots();
+					gp.loadingProgress = 100;
 					gp.gameState = GameState.playState;
 				}
 				if (gp.ui.commandNum == 1) {
@@ -73,10 +76,16 @@ public class KeyHandler implements KeyListener {
 					System.exit(0);
 				}
 			} else if(gp.ui.subState == 1) {
+				gp.gameState = GameState.loadingState;
+				gp.loadingProgress = 0;
 				gp.saveLoad.load(gp.ui.commandNum);
+				gp.loadingProgress = 25;
 				gp.ui.resetSlots();
+				gp.loadingProgress = 50;
 				gp.tileM = new TileManager(gp);
+				gp.loadingProgress = 75;
 				gp.eHandler = new EventHandler(gp);
+				gp.loadingProgress = 100;
 				gp.playSE(1);
 				gp.gameState = GameState.playState;
 			}
@@ -252,9 +261,10 @@ public class KeyHandler implements KeyListener {
 		switch (code) {
 		case KeyEvent.VK_ENTER :
 			enterPressed = true;
+			System.out.println(tagPressed);
 			if (gp.selectedObj != null) {
 				gp.obj[1][gp.selectedObj].interact();
-			}
+			} 
 			break;
 		case KeyEvent.VK_ESCAPE :
 			gp.selectedObj = null;
@@ -281,6 +291,10 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_E :
 			gp.currentCard = gp.kc[gp.currentCard].nextCard(gp.currentCard);
+			break;
+		case KeyEvent.VK_X :
+			tagPressed = true;
+			gp.items[0].use();
 			break;
 		case KeyEvent.VK_0:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(0);
@@ -364,6 +378,10 @@ public class KeyHandler implements KeyListener {
 			case KeyEvent.VK_DOWN :
 			case KeyEvent.VK_S :
 				downPressed = false;
+				break;
+			case KeyEvent.VK_X :
+				System.out.println(tagPressed);
+				tagPressed = false;
 				break;
 		}
 

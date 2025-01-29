@@ -37,6 +37,7 @@ public class Entity {
 	public int solidAreaDefaultX = 0;
 	public int solidAreaDefaultY = 0;
 	public String description = "X";
+	public String[][] dialogue = new String[18][6];
 	public String direction = "idle";
 	public BufferedImage idle1, idle2, left1, left2, right1, right2;
 	public int spriteCounter = 0;
@@ -119,6 +120,14 @@ public class Entity {
 		} else {
 			opened = false;
 		}
+	}
+	
+	public void setLabel(String c) {
+		description = c;
+	}
+	
+	public void setButton(int id, String value) {
+		
 	}
 	
 	public int getCenterX() {
@@ -247,6 +256,7 @@ public class Entity {
 	}
 	
 	public void interact() {}
+	
 	public void speak() {
 		facePlayer();
 		//gp.ui.choiceSlot = 0;
@@ -311,5 +321,9 @@ public class Entity {
 		//int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
 		//x = width / 2 - length / 2;
 		g2.drawString(description, x+gp.tileSize, y+gp.tileSize);
+	}
+	public void drawSpeech(Graphics2D g2, int x, int y) {
+		//Draw box
+		drawSpeechBubble(g2,x,y);
 	}
 }

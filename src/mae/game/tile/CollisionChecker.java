@@ -5,14 +5,13 @@ import mae.game.GamePanel;
 
 public class CollisionChecker {
 	GamePanel gp;
-	private int collisionCount = 0;
+	//private int collisionCount = 0;
 
 	public CollisionChecker(GamePanel gp) {
 		this.gp = gp;
 	}
 
 	public void checkTile(Entity entity) {
-		int damageOn = 10;
 		int entityLeftWorldX = entity.worldX + entity.solidArea.x;
 		int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
 		int entityTopWorldY = entity.worldY + entity.solidArea.y;
