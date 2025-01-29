@@ -38,19 +38,35 @@ public class Obj_Calculator extends Object {
 	}
 	
 	public String getInput(int input) {
-		if(stage >= 6){
-			stage = 1;
-			return "_";
-		} else if(stage == 1||stage == 2) {
+		if(stage == 1||stage == 2) {
 			this.input+=input;
 			stage++;
-			System.out.println(this.input);
 			return this.input;
 		} else if (stage == 4){
 			input3+=input;
 			stage++;
 		} else {
 			input3+=input;
+		}
+		return input3;
+	}
+	
+	public String getDigit() {
+		if(stage == 2 && !input.contains(".")) {
+			if(input == "") {
+				input += "0.";
+			} else {
+				input += ".";
+			}
+			stage=1;
+			return input;
+		} else if (stage == 5 && !input3.contains(".")){
+			if(input3 == "") {
+				input3 += "0.";
+			} else {
+				input3 += ".";
+			}
+			stage=5;
 		}
 		return input3;
 	}
@@ -72,7 +88,7 @@ public class Obj_Calculator extends Object {
 	
 	public String getStage() {
 		if(stage == 1) {
-			return "_";
+			return input+"_";
 		} else if(stage == 2) {
 			return input+"_";
 		} else if(stage == 3) {
@@ -87,9 +103,12 @@ public class Obj_Calculator extends Object {
 	
 	public String getAnswer() {
 		String problem = input+input2+input3+"=?";
-		System.out.println(problem);
 		Puzzle p = new Puzzle(gp, problem, sum);
-		ans = p.findMissing();
+		if (problem.contains("√")) {
+			ans  = p.findAlgebra(1);
+		} else {
+			ans = p.findMissing();
+		}
 		return "="+ans;
 	}
 	

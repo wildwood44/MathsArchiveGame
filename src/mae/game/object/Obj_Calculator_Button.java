@@ -61,8 +61,10 @@ public class Obj_Calculator_Button extends Object {
 		} else if(btnId==1) {
 			cal.getInput(input);
 		} else if(btnId==2) {
-			cal.getSum(btnTxt);
+			cal.getDigit();
 		} else if(btnId==3) {
+			cal.getSum(btnTxt);
+		} else if(btnId==4) {
 			if(cal.stage == 5) {
 				cal.getAnswer();
 				cal.stage=0;
