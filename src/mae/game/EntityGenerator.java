@@ -10,6 +10,7 @@ import mae.game.object.Obj_Console;
 import mae.game.object.Obj_Converter;
 import mae.game.object.Obj_Door;
 import mae.game.object.Obj_Exit;
+import mae.game.object.Obj_Map;
 import mae.game.object.Obj_Moon_Pedestal;
 import mae.game.object.Obj_Skeleton_Card_Gen;
 import mae.game.object.Obj_Skg_Explained;
@@ -39,6 +40,7 @@ public class EntityGenerator {
 		case Obj_Converter.objId: obj = new Obj_Converter(gp);//11
 		case Obj_Calculator.objId: obj = new Obj_Calculator(gp);//12
 		case Obj_Calculator_Button.objId: obj = new Obj_Calculator_Button(gp);//13
+		case Obj_Map.objId: obj = new Obj_Map(gp);//14
 		//default
 		}
 		return obj;

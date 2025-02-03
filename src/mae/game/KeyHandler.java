@@ -3,6 +3,7 @@ package mae.game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import mae.game.items.Itm_Teleporter;
 import mae.game.tile.TileManager;
 
 public class KeyHandler implements KeyListener {
@@ -36,6 +37,8 @@ public class KeyHandler implements KeyListener {
 			saveState(code);
 		} else if (gp.gameState == GameState.optionsState) {
 			optionsState(code);
+		} else if (gp.gameState == GameState.fastTravelState) {
+			fastTravelState(code);
 		} else if (gp.gameState == GameState.playState) {
 			playState(code);
 		}
@@ -193,6 +196,43 @@ public class KeyHandler implements KeyListener {
 			}
 		}
 	}
+
+	public void fastTravelState(int code) {
+		switch (code) {
+		case KeyEvent.VK_ESCAPE :
+			gp.ui.resetSlots();
+			gp.gameState = GameState.playState;
+			break;
+		case KeyEvent.VK_ENTER: 
+			enterPressed = true;
+			Itm_Teleporter tp = (Itm_Teleporter) gp.items[1];
+			int room = tp.getRoom(gp.ui.playerSlotRow,gp.ui.playerSlotCol);
+			gp.eHandler.teleport(gp.maps[room+11], 4, 3);
+			gp.ui.resetSlots();
+			gp.gameState = GameState.playState;
+			break;
+		case KeyEvent.VK_UP :
+		case KeyEvent.VK_W :
+			//gp.playSE(2);
+			gp.ui.playerSlotCol = getNext(gp.ui.playerSlotCol, 2);
+			break;
+		case KeyEvent.VK_DOWN :
+		case KeyEvent.VK_S :
+			//gp.playSE(2);
+			gp.ui.playerSlotCol = getPrev(gp.ui.playerSlotCol, 2);
+			break;
+		case KeyEvent.VK_LEFT :
+		case KeyEvent.VK_A :
+			//gp.playSE(2);
+			gp.ui.playerSlotRow = getNext(gp.ui.playerSlotRow, 3);
+			break;
+		case KeyEvent.VK_RIGHT :
+		case KeyEvent.VK_D :
+			//gp.playSE(2);
+			gp.ui.playerSlotRow = getPrev(gp.ui.playerSlotRow, 3);
+			break;
+		}
+	}
 	
 	public void gameOverState(int code) {
 		switch (code) {
@@ -294,7 +334,8 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_X :
 			tagPressed = true;
-			gp.items[0].use();
+			System.out.println(gp.currentCard);
+			gp.items[gp.currentCard].use();
 			break;
 		case KeyEvent.VK_0:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(0);

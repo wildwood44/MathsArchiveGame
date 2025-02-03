@@ -102,9 +102,9 @@ public class AssetSetter {
 		room++;
 		i = 1;
 		//Room 4
-		gp.obj[room][i] = new Obj_Moon_Pedestal(gp);
-		gp.obj[room][i].worldX = 12 * gp.tileSize;
-		gp.obj[room][i].worldY = 3 * gp.tileSize;
+		gp.obj[room][i] = new Obj_Map(gp);
+		gp.obj[room][i].worldX = 5 * gp.tileSize;
+		gp.obj[room][i].worldY = 1 * gp.tileSize;
 		room++;
 		//Room 5
 		gp.obj[room][i] = new Obj_Console(gp);
@@ -186,9 +186,9 @@ public class AssetSetter {
 		gp.obj[room][i].lock(4);
 		room = levels + 15;
 		//Room 16
-		gp.obj[room][i] = new Obj_Coming_Soon(gp);
-		gp.obj[room][i].worldX = 5 * gp.tileSize;
-		gp.obj[room][i].worldY = 2 * gp.tileSize;
+		gp.obj[room][i] = new Obj_Moon_Pedestal(gp);
+		gp.obj[room][i].worldX = 12 * gp.tileSize;
+		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		room++;
 		//Room 17
 		gp.obj[room][i] = new Obj_Console(gp);

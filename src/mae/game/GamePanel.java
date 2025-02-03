@@ -86,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public Item items[] = new Item[10];
 	public int currentCard = 0;
 	public ArrayList<Entity> entityList = new ArrayList<>();
+	final int[] squared = {1,4,9,16,25,36,49,64,81,100,121,144};
 	//Testing
 	public boolean testDoor = true;
 	public boolean testKey = true;
@@ -197,11 +198,10 @@ public class GamePanel extends JPanel implements Runnable {
 		// TITLE SCREEN
 		if (gameState == GameState.titleState || gameState == GameState.menuState ||
 				gameState == GameState.saveState || gameState == GameState.optionsState||
-				gameState == GameState.notifyState) {
+				gameState == GameState.notifyState || gameState == GameState.loadingState ||
+				gameState == GameState.fastTravelState) {
 			ui.draw(g2);
 		// CUTSCENE
-		} else if (gameState == GameState.loadingState) {
-			ui.draw(g2);
 		} else if (gameState == GameState.cutsceneState) {
 			csManager.draw(g2);
 			ui.draw(g2);

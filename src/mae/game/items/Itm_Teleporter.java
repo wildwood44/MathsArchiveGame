@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import mae.game.GamePanel;
+import mae.game.GameState;
 
 public class Itm_Teleporter extends Item {
 	GamePanel gp;
@@ -24,6 +25,43 @@ public class Itm_Teleporter extends Item {
 	public void getImage() {
 		idle1 = setup(("/res/objects/teleporter"), gp.tileSize*2, gp.tileSize*2);
 	}
+	
+	public int getRoom(int x, int y) {
+		if(x == 0) {
+			if(y==0) {
+				return 1;
+			}else if(y==1) {
+				return 4;
+			}else if(y==2) {
+				return 9;
+			}
+		} else if(x == 1) {
+			if(y==0) {
+				return 16;
+			}else if(y==1) {
+				return 25;
+			}else if(y==2) {
+				return 36;
+			}
+		} else if(x == 2) {
+			if(y==0) {
+				return 49;
+			}else if(y==1) {
+				return 64;
+			}else if(y==2) {
+				return 81;
+			}
+		} else if(x == 3) {
+			if(y==0) {
+				return 100;
+			}else if(y==1) {
+				return 121;
+			}else if(y==2) {
+				return 144;
+			}
+		}
+		return 1;
+	}
 
 	public void draw(Graphics2D g2) {
 		image = idle1;
@@ -34,5 +72,6 @@ public class Itm_Teleporter extends Item {
 	
 	public void use() {
 		isSelected = true;
+		gp.gameState=GameState.fastTravelState;
 	}
 }

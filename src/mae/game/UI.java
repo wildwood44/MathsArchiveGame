@@ -90,6 +90,10 @@ public class UI {
 		else if (gp.gameState == GameState.optionsState) {
 			drawOptionsScreen();
 		}
+
+		else if (gp.gameState == GameState.fastTravelState) {
+			drawFastTravel();
+		}
 	}
 
 	public void drawLabel(String text) {
@@ -366,6 +370,37 @@ public class UI {
 		x = getXforCenteredText(text);
 		y += gp.tileSize*4;
 		
+	}
+	
+	//DRAW FAST TRAVEL
+	public void drawFastTravel() {
+		int frameX = gp.tileSize * 3;
+		int frameY = 25;
+		int frameWidth = gp.tileSize * 6;
+		int frameHeight = gp.tileSize * 3;
+		int slotXstart = frameX + 15;
+		int slotYstart = frameY + gp.originalTileSize;
+		int cursorX = slotXstart + (int)(gp.tileSize * 1.25D * playerSlotRow);
+		int cursorY = (int) (slotYstart + gp.tileSize * playerSlotCol);
+		drawDialogueWindow(frameX, frameY, frameWidth, frameHeight);
+		int cursorWidth = gp.tileSize/2;
+		int cursorHeight = 30;
+		g2.setFont(g2.getFont().deriveFont(0, 22.0F));
+		g2.setColor(Color.white);
+		g2.setStroke(new BasicStroke());
+		g2.drawString(gp.squared[0]+"", slotXstart, gp.tileSize);
+		g2.drawString("4", slotXstart, (int) (gp.tileSize * 2));
+		g2.drawString("9", slotXstart, (int) (gp.tileSize * 3));
+		g2.drawString("16", slotXstart + (int) (gp.tileSize * 1.25D), gp.tileSize);
+		g2.drawString("25", slotXstart + (int) (gp.tileSize * 1.25D), gp.tileSize * 2);
+		g2.drawString("36", slotXstart + (int) (gp.tileSize * 1.25D), gp.tileSize * 3);
+		g2.drawString("49", slotXstart + (int) (gp.tileSize * 2.5D), gp.tileSize);
+		g2.drawString("64", slotXstart + (int) (gp.tileSize * 2.5D), gp.tileSize * 2);
+		g2.drawString("81", slotXstart + (int) (gp.tileSize * 2.5D), gp.tileSize * 3);
+		g2.drawString("100", slotXstart + (int) (gp.tileSize * 3.75D), gp.tileSize);
+		g2.drawString("121", slotXstart + (int) (gp.tileSize * 3.75D), gp.tileSize * 2);
+		g2.drawString("144", slotXstart + (int) (gp.tileSize * 3.75D), gp.tileSize * 3);
+		g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 	}
 
 	public int getItemIndexOnSlot() {
