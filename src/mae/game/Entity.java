@@ -37,7 +37,7 @@ public class Entity {
 	public int solidAreaDefaultX = 0;
 	public int solidAreaDefaultY = 0;
 	public String description = "X";
-	public String[][] dialogue = new String[18][6];
+	public String[][] dialogue = new String[18][10];
 	public String direction = "idle";
 	public BufferedImage idle1, idle2, left1, left2, right1, right2;
 	public int spriteCounter = 0;
@@ -198,6 +198,13 @@ public class Entity {
 		this.sum = sum;
 		//image = setup("/res/objects/skg_explained_"+sum.name(), width, height);
 		getImage();
+	}
+
+	public void startDialogue(Entity object, int setNum) {
+		GamePanel gp = this.gp;
+		gp.gameState = GameState.talkingState;
+		gp.ui.selectedObject = object;
+		dialogueSet = setNum;
 	}
 
 	public void draw(Graphics2D g2) {

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
+import mae.game.GameState;
 
 public class Obj_Computer extends Object {
 	GamePanel gp;
@@ -29,6 +30,7 @@ public class Obj_Computer extends Object {
 
 	public void interact() {
 		moving = true;
+		startDialogue(this, 0);
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
@@ -37,7 +39,7 @@ public class Obj_Computer extends Object {
 	public void update() {
 		collisionOn = false;
 		//super.update();
-		if(moving) {
+		if(gp.gameState == GameState.talkingState) {
 			spriteCounter++;
 			if (spriteCounter > 10) {
 				if(spriteNum == 1) {
@@ -88,7 +90,7 @@ public class Obj_Computer extends Object {
 			mouth = left2;
 		}
 		g2.drawImage(mouth, position, tempScreenY+gp.tileSize/6, null);
-		if(moving) {
+		if(gp.gameState == GameState.talkingState) {
 			drawSpeech(g2,position-gp.tileSize/2,tempScreenY-gp.tileSize);
 		}
 	}
@@ -101,7 +103,7 @@ public class Obj_Computer extends Object {
 		int length, textX;
 		//Draw box
 		drawSpeechBubble(g2,x,y);
-		String text = dialogue[0][0];
+		String text = dialogue[dialogueSet][dialogueIndex];
 		g2.setColor(Color.WHITE);
 		g2.setFont(g2.getFont().deriveFont(1, 12.0F));
 		for (String line : gp.ui.breakLines(text,20," ")) {
@@ -112,8 +114,15 @@ public class Obj_Computer extends Object {
 		}
 	}
 	public void setDialogue() {
-		dialogue[0][0] = "Hello I am INFORMATION TERMINAL please input query.";
-		dialogue[1][0] = "1: Collection";
-		dialogue[2][0] = "2: Collection";
+		dialogue[0][0] = "Hello I am INFORMATION TERMINAL please input query: ";
+		dialogue[0][1] = "1:Collection";
+		dialogue[0][2] = "2: Math puzzles";
+		dialogue[0][3] = "3: Exit";
+		dialogue[0][4] = "4:Collection";
+		dialogue[0][5] = "5: Math puzzles";
+		dialogue[0][6] = "6: Exit";
+		dialogue[0][7] = "7:Collection";
+		dialogue[0][8] = "8: Math puzzles";
+		dialogue[0][9] = "9: Exit";
 	}
 }

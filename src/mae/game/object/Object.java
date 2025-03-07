@@ -135,6 +135,8 @@ public class Object extends Entity {
 			puzzle.drawGeomatry(g2, text, x, y);
 		} else if(puzzle.getPuzzleType()==PuzzleType.GRAPH && !locked) {
 			puzzle.drawGraph(g2, text, x+gp.tileSize, y+gp.tileSize/2, (isCorrect||isWrong), ans[0], ans[1]);
+		} else if(puzzle.getPuzzleType()==PuzzleType.FRACTION && !locked) {
+			puzzle.drawFraction(g2, text, x+gp.tileSize, y+gp.tileSize/2, (isCorrect||isWrong));
 		} else {
 			y=y+gp.tileSize;
 			try {

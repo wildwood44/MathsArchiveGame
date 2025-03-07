@@ -61,6 +61,7 @@ public class Obj_Console extends Object {
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
+		gp.keyH.numberPressed = false;
 	}
 	
 	public void lock(int key) {

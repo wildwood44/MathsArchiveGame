@@ -19,11 +19,20 @@ public class AssetSetter {
 	}
 	
 	public void setMaps() {
+		//GENERATE FLOORS
 		for(int i = 0; i < levels; i++) {
-			gp.maps[i] = new Map(gp, MapType.LEVEL, i, "Floor " + (i + 1), 29, 4);
+			gp.maps[i] = new Map(gp, MapType.LEVEL, i, i, "Floor " + (i + 1), 29, 4);
 		}
+		//GENERATE ROOMS
+		int j = 0, floor =  0;
 		for(int i = levels; i < 156; i++) {
-			gp.maps[i] = new Map(gp, MapType.ROOM, i, "Room " + (i - 11), 15, 4);
+			System.out.println(i + " " + floor);
+			gp.maps[i] = new Map(gp, MapType.ROOM, i, floor, "Room " + (i - 11), 15, 4);
+			j++;
+			if(j>=levels) {
+				floor++;
+				j=0;
+			}
 		}
 	}
 

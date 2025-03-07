@@ -15,6 +15,7 @@ public class KeyHandler implements KeyListener {
 	public boolean enterPressed;
 	public boolean skipPressed;
 	public boolean tagPressed;
+	public boolean numberPressed;
 	public boolean showDebugText = false;
 
 	public KeyHandler(GamePanel gp) {
@@ -33,6 +34,8 @@ public class KeyHandler implements KeyListener {
 			pauseState(code);
 		} else if (gp.gameState == GameState.notifyState) {
 			notificationState(code);
+		} else if (gp.gameState == GameState.talkingState) {
+			dialogueState(code);
 		} else if (gp.gameState == GameState.saveState) {
 			saveState(code);
 		} else if (gp.gameState == GameState.optionsState) {
@@ -91,6 +94,24 @@ public class KeyHandler implements KeyListener {
 				gp.loadingProgress = 100;
 				gp.playSE(1);
 				gp.gameState = GameState.playState;
+			}
+		}
+	}
+
+	public void dialogueState(int code) {
+		if (code == KeyEvent.VK_ENTER) {
+			System.out.println("Ping");
+			enterPressed = true;
+		}
+		if (code == KeyEvent.VK_Q) {
+			skipPressed = true;
+		}
+
+		if (code == 84) {
+			if (!showDebugText) {
+				showDebugText = true;
+			} else if (showDebugText) {
+				showDebugText = false;
 			}
 		}
 	}
@@ -339,43 +360,43 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_0:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(0);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_1:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(1);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_2:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(2);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_3:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(3);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_4:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(4);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_5:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(5);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_6:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(6);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_7:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(7);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_8:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(8);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_9:
 			gp.currentCard = gp.kc[gp.currentCard].setCard(9);
-			enterPressed = true;
+			numberPressed = true;
 			break;
 		case KeyEvent.VK_SPACE:
 			gp.gameState = GameState.pauseState;
@@ -421,8 +442,19 @@ public class KeyHandler implements KeyListener {
 				downPressed = false;
 				break;
 			case KeyEvent.VK_X :
-				System.out.println(tagPressed);
 				tagPressed = false;
+				break;
+			case KeyEvent.VK_0:
+			case KeyEvent.VK_1:
+			case KeyEvent.VK_2:
+			case KeyEvent.VK_3:
+			case KeyEvent.VK_4:
+			case KeyEvent.VK_5:
+			case KeyEvent.VK_6:
+			case KeyEvent.VK_7:
+			case KeyEvent.VK_8:
+			case KeyEvent.VK_9:
+				numberPressed = false;
 				break;
 		}
 

@@ -37,8 +37,8 @@ public class PuzzleSetter {
 		problems[3][6] = new Puzzle(gp, "?0% of 1=0.2", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[3][10] = new Puzzle(gp, "35% of 200=?*10", SumType.MULTI, PuzzleType.PERCENTAGE);
 		problems[4][0] = new Puzzle(gp, "0+1=?", SumType.PLUS);
-		problems[4][4] = new Puzzle(gp, "3/4+1/3=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
-		problems[4][10] = new Puzzle(gp, "1/2*a/b=1/24", 2, SumType.MULTI, PuzzleType.FRACTION);
+		problems[4][4] = new Puzzle(gp, "0.5+0.25=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
+		problems[4][10] = new Puzzle(gp, "0.5*a/b=0.042", 2, SumType.MULTI, PuzzleType.FRACTION);
 		problems[5][0] = new Puzzle(gp, "Transform(1,5)+(up(2),right(2))=(a,b)",2, SumType.PLUS, PuzzleType.GRAPH);
 		problems[5][3] = new Puzzle(gp, "0+1=?", SumType.PLUS);
 		problems[5][6] = new Puzzle(gp, "ReflectY(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);

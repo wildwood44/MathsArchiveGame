@@ -78,6 +78,10 @@ public class UI {
 		else if (gp.gameState == GameState.pauseState) {
 			drawPauseScreen();
 		}
+
+		else if (gp.gameState == GameState.talkingState) {
+			drawDialogueScreen();
+		}
 		
 		else if (gp.gameState == GameState.menuState) {
 			drawMenuBarScreen();
@@ -146,6 +150,28 @@ public class UI {
 		int x = getXforCenteredText(text);
 		int y = gp.screenHeight/2;
 		g2.drawString(text, x, y);
+	}
+	// DRAW DIALOGUE
+	public void drawDialogueScreen() {
+		if (selectedObject.dialogue[selectedObject.dialogueSet][selectedObject.dialogueIndex] != null) {
+			selectedObject.update();
+			selectedObject.draw(g2);
+			gp.player.draw(g2);
+		} else {
+			//post dialogue
+			selectedObject.dialogueIndex = 0;
+			if (gp.gameState == GameState.cutsceneState) {
+				gp.csManager.scenePhase++;
+			}
+			if (gp.gameState == GameState.talkingState) {
+				gp.gameState = GameState.playState;
+			}
+		}
+
+		if (gp.keyH.enterPressed) {
+			selectedObject.dialogueIndex++;
+			gp.keyH.enterPressed = false;
+		}
 	}
 
 	public void drawMenuBarScreen() {

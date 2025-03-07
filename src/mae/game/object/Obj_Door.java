@@ -34,6 +34,7 @@ public class Obj_Door extends Object {
 	public void interact() {
 		if(!opened) {
 			ans[input] = gp.kc[gp.currentCard].useCard();
+			//If more than one input
 			if(puzzle.getInputCount() -1 > input) {
 				if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
 					correct = true;
@@ -41,11 +42,13 @@ public class Obj_Door extends Object {
 					correct = false;
 				}
 				input++;
+			//If all input are correct
 			} else if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard()) && !locked && correct || gp.testDoor) {
 				isCorrect = true;
 				gp.playSE(4);
 				moving = true;
 				input = 0;
+			//If input(s) are incorrect
 			} else {
 				correct = true;
 				input=0;
@@ -70,6 +73,7 @@ public class Obj_Door extends Object {
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
+		gp.keyH.numberPressed = false;
 	}
 	
 	public boolean animation() {

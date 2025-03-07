@@ -164,45 +164,135 @@ public class Puzzle {
 	}
 	
 	public double findFraction(int input) {
-	    String regex = "[+\\-\\*\\=\\/]";
+		//Wrong - needs fixing
+	    String regex = "[+\\-\\*\\=]";
 	    String[] ss = text.split(regex);
-	    String fractions1Upper = ss[0];
-	    String fractions1Lower = ss[1];
-	    String fractions2Upper = ss[2];
-	    String fractions2Lower = ss[3];
-	    String fractions3Upper = ss[4];
-	    String fractions3Lower = ss[5];
+	    Fraction f1 = new Fraction(ss[0]);
+	    Fraction f2 = new Fraction(ss[1]);
+	    Fraction f3 = new Fraction(ss[2]);
 	    int pos = 0;
-	    if(input == 0) {
-		    if (fractions1Upper.contains("a")) {
+	    int upper1=0, upper2=0, upper3=0;
+	    int lower1=0, lower2=0, lower3=0;
+	    double upper=0, lower=0;
+	    //Equalise factors
+	    if(sum == SumType.PLUS||sum == SumType.MINUS) {
+		    if (f1.getNumerator()==0) {
 		    	pos = 0;
-		    } else if (fractions2Upper.contains("a")) {
+		    	int multi1 = lcm(f2.getDenominator(),f3.getDenominator())/f2.getDenominator();
+		    	int multi2 = lcm(f2.getDenominator(),f3.getDenominator())/f3.getDenominator();
+		    	upper2 = f2.getNumerator()*multi1;
+		    	upper3 = f3.getNumerator()*multi2;
+		    	lower2 = f2.getDenominator()*multi1;
+		    	lower3 = f3.getDenominator()*multi2;
+		    	lower=lower2;
+		    } else if (f2.getNumerator()==0) {
 		    	pos = 1;
-		    } else if (fractions3Upper.contains("a")) {
+		    	int multi1 = lcm(f1.getDenominator(),f3.getDenominator())/f1.getDenominator();
+		    	int multi2 = lcm(f1.getDenominator(),f3.getDenominator())/f3.getDenominator();
+		    	upper1 = f1.getNumerator()*multi1;
+		    	upper3 = f3.getNumerator()*multi2;
+		    	lower1 = f1.getDenominator()*multi1;
+		    	lower3 = f3.getDenominator()*multi2;
+		    	lower=lower3;
+		    } else if (f3.getNumerator()==0) {
+		    	pos = 2;
+		    	int multi1 = lcm(f1.getDenominator(),f2.getDenominator())/f1.getDenominator();
+		    	int multi2 = lcm(f1.getDenominator(),f2.getDenominator())/f2.getDenominator();
+		    	upper1 = f1.getNumerator()*multi1;
+		    	upper2 = f2.getNumerator()*multi2;
+		    	lower1 = f1.getDenominator()*multi1;
+		    	lower2 = f2.getDenominator()*multi2;
+		    	lower=lower1;
+		    }
+		    upper = calculate(pos, upper1+"", upper2+"", upper3+"");
+	    } else {
+		    if (f1.getNumerator()==0) {
+		    	pos = 0;
+		    } else if (f2.getNumerator()==0) {
+		    	pos = 1;
+		    } else if (f3.getNumerator()==0) {
 		    	pos = 2;
 		    }
-		    double upper = calculate(pos, fractions1Upper, fractions2Upper, fractions3Upper);
+	    	upper1 = f1.getNumerator();
+	    	upper2 = f2.getNumerator();
+	    	upper3 = f3.getNumerator();
+	    	lower1 = f1.getDenominator();
+	    	lower2 = f2.getDenominator();
+	    	lower3 = f3.getDenominator();
+		    upper = calculate(pos, upper1+"", upper2+"", upper3+"");
+		    lower = calculate(pos, lower1+"", lower2+"", lower3+"");
+	    }
+
+	    int divider = gcd(upper, lower);
+	    upper = upper/divider;
+	    lower = lower/divider;
+	    if(input == 0) {
 		    return upper;
 	    } else if (input == 1) {
-		    if (fractions1Lower.contains("b")) {
-		    	pos = 0;
-		    } else if (fractions2Lower.contains("b")) {
-		    	pos = 1;
-		    } else if (fractions3Lower.contains("b")) {
-		    	pos = 2;
-		    }
-		    double lower = calculate(pos, fractions1Lower, fractions2Lower, fractions3Lower);
-		    return lower;
+	    	return lower;
 	    }
 		return -145;
 	}
-
-    public static int greatestCommonFactor(int num, int denom) {
-        if (denom == 0) {
-            return num;
+	//Least common multiple
+	public static int lcm(double number1, double number2) {
+	    if (number1 == 0 || number2 == 0) {
+	        return 0;
+	    }
+	    int absNumber1 = (int) Math.abs(number1);
+	    int absNumber2 = (int) Math.abs(number2);
+	    int absHigherNumber = Math.max(absNumber1, absNumber2);
+	    int absLowerNumber = Math.min(absNumber1, absNumber2);
+	    int lcm = absHigherNumber;
+	    while (lcm % absLowerNumber != 0) {
+	        lcm += absHigherNumber;
+	    }
+	    return lcm;
+	}
+	// Greatest common divider
+    static int gcd(double a, double b)
+    {
+        // stores minimum(a, b)
+    	int i;
+        if (a < b)
+            i = (int) a;
+        else
+            i = (int) b;
+ 
+        // take a loop iterating through smaller number to 1
+        for (i = i; i > 1; i--) {
+ 
+            // check if the current value of i divides both
+            // numbers with remainder 0 if yes, then i is
+            // the GCD of a and b
+            if (a % i == 0 && b % i == 0)
+                return i;
         }
-        return greatestCommonFactor(denom, num % denom);
+ 
+        // if there are no common factors for a and b other
+        // than 1, then GCD of a and b is 1
+        return 1;
     }
+	
+	public void drawFraction(Graphics2D g2, String text, int x, int y, boolean res) {
+	    String regex = "[+\\-\\*\\=]";
+	    String[] ss = text.split(regex);
+	    Fraction f1 = new Fraction(ss[0]);
+	    Fraction f2 = new Fraction(ss[1]);
+	    Fraction f3 = new Fraction(ss[2]);
+	    x-=10;
+	    y+=10;
+	    f1.printFraction(g2, x, y);
+	    switch (sum) {
+		case PLUS: g2.drawString("+", x+16, y+32);break;
+		case MINUS: g2.drawString("-", x+16, y+32);break;
+		case MULTI: g2.drawString("*", x+16, y+32);break;
+		case DIVIDE: g2.drawString("/", x+16, y+32);break;
+		default: g2.drawString("+", x+16, y+32);break;
+	    }
+	    f2.printFraction(g2, x + 32, y);
+	    g2.drawString("=", x+48, y+32);
+	    f3.printFraction(g2, x + 64, y);
+	}
     
     public double findAlgebra(int input) {
 	    String regex = "[+\\-\\*\\=]";
@@ -783,25 +873,6 @@ public class Puzzle {
         }
         return true;
     }
-	
-	public String drawFraction() {
-	    String regex = "[+\\-\\*\\=]";
-	    String[] ss = text.split(regex);
-	    String[] fractions1 = ss[0].split("\\/");
-	    String[] fractions2 = ss[1].split("\\/");
-	    String[] fractions3 = ss[2].split("\\/");
-	    String upper = fractions1[0] + " " + fractions2[0] + "  " + fractions3[0];
-	    String calc = "";
-        switch(sum) {
-        case MINUS: calc = "-"; break;
-        case MULTI: calc = "*"; break;
-        case DIVIDE: calc = "/"; break;
-        default: calc = "+"; break;
-        }
-	    String middle = "£-" + calc + "- =-";
-	    String lower = "£"+fractions1[1] + " " + fractions2[1] + "  " + fractions3[1];
-		return upper + middle + lower;
-	}
 	
 	public String printPuzzle() {
 		//text.replaceFirst("pc", "of");

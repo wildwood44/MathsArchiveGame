@@ -9,6 +9,7 @@ public class Map {
 	BufferedImage worldMap[];
 	private MapType mptype;
 	private int id;
+	private int floor;
 	private String name;
 	private int maxWorldCol;
 	private int maxWorldRow;
@@ -16,10 +17,11 @@ public class Map {
 	private int worldHeight;
 	public boolean miniMapOn = false;
 	
-	public Map(GamePanel gp, MapType mptype, int id, String name, int maxWorldCol, int maxWorldRow) {
+	public Map(GamePanel gp, MapType mptype, int id, int floor, String name, int maxWorldCol, int maxWorldRow) {
 		this.gp = gp;
 		this.mptype = mptype;
 		this.id = id;
+		this.floor = floor;
 		this.name = name;
 		this.maxWorldCol = maxWorldCol;
 		this.maxWorldRow = maxWorldRow;
@@ -29,6 +31,10 @@ public class Map {
 
 	public int getId() {
 		return id;
+	}
+
+	public int getFloor() {
+		return floor;
 	}
 
 	public int getMaxWorldCol() {

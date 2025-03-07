@@ -73,7 +73,7 @@ public class Player extends Entity {
 
 	public void update() {
 		int objIndex;
-		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
+		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed || keyH.numberPressed) {
 			if (keyH.leftPressed) {
 				direction = "left";
 			} else if (keyH.rightPressed) {
@@ -114,7 +114,7 @@ public class Player extends Entity {
 			canInteract(objIndex);
 		}
 
-		if (keyH.upPressed || keyH.downPressed || keyH.enterPressed) {
+		if (keyH.upPressed || keyH.downPressed || keyH.enterPressed || keyH.numberPressed) {
 			objIndex = gp.cChecker.checkObject(this, true);
 			pickUpObject(objIndex);
 		}
@@ -142,7 +142,7 @@ public class Player extends Entity {
 		}
 		if (i != 999) {
 			gp.obj[gp.currentMap.getId()][i].isInteractingWith(true);
-			if (keyH.upPressed || keyH.downPressed || keyH.enterPressed) {
+			if (keyH.upPressed || keyH.downPressed || keyH.enterPressed || keyH.numberPressed) {
 				gp.obj[gp.currentMap.getId()][i].interact();
 			}
 		}
@@ -155,7 +155,7 @@ public class Player extends Entity {
 
 	public void interactNPC(int i) {
 		if (i != 999) {
-			if (keyH.upPressed || keyH.downPressed || keyH.enterPressed) {
+			if (keyH.upPressed || keyH.downPressed || keyH.enterPressed || keyH.numberPressed) {
 				gp.npc[gp.currentMap.getId()][i].speak();
 			}
 		}

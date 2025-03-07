@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import mae.game.GamePanel;
 import mae.game.object.SumType;
+import mae.game.puzzle.Fraction;
 import mae.game.puzzle.Puzzle;
 import mae.game.puzzle.PuzzleType;
 
@@ -50,12 +51,24 @@ public class PuzzleTest {
 	@Test
 	public void findFaction(){
 		GamePanel gp = null;
-		Puzzle puzzle = new Puzzle(gp, "3/4+1/3=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
+		Puzzle puzzle = new Puzzle(gp, "1/2+1/4=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
+		assertEquals(puzzle.isCorrect(3), true);
 		assertEquals(puzzle.isCorrect(4), true);
-		assertEquals(puzzle.isCorrect(7), true);
 		puzzle = new Puzzle(gp, "1/2*a/b=1/24", 2, SumType.MULTI, PuzzleType.FRACTION);
 		assertEquals(puzzle.isCorrect(1), true);
 		assertEquals(puzzle.isCorrect(12), true);
+	}
+	@Test
+	public void convertDecToFrac() {
+		GamePanel gp = null;
+		Fraction puzzle = new Fraction("0.5");
+		assertEquals((puzzle.convertDecToFrac(0.5).equals("1/2")), true);
+		assertEquals((puzzle.convertDecToFrac(0.75).equals("3/4")), true);
+		System.out.println(puzzle.convertDecToFrac(0.333));
+		assertEquals((puzzle.convertDecToFrac(0.333).equals("1/3")), true);
+		assertEquals((puzzle.convertDecToFrac(0.143).equals("1/7")), true);
+		assertEquals((puzzle.convertDecToFrac(0.083).equals("1/12")), true);
+		//assertEquals((puzzle.convertDecToFrac(0.042).equals("1/24")), true);
 	}
 	@Test
 	public void findAlgebra(){
