@@ -98,6 +98,10 @@ public class UI {
 		else if (gp.gameState == GameState.fastTravelState) {
 			drawFastTravel();
 		}
+
+		else if (gp.gameState == GameState.puzzleState) {
+			drawPuzzleWindow();
+		}
 	}
 
 	public void drawLabel(String text) {
@@ -427,6 +431,25 @@ public class UI {
 		g2.drawString("121", slotXstart + (int) (gp.tileSize * 3.75D), gp.tileSize * 2);
 		g2.drawString("144", slotXstart + (int) (gp.tileSize * 3.75D), gp.tileSize * 3);
 		g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+	}
+	
+	//DRAW PUZZLE WINDOW
+	public void drawPuzzleWindow() {
+		int frameX = gp.tileSize;
+		int frameY = 25;
+		int frameWidth = gp.tileSize * 10;
+		int frameHeight = gp.tileSize * 6;
+		int slotXstart = frameX + 15;
+		int slotYstart = frameY + gp.originalTileSize;
+		int cursorX = slotXstart + (int)(gp.tileSize * 1.25D * playerSlotRow);
+		int cursorY = (int) (slotYstart + gp.tileSize * playerSlotCol);
+		drawDialogueWindow(frameX, frameY, frameWidth, frameHeight);
+		int cursorWidth = gp.tileSize/2;
+		int cursorHeight = 30;
+		g2.setFont(g2.getFont().deriveFont(0, 22.0F));
+		g2.setColor(Color.white);
+		g2.setStroke(new BasicStroke());
+		selectedObject.drawPuzzle(g2);
 	}
 
 	public int getItemIndexOnSlot() {

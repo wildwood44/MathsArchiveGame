@@ -85,8 +85,6 @@ public class Player extends Entity {
 			gp.cChecker.checkTile(this);
 			objIndex = gp.cChecker.checkObject(this, true);
 			canInteract(objIndex);
-			int npcIndex = gp.cChecker.checkEntity(this,gp.npc);
-			interactNPC(npcIndex);
 			
 			gp.eHandler.checkEvent();
 			if (collisionOn == false && keyH.enterPressed == false) {
@@ -151,14 +149,6 @@ public class Player extends Entity {
 	private boolean canObtainItem(Item item) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public void interactNPC(int i) {
-		if (i != 999) {
-			if (keyH.upPressed || keyH.downPressed || keyH.enterPressed || keyH.numberPressed) {
-				gp.npc[gp.currentMap.getId()][i].speak();
-			}
-		}
 	}
 
 	public void setItems() {

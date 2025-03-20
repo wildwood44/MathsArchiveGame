@@ -12,6 +12,7 @@ public class NPC extends Entity {
 	
 	public NPC(GamePanel gp) {
 		super(gp);
+		collision = false;
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -12,10 +12,6 @@ import mae.game.puzzle.PuzzleType;
 public class Object extends Entity {
 	//public static int objId;
 	public int size;
-	private final Color correct = Color.green;
-	private final Color wrong = Color.red;
-	protected boolean isCorrect = false;
-	protected boolean isWrong = false;
 	protected int input;
 	protected double ans[] = new double[5];
 	private static final DecimalFormat df = new DecimalFormat("0.#");

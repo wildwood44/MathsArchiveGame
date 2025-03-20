@@ -42,6 +42,8 @@ public class KeyHandler implements KeyListener {
 			optionsState(code);
 		} else if (gp.gameState == GameState.fastTravelState) {
 			fastTravelState(code);
+		} else if (gp.gameState == GameState.puzzleState) {
+			puzzleState(code);
 		} else if (gp.gameState == GameState.playState) {
 			playState(code);
 		}
@@ -100,7 +102,6 @@ public class KeyHandler implements KeyListener {
 
 	public void dialogueState(int code) {
 		if (code == KeyEvent.VK_ENTER) {
-			System.out.println("Ping");
 			enterPressed = true;
 		}
 		if (code == KeyEvent.VK_Q) {
@@ -308,6 +309,90 @@ public class KeyHandler implements KeyListener {
 			break;
 		default :
 			gp.gameState = GameState.playState;
+		}
+	}
+	
+	public void puzzleState(int code) {
+		switch (code) {
+		case KeyEvent.VK_ESCAPE :
+			gp.gameState = GameState.playState;
+			break;
+		case KeyEvent.VK_ENTER :
+			enterPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_0:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(0);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_1:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(1);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_2:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(2);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_3:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(3);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_4:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(4);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_5:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(5);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_6:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(6);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_7:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(7);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_8:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(8);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_9:
+			gp.currentCard = gp.kc[gp.currentCard].setCard(9);
+			numberPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
 		}
 	}
 	

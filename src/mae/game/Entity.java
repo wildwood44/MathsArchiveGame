@@ -56,6 +56,10 @@ public class Entity {
 	public boolean opened = false;
 	public boolean locked = false;
 	public boolean drawing = true;	
+	protected boolean isCorrect = false;
+	protected boolean isWrong = false;
+	protected final Color correct = Color.green;
+	protected final Color wrong = Color.red;
 	protected boolean isSelected = false;
 	public Timer timer;
 	public long startTime = -1;
@@ -93,6 +97,11 @@ public class Entity {
 	
 	public void getImage() {
 		idle1 = image;
+	}
+
+	public void resizeImage(BufferedImage image, int width, int height) {
+		//BufferedImage newImage = image.getScaledInstance(width, height, image.SCALE_DEFAULT);
+
 	}
 
 	public BufferedImage setup(String imagePath, int width, int height) {
@@ -332,5 +341,9 @@ public class Entity {
 	public void drawSpeech(Graphics2D g2, int x, int y) {
 		//Draw box
 		drawSpeechBubble(g2,x,y);
+	}
+	
+	public void drawPuzzle(Graphics2D g2) {
+		
 	}
 }

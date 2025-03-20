@@ -78,9 +78,9 @@ public class Itm_Helper extends Item {
 	public void setDialogue() {
 		dialogue[0][0] = "Addition is when you bring too amounts together.";
 		dialogue[0][1] = "For example: If you have one me and another me you get two me's.";
-		dialogue[1][0] = "A quick way of adding mutliple of the same value is by multiplcation.";
+		dialogue[1][0] = "A quick way of adding multiple of the same value is by multiplication.";
 		dialogue[1][1] = "For example  4+4+4+4=16 can be simplified to 4*4=16.";
-		dialogue[1][2] = "The reverse of this is spliting a number by into smaller numbers through division.";
+		dialogue[1][2] = "The reverse of this is splitting a number by into smaller numbers through division.";
 		dialogue[1][3] = "For example 12 can be split into 3 4s or 4 3s.";
 		dialogue[2][0] = "Did you know there are numbers between whole numbers.";
 		dialogue[2][1] = "I am talking about decimals.";
@@ -97,7 +97,53 @@ public class Itm_Helper extends Item {
 		dialogue[3][5] = "A quicker way if by split the whole number into 50% or 25%.";
 		dialogue[3][6] = "You can get those by simply halving add adding from there.";
 		dialogue[3][7] = "Example: 65% of 120 = 120/10=12*4=48 and 120/4=30 = 78.";
-		dialogue[3][0] = "To calculate fraction you need to ";
+		dialogue[4][0] = "To add or subtract fractions you first ->";
+		dialogue[4][1] = "Multiple both fractions to the lowest commonly shared multiple of the denominator.";
+		dialogue[4][2] = "Denominator = lower number.";
+		dialogue[4][3] = "Then add or subtract the numerators.";
+		dialogue[4][4] = "Numerator = upper number.";
+		dialogue[4][5] = "For multiplication you multiply the numerators and denominators.";
+		dialogue[4][6] = "For division you flip the second values numerator and denominator and multiply.";
+		dialogue[4][7] = "Finally divide both the numerator and denominator of the resulting factors by the greatest common factor.";
+		dialogue[5][0] = "Graphs use x (left-right) and y (up-down) coordinates in an axis.";
+		dialogue[5][1] = "They start with thick lines where 0,0 key points cross.";
+		dialogue[5][2] = "Each point going right and up increase the x and y axis by 1.";
+		dialogue[5][3] = "And if descends in the opposite directions.";
+		dialogue[5][4] = "From a starting point you can transform the axis.";
+		dialogue[5][5] = "Transform - Move from the original point.";
+		dialogue[5][6] = "Reflect - Place new points in parallel with line in graph.";
+		dialogue[5][7] = "Rotate - Rotate points from distance from centre point.";
+		dialogue[5][8] = "Enlargement = Increase (or decrease) distance between points.";
+		dialogue[6][0] = "There are many types of measurement conversion.";
+		dialogue[6][1] = "Such as perimeter, weight, distance, time, currency, etc.";
+		dialogue[6][2] = "For example 1m = 100cm, 1kg = 1000g, 60 minutes = 1 hour, etc.";
+		dialogue[6][3] = "You can calculate speed(mph) by dividing distance/time.";
+		dialogue[7][0] = "Geometry is the calculation of the lines, angles and surface of a shape.";
+		dialogue[7][1] = "Perimeter - The length of each face of a shape.";
+		dialogue[7][2] = "Angles - Measure up to 360 degrees for a full turn, 180 for a half turn and 90 for a right angle.";
+		dialogue[7][3] = "The number of angles in a square add up to a full turn but a triangle only has enough for a half turn.";
+		dialogue[7][4] = "Surface area - You can calculate the area of the rectangle by calculating length x width.";
+		dialogue[7][5] = "A triangle is the same but halfed.";
+		dialogue[7][6] = "Other shape change be calculated by splitting the shape into smaller rectangles and triangles.";
+		dialogue[7][7] = "The resulting surface area is squared.";
+		dialogue[8][0] = "There are four types of averages. These are:";
+		dialogue[8][1] = "Medium - The middle number.";
+		dialogue[8][2] = "Is there is a list of even number then the medium is the halfway point between the middle two numbers.";
+		dialogue[8][3] = "Mean - Add up all the numbers then divide by how many numbers there are.";
+		dialogue[8][4] = "Mode - Most frequent number.";
+		dialogue[8][5] = "Range - The range between that largest and smallest number.";
+		dialogue[9][0] = "To calculate the probability you need to figure out how many value in a list match a certain criteria.";
+		dialogue[9][1] = "For example in the sequence XVII you get 50% for I and 25% for X or V.";
+		dialogue[10][0] = "Algebra is when letters are used in place of numbers";
+		dialogue[10][1] = "These letters can be any number so to simplify expressions such as xy(x * y) are used.";
+		dialogue[10][2] = "Likewise with x^3 (x*x*x)";
+		dialogue[11][0] = "To simplify surds you need to simplify the expression to it simplest form.";
+		dialogue[11][1] = "The √ symbol is used to find the square root. E.g √16 = 4.";
+		dialogue[11][2] = "A number in front of this makes it to the power of that number. E.g 3√64 = 4.";
+		dialogue[11][3] = "If this is not possible then divide the value into two smaller number based on the smallest possible factor.";
+		dialogue[11][4] = "Eg:√21 = √3*7. This the result when there are no square factors.";
+		dialogue[11][5] = "Otherwise you can go further with the following: √8 = √4*2 = √4*√2 = 2*√2 = 2√2.";
+		//dialogue[11][0] = "https://www.wikihow.com/Simplify-Radical-Expressions https://www.thenational.academy/teachers/programmes/maths-secondary-ks4-higher/units/surds/lessons/simplifying-surds#slide-deck";
 	}
 	
 	public void use() {

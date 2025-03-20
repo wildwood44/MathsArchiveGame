@@ -4,15 +4,17 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 
+import mae.game.Entity;
 import mae.game.GamePanel;
+import mae.game.GameState;
 import mae.game.object.SumType;
 
-public class Puzzle {
+public class Puzzle extends Entity {
 	GamePanel gp;
 	private String text;
 	private SumType sum;
 	private PuzzleType puzzle;
-	private int input = 0;
+	protected int input = 0;
 	private int count = 0;
 	private double[] ans = new double[5];
 
@@ -28,6 +30,7 @@ public class Puzzle {
 	}
 	
 	public Puzzle(GamePanel gp, String text, int input, SumType sum, PuzzleType puzzle) {
+		super(gp);
 		this.gp = gp;
 		this.text = text;
 		this.sum = sum;
@@ -1001,4 +1004,17 @@ public class Puzzle {
         }
         return ans;
     }
+    
+    public void drawPuzzle(Graphics2D g2) {}
+	
+	public void update() {
+		if(isCorrect || isWrong) {
+			spriteCounter++;
+			if (spriteCounter > 60) {
+				isCorrect = false;
+				isWrong = false;
+				spriteCounter=0;
+			}
+		}
+	}
 }

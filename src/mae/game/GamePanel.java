@@ -88,9 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	final int[] squared = {1,4,9,16,25,36,49,64,81,100,121,144};
 	//Testing
-	public boolean testDoor = false;
+	public boolean testDoor = true;
 	public boolean testKey = true;
-	public int startFloor = 4;
+	public int startFloor = 7;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -199,7 +199,8 @@ public class GamePanel extends JPanel implements Runnable {
 		if (gameState == GameState.titleState || gameState == GameState.menuState ||
 			gameState == GameState.saveState || gameState == GameState.optionsState||
 			gameState == GameState.notifyState || gameState == GameState.loadingState ||
-			gameState == GameState.talkingState || gameState == GameState.fastTravelState) {
+			gameState == GameState.talkingState || gameState == GameState.fastTravelState||
+			gameState == GameState.puzzleState) {
 			ui.draw(g2);
 		// CUTSCENE
 		} else if (gameState == GameState.cutsceneState) {

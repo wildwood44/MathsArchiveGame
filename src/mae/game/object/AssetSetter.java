@@ -379,11 +379,19 @@ public class AssetSetter {
 		gp.obj[room][i].lock(73);
 		//Floor 8
 		floor++;
+		room = levels + 84;
+		//Room 85
+		gp.obj[room][i] = new Obj_Cage(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 12 * gp.tileSize;
+		gp.obj[room][i].worldY = (2 * gp.tileSize)-8;
+		//gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
 		room = levels + 88;
 		//Room 89
 		gp.obj[room][i] = new Obj_Console(gp);
 		gp.obj[room][i].floor = floor;
-		gp.obj[room][i].worldX = 12 * gp.tileSize;
+		gp.obj[room][i].worldX = 10 * gp.tileSize;
 		gp.obj[room][i].worldY = 2 * gp.tileSize;
 		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
 		gp.obj[room][i].lock(156);
