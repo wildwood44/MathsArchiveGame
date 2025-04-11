@@ -440,7 +440,6 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_X :
 			tagPressed = true;
-			System.out.println(gp.currentCard);
 			gp.items[gp.currentCard].use();
 			break;
 		case KeyEvent.VK_0:

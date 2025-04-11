@@ -147,8 +147,10 @@ public class Itm_Helper extends Item {
 	}
 	
 	public void use() {
-		if(dialogue[gp.currentMap.getFloor()][dialogueIndex]!=null) {
-			startDialogue(this, gp.currentMap.getFloor());
+		if(opened) {
+			if(dialogue[gp.currentMap.getFloor()][dialogueIndex]!=null) {
+				startDialogue(this, gp.currentMap.getFloor());
+			}
 		}
 		
 	}

@@ -2,7 +2,7 @@ package mae.game;
 
 import java.io.Serializable;
 
-public class Story  implements Serializable {
+public class Story implements Serializable {
 	public int chapter;
 	public int part;
 	public boolean[] swh;

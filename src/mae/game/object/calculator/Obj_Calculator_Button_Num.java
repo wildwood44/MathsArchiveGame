@@ -65,7 +65,7 @@ public class Obj_Calculator_Button_Num extends Object {
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		g2.setColor(Color.BLACK);
-		int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
+		//int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
 		if(btnId == 1) {
 			g2.drawString(""+input, tempScreenX+10, tempScreenY+gp.tileSize/3);
 		} else {

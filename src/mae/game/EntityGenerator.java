@@ -31,7 +31,6 @@ import mae.game.object.calculator.Obj_Calculator_Button_Plus;
 import mae.game.object.calculator.Obj_Calculator_Button_Up;
 import mae.game.object.calculator.Obj_Calculator_Button_dot;
 import mae.game.puzzle.Puzzle;
-import mae.game.puzzle.Puzzle_85;
 
 public class EntityGenerator {
 

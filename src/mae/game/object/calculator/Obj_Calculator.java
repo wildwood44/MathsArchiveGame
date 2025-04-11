@@ -131,7 +131,7 @@ public class Obj_Calculator extends Object {
 		int tempScreenY = screenY;
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		g2.setColor(Color.GREEN);
-		int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
+		//int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
 		g2.drawString(getStage(), tempScreenX+gp.tileSize/2, tempScreenY+gp.tileSize/2);
 	}
 }

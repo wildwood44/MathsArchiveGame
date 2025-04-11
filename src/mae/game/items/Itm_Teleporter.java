@@ -69,7 +69,9 @@ public class Itm_Teleporter extends Item {
 	}
 	
 	public void use() {
-		isSelected = true;
-		gp.gameState=GameState.fastTravelState;
+		if(opened) {
+			isSelected = true;
+			gp.gameState=GameState.fastTravelState;
+		}
 	}
 }

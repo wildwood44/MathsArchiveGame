@@ -88,8 +88,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	final int[] squared = {1,4,9,16,25,36,49,64,81,100,121,144};
 	//Testing
-	public boolean testDoor = true;
-	public boolean testKey = true;
+	public boolean testDoor = false;
+	public boolean testKey = false;
 	public int startFloor = 0;
 
 	public GamePanel() {

@@ -8,7 +8,6 @@ import mae.game.GamePanel;
 import mae.game.GameState;
 import mae.game.npc.NPC;
 import mae.game.npc.Prisoner_85;
-import mae.game.puzzle.Puzzle_85;
 
 public class Obj_Cage extends Object {
 	GamePanel gp;

@@ -69,7 +69,6 @@ public class PuzzleTest {
 	}
 	@Test
 	public void convertDecToFrac() {
-		GamePanel gp = null;
 		Fraction puzzle = new Fraction("0.5");
 		assertEquals((puzzle.convertDecToFrac(0.5).equals("1/2")), true);
 		assertEquals((puzzle.convertDecToFrac(0.75).equals("3/4")), true);
