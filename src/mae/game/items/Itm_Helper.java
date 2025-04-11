@@ -10,8 +10,8 @@ import mae.game.GameState;
 
 public class Itm_Helper extends Item {
 	GamePanel gp;
-	private int id = 1;
-
+	public final static int id = 0;
+	//public final static itemId = 1;
 	public Itm_Helper(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
@@ -39,7 +39,7 @@ public class Itm_Helper extends Item {
     	//DRAW SPEECH BUBBLE
 		if(gp.gameState == GameState.talkingState) {
 			//update();
-			drawSpeech(g2, x - gp.tileSize/2, y - gp.tileSize);
+			drawSpeech(g2, x - gp.tileSize/2, y - gp.tileSize*4);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class Itm_Helper extends Item {
 		}
 	}
 	public void drawSpeechBubble(Graphics2D g2, int x, int y) {
-		BufferedImage sb_tl = setup("/res/speechbubble/speech-bubble_long", gp.tileSize*4, gp.tileSize*2);
+		BufferedImage sb_tl = setup("/res/speechbubble/speech-bubble_large", gp.tileSize*4, gp.tileSize*4);
 		g2.drawImage(sb_tl, x-gp.tileSize/2, y, null);
 	}
 	public void drawSpeech(Graphics2D g2, int x, int y) {			
@@ -147,7 +147,6 @@ public class Itm_Helper extends Item {
 	}
 	
 	public void use() {
-		System.out.println(gp.currentMap.getId() +" "+ gp.currentMap.getFloor());
 		if(dialogue[gp.currentMap.getFloor()][dialogueIndex]!=null) {
 			startDialogue(this, gp.currentMap.getFloor());
 		}

@@ -15,7 +15,6 @@ public class DataStorage implements Serializable {
 	public double sk_value;
 	public boolean locked[];// = new boolean[10];
 	//Player inventory
-	public int shill;
 	public ArrayList<Integer> itemId = new ArrayList<>();
 	public ArrayList<Integer> itemAmount = new ArrayList<>();
 
@@ -29,6 +28,9 @@ public class DataStorage implements Serializable {
 	public boolean mapObjectOpened[][];
 	public int mapObjectKey[][];
 	public SumType mapObjectSum[][];
+	//Items on map
+	public int mapItemId[];
+	public boolean mapItemOpened[];
 	//NPCs on map
 	public int mapNpcId[][];
 	public int mapNpcName[][];

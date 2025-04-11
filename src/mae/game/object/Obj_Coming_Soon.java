@@ -9,7 +9,7 @@ import mae.game.GamePanel;
 
 public class Obj_Coming_Soon extends Object {
 	GamePanel gp;
-	public final static int objId = 2;
+	public final static int objId = 15;
 	public boolean open = false;
 	public int input = 0;
 	public boolean correct = true;
@@ -29,8 +29,6 @@ public class Obj_Coming_Soon extends Object {
 		}
 		solidArea = new Rectangle(0, 0, gp.tileSize*3, gp.tileSize);
 		size = gp.tileSize;
-		//for(int lock: unlock) {
-		//}
 	}
 	
 	@Override
@@ -45,6 +43,6 @@ public class Obj_Coming_Soon extends Object {
 		g2.setColor(Color.BLACK);
 		int length = (int) g2.getFontMetrics().getStringBounds(description, g2).getWidth();
 		
-		g2.drawString(description, tempScreenX+gp.tileSize/2, tempScreenY+gp.tileSize/2);
+		g2.drawString(description, length, tempScreenY+gp.tileSize/2);
 	}
 }

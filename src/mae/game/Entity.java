@@ -37,9 +37,9 @@ public class Entity {
 	public int solidAreaDefaultX = 0;
 	public int solidAreaDefaultY = 0;
 	public String description = "X";
-	public String[][] dialogue = new String[18][10];
+	public String[][] dialogue = new String[18][15];
 	public String direction = "idle";
-	public BufferedImage idle1, idle2, left1, left2, right1, right2;
+	public BufferedImage idle1, idle2, idle3, idle4, left1, left2, right1, right2, specialLeft1, specialLeft2, specialRight1, specialRight2;
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	public EntityType type;
@@ -56,6 +56,7 @@ public class Entity {
 	public boolean opened = false;
 	public boolean locked = false;
 	public boolean drawing = true;	
+	public int actionLockCounter = 0;
 	protected boolean isCorrect = false;
 	protected boolean isWrong = false;
 	protected final Color correct = Color.green;
@@ -68,9 +69,13 @@ public class Entity {
 	public Entity(GamePanel gp) {
 		this.gp = gp;
 	}
+	
+	public void setAction() {}
 
 	public void update() {
+		setAction();
 		collisionOn = false;
+		gp.cChecker.checkTile(this);
 		if(moving) {
 			if(!collisionOn) {
 				switch(direction) {

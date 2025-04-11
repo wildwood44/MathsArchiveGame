@@ -50,6 +50,7 @@ public class Obj_Skeleton_Card_Gen extends Object {
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
+		gp.keyH.numberPressed = false;
 	}
 	
 	@Override

@@ -34,6 +34,7 @@ public class Obj_Console extends Object {
 	public void interact() {
 		if(!opened) {
 			ans[input] = gp.kc[gp.currentCard].useCard();
+			System.out.println(gp.currentCard);
 			if(puzzle.getInputCount() -1 > input) {
 				if(puzzle.isCorrect(gp.kc[gp.currentCard].useCard())) {
 					correct = true;

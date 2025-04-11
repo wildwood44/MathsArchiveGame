@@ -21,18 +21,24 @@ public class PuzzleTest {
 	@Test
 	public void findMissing(){
 		GamePanel gp = null;
-		Puzzle puzzle = new Puzzle(gp, "0+1=?", SumType.PLUS);
+		Puzzle puzzle = new Puzzle(gp, "0 1=?", SumType.PLUS);
 		assertEquals(puzzle.isCorrect(1), true);
-		puzzle = new Puzzle(gp, "2-1=?", SumType.MINUS);
+		puzzle = new Puzzle(gp, "2 1=?", SumType.MINUS);
 		assertEquals(puzzle.isCorrect(1), true);
-		puzzle = new Puzzle(gp, "6/2=?", SumType.DIVIDE);
-		assertEquals(puzzle.isCorrect(3), true);
-		puzzle = new Puzzle(gp, "2*3=?", SumType.MULTI);
+		puzzle = new Puzzle(gp, "53 ?=47", SumType.MINUS);
 		assertEquals(puzzle.isCorrect(6), true);
-		puzzle = new Puzzle(gp, "2*?=6", SumType.MULTI);
+		puzzle = new Puzzle(gp, "6 2=?", SumType.DIVIDE);
 		assertEquals(puzzle.isCorrect(3), true);
-		puzzle = new Puzzle(gp, "?*2=6", SumType.MULTI);
+		puzzle = new Puzzle(gp, "2 3=?", SumType.MULTI);
+		assertEquals(puzzle.isCorrect(6), true);
+		puzzle = new Puzzle(gp, "2 ?=6", SumType.MULTI);
 		assertEquals(puzzle.isCorrect(3), true);
+		puzzle = new Puzzle(gp, "? 2=6", SumType.MULTI);
+		assertEquals(puzzle.isCorrect(3), true);
+		puzzle = new Puzzle(gp, "? ?=25", SumType.MULTI);
+		assertEquals(puzzle.isCorrect(5), true);
+		puzzle = new Puzzle(gp, "-4 -3=?", SumType.PLUS);
+		assertEquals(puzzle.isCorrect(-7), true);
 	}
 	@Test
 	public void findPercentage(){
@@ -51,11 +57,14 @@ public class PuzzleTest {
 	@Test
 	public void findFaction(){
 		GamePanel gp = null;
-		Puzzle puzzle = new Puzzle(gp, "1/2+1/4=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
+		Puzzle puzzle = new Puzzle(gp, "0.5 0.25=a/b", 2, SumType.PLUS, PuzzleType.FRACTION);
 		assertEquals(puzzle.isCorrect(3), true);
 		assertEquals(puzzle.isCorrect(4), true);
-		puzzle = new Puzzle(gp, "1/2*a/b=1/24", 2, SumType.MULTI, PuzzleType.FRACTION);
+		puzzle = new Puzzle(gp, "0.5 a/b=0.042", 2, SumType.MULTI, PuzzleType.FRACTION);
 		assertEquals(puzzle.isCorrect(1), true);
+		assertEquals(puzzle.isCorrect(12), true);
+		puzzle = new Puzzle(gp, "0.75 0.333=a/b", 2, SumType.MINUS, PuzzleType.FRACTION);
+		assertEquals(puzzle.isCorrect(5), true);
 		assertEquals(puzzle.isCorrect(12), true);
 	}
 	@Test
@@ -72,7 +81,7 @@ public class PuzzleTest {
 	@Test
 	public void findAlgebra(){
 		GamePanel gp = null;
-		Puzzle puzzle =  new Puzzle(gp, "8a+3b=28", 2, SumType.PLUS, PuzzleType.ALGEBRA);
+		Puzzle puzzle = new Puzzle(gp, "8a+3b=28", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		assertEquals(puzzle.isCorrect(2), true);
 		assertEquals(puzzle.isCorrect(4), true);
 		puzzle = new Puzzle(gp, "4x+3y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
@@ -81,8 +90,11 @@ public class PuzzleTest {
 		puzzle = new Puzzle(gp, "4x+5y+4y=ax+by", 2, SumType.PLUS, PuzzleType.ALGEBRA);
 		assertEquals(puzzle.isCorrect(4), true);
 		assertEquals(puzzle.isCorrect(9), true);
-		puzzle = new Puzzle(gp, "x*x*x*x=x?", SumType.MULTI, PuzzleType.ALGEBRA);
+		puzzle = new Puzzle(gp, "x*x*x*x=x^?", SumType.MULTI, PuzzleType.ALGEBRA);
 		assertEquals(puzzle.isCorrect(4), true);
+		puzzle =  new Puzzle(gp, "10x*x*x*x^2=ax^b", 2, SumType.MULTI, PuzzleType.ALGEBRA);
+		assertEquals(puzzle.isCorrect(10), true);
+		assertEquals(puzzle.isCorrect(5), true);
 	}
 	@Test 
 	public void findMeasurement() {
@@ -114,8 +126,9 @@ public class PuzzleTest {
 		assertEquals(puzzle.isCorrect(42), true);
 		//puzzle = new Puzzle(gp, "2.2lb", SumType.EQUAL, PuzzleType.WEIGHT);
 		puzzle = new Puzzle(gp, "7000g=?kg", SumType.EQUAL, PuzzleType.WEIGHT);
-		//puzzle = new Puzzle(gp, "6t", SumType.EQUAL, PuzzleType.WEIGHT);
 		assertEquals(puzzle.isCorrect(7), true);
+		puzzle = new Puzzle(gp, "?kg=0.006ton", SumType.EQUAL, PuzzleType.WEIGHT);
+		assertEquals(puzzle.isCorrect(6), true);
 		//puzzle = new Puzzle(gp, "3500mm", SumType.EQUAL, PuzzleType.WEIGHT);
 		//assertEquals(puzzle.isCorrect(33.5), true);
 	}
@@ -126,8 +139,8 @@ public class PuzzleTest {
 		assertEquals(puzzle.isCorrect(8), true);
 		puzzle = new Puzzle(gp, "mode(1,2,2,4,4,4,6,10)=?", SumType.EQUAL, PuzzleType.STAT);
 		assertEquals(puzzle.isCorrect(4), true);
-		puzzle = new Puzzle(gp, "medium(35,23,76,34,56)=?", SumType.EQUAL, PuzzleType.STAT);
-		assertEquals(puzzle.isCorrect(35), true);
+		puzzle = new Puzzle(gp, "medium(17,5,9,13,16,2)=?", SumType.EQUAL, PuzzleType.STAT);
+		assertEquals(puzzle.isCorrect(11), true);
 		puzzle = new Puzzle(gp, "range(27,23,26,29,24)=?", SumType.EQUAL, PuzzleType.STAT);
 		assertEquals(puzzle.isCorrect(6), true);
 	}
@@ -141,6 +154,9 @@ public class PuzzleTest {
 		assertEquals(puzzle.isCorrect(16), true);
 		puzzle = new Puzzle(gp, "√81=?", SumType.EQUAL, PuzzleType.RADICAL);
 		assertEquals(puzzle.isCorrect(9), true);
+		puzzle = new Puzzle(gp, "√12=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		assertEquals(puzzle.isCorrect(2), true);
+		assertEquals(puzzle.isCorrect(3), true);
 	}
 	@Test
 	public void findGraph() {
@@ -157,9 +173,9 @@ public class PuzzleTest {
 		puzzle = new Puzzle(gp, "Rotate180(-1,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
 		assertEquals(puzzle.isCorrect(1), true);
 		assertEquals(puzzle.isCorrect(2), true);
-		puzzle = new Puzzle(gp, "Rotate90(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
-		assertEquals(puzzle.isCorrect(3), true);
-		assertEquals(puzzle.isCorrect(-2), true);
+		puzzle = new Puzzle(gp, "Rotate90(5,6)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		assertEquals(puzzle.isCorrect(6), true);
+		assertEquals(puzzle.isCorrect(-5), true);
 	}
 	@Test
 	public void findProbability() {

@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import mae.game.Entity;
 import mae.game.GamePanel;
-import mae.game.GameState;
 import mae.game.object.SumType;
 
 public class Puzzle extends Entity {
@@ -92,7 +91,7 @@ public class Puzzle extends Entity {
 	     
 	    // Using stringstream to read a string object
 	    // and split
-	    String regex = "[+\\-\\*\\/\\=]";
+	    String regex = "[ \\=]";
 	    String[] ss = text.split(regex);
 	    
 	    int pos = -1;
@@ -108,6 +107,19 @@ public class Puzzle extends Entity {
 	    else {
 	        pos = 2;}
 	    return calculate(pos, ss[0], ss[1], ss[2]);
+	}
+	
+	public void drawMissing(Graphics2D g2, String text, int x, int y) {
+		char sumType = '+';
+		switch(sum) {
+		case PLUS: sumType='+'; break;
+		case MINUS: sumType='-'; break;
+		case MULTI: sumType='*'; break;
+		case DIVIDE: sumType='/'; break;
+		default: sumType='+'; break;
+		}
+		text = text.replace(' ', sumType);
+		g2.drawString(text, x, y);
 	}
 	
 	public double findPercentage() {
@@ -168,7 +180,7 @@ public class Puzzle extends Entity {
 	
 	public double findFraction(int input) {
 		//Wrong - needs fixing
-	    String regex = "[+\\-\\*\\=]";
+	    String regex = "[ \\=]";
 	    String[] ss = text.split(regex);
 	    Fraction f1 = new Fraction(ss[0]);
 	    Fraction f2 = new Fraction(ss[1]);
@@ -277,7 +289,7 @@ public class Puzzle extends Entity {
     }
 	
 	public void drawFraction(Graphics2D g2, String text, int x, int y, boolean res) {
-	    String regex = "[+\\-\\*\\=]";
+	    String regex = "[ \\=]";
 	    String[] ss = text.split(regex);
 	    Fraction f1 = new Fraction(ss[0]);
 	    Fraction f2 = new Fraction(ss[1]);
@@ -302,6 +314,7 @@ public class Puzzle extends Entity {
 	    String[] ss = text.split(regex);
 	    double count = 0;
 	    double res = 0;
+	    double whole = 0, squrd = 0;
 	    ans[0] = 0; 
 	    ans[1] = 0; 
 	    //Check for whole numbers
@@ -313,13 +326,24 @@ public class Puzzle extends Entity {
 		    	if(ss[i].contains("x")) {
 		    		if(Character.isDigit(ss[i].charAt(0))) {
 		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
-		    			ans[0] += convert(ss[i]);
+		    			whole += convert(ss[i]);
 		    		} else if(Character.isDigit(ss[i].charAt(ss[i].length()-1))) {
 		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
-		    			ans[0] += convert(ss[i]);
+		    			squrd += convert(ss[i]);
 		    		} else if(ss[i].length() == 1) {
+		    			switch(sum) {
+		    			case PLUS: whole++;
+		    			case MULTI: squrd++;
+		    			}
 		    			ans[0]++;
 		    		}
+	    			if(whole==0) {
+	    				ans[0] = squrd;
+	    			} else {
+	    				ans[0] = whole;
+	    			} if (squrd != 0) {
+	    				ans[1] = squrd + 1;
+	    			}
 		    	} else if(ss[i].contains("a")) {
 		    		if(Character.isDigit(ss[i].charAt(0))) {
 		    			ss[i] = ss[i].replaceAll("[^\\d.]", "");
@@ -355,8 +379,6 @@ public class Puzzle extends Entity {
 	    } else {
 	    	return ans[input];
 	    }
-	    //System.out.println("Count: "+count);
-    	//return count;
     }
     
     public double findMuliple(double input1, double input2, double res, int pos) {
@@ -536,12 +558,12 @@ public class Puzzle extends Entity {
     	} else if(text.contains("mg")) {
     		text = text.replaceAll("[^\\d.]", "");
     		return convert(text) / 1000000;
-    	} else if(text.contains("g")) {
-    		text = text.replaceAll("[^\\d.]", "");
-    		return convert(text) / 1000;
-    	}  else if(text.contains("t")) {
+    	} else if(text.contains("ton")) {
     		text = text.replaceAll("[^\\d.]", "");
     		return convert(text) * 1000;
+    	} else if(text.contains("0g")) {
+    		text = text.replaceAll("[^\\d.]", "");
+    		return convert(text) / 1000;
     	} 
     	return -145;
     }
@@ -551,7 +573,7 @@ public class Puzzle extends Entity {
 	    String[] ss = text.split(regex);
 	    //int pos = 0;
 	    double sum = 0;
-	    String regex2 = "[\\,]";
+	    String regex2 = "[,]";
 	    String[] sss = ss[1].split(regex2);
 	    if(ss[0].contains("mean")) {
 	    	for(int i=0; i<sss.length; i++) {
@@ -562,7 +584,6 @@ public class Puzzle extends Entity {
 	    } else if(ss[0].contains("mode")) {
 	    	int maxCount = 0;
 	    	for (int i = 0; i < sss.length; ++i) {
-	            //System.out.println(sss[i]);
 	    		int count = 0;
 	            for (int j = 0; j < sss.length; ++j) {
 	                if (convert(sss[j]) == convert(sss[i])) ++count;
@@ -575,11 +596,15 @@ public class Puzzle extends Entity {
 	        return sum;
 	    } else if(ss[0].contains("medium")) {
 	    	int middle = sss.length/2;
-	    	Arrays.sort(sss);
-	        if (sss.length%2 == 1) {
-	            return convert(sss[middle]);
+	    	double[] nss = new double[sss.length];
+        	for (int i = 0; i < sss.length; i++) {
+        		nss[i] = convert(sss[i]);
+			}
+	    	Arrays.sort(nss);
+	        if (nss.length%2 == 1) {
+	            return nss[middle];
 	        } else {
-	            return convert((sss[middle-1]) + convert(sss[middle])) / 2.0;
+	            return (nss[middle-1] + nss[middle])/ 2.0;
 	        }
 	    } else if(ss[0].contains("range")) {
 	    	Arrays.sort(sss);
@@ -639,31 +664,18 @@ public class Puzzle extends Entity {
     	String[] point2 = ss[1].split(regex2);
 	    if(point[0].contains("Transform")) {
 	    	if(input == 0) {
-	    		//System.out.println(point[2] + " " + point2[5]);
 			    if(point2[4].contains("right")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	/*switch (sum) {
-			        case MULTI: return convert(point[2]) * convert(point2[5]);
-			        default: return convert(point[2]) + convert(point2[5]);
-			    	}*/
 			    	return convert(point[2]) + convert(point2[5]);
 			    } else if(point2[4].contains("left")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
-			    	/*switch (sum) {
-			        case DIVIDE: return convert(point[2]) / convert(point2[5]);
-			        default: return convert(point[2]) - convert(point2[5]);
-			    	}*/
 			    	return convert(point[2]) - convert(point2[5]);
 			    }
 	    	} else if(input == 1) {
 			    if(point2[1].contains("up")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
 			    	switch (sum) {
 			        case MULTI: return convert(point[1]) * convert(point2[2]);
 			        default: return convert(point[1]) + convert(point2[2]);
 			    	}
 			    } else if(point2[1].contains("down")) {
-			    	//point2[0] = point2[0].replaceAll("[^\\d.]", "");
 			    	switch (sum) {
 			        case DIVIDE: return convert(point[1]) / convert(point2[2]);
 			        default: return convert(point[1]) - convert(point2[2]);
@@ -764,7 +776,6 @@ public class Puzzle extends Entity {
     		g2.drawLine(x, lineY, x +gp.tileSize+1, lineY);
     		lineY = lineY + 5;
     	}
-    	//System.out.println(ans1 + " " + ans2);
     	for(int i = start; i < length; i++) {
 			g2.setStroke(new BasicStroke(1));
     		if(i == 0) {

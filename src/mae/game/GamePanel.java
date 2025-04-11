@@ -90,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
 	//Testing
 	public boolean testDoor = true;
 	public boolean testKey = true;
-	public int startFloor = 7;
+	public int startFloor = 0;
 
 	public GamePanel() {
 		obj = new Entity[maxMap][156];
@@ -180,7 +180,6 @@ public class GamePanel extends JPanel implements Runnable {
 			for(int i = 0; i < npc[currentMap.getId()].length; i++) {
 				if(npc[currentMap.getId()][i] != null) {
 					npc[currentMap.getId()][i].update();
-					//iTile[currentMap.getId()][i].draw(g2);
 				}
 			}
 		} else if (gameState == GameState.pauseState) {

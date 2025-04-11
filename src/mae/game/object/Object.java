@@ -93,17 +93,7 @@ public class Object extends Entity {
 		String text = description;
 		String[] lines;
 		int breakPoint = 6;
-		/*if(puzzle.getPuzzleType()==PuzzleType.FRACTION||
-			puzzle.getPuzzleType()==PuzzleType.PROBABIL||
-			puzzle.getPuzzleType()==PuzzleType.PERCENTAGE//||
-			//puzzle.getPuzzleType()==PuzzleType.STAT
-			) {
-			breakPoint = 8;
-		} else if(puzzle.getPuzzleType()==PuzzleType.MEASURE||
-			puzzle.getPuzzleType()==PuzzleType.TIME||
-			puzzle.getPuzzleType()==PuzzleType.ALGEBRA) {
-			breakPoint = 10;
-		} else */if (puzzle.getPuzzleType()==PuzzleType.GRAPH ||
+		if (puzzle.getPuzzleType()==PuzzleType.GRAPH ||
 			puzzle.getPuzzleType()==PuzzleType.GEOMATRY||
 			puzzle.getPuzzleType()==PuzzleType.D_PERCENTAGE) { 
 			breakPoint = 12;
@@ -127,6 +117,7 @@ public class Object extends Entity {
 		} else if(lines.length > 2) {
 			y=y-gp.tileSize;
 		}
+
 		if(puzzle.getPuzzleType()==PuzzleType.GEOMATRY && !locked) {
 			puzzle.drawGeomatry(g2, text, x, y);
 		} else if(puzzle.getPuzzleType()==PuzzleType.GRAPH && !locked) {
@@ -141,13 +132,17 @@ public class Object extends Entity {
 					for (String line : lines) {
 						length = (int) g2.getFontMetrics().getStringBounds(line, g2).getWidth();
 						textX = x + (int)(gp.tileSize*1.5) - length/2;
-						g2.drawString(line, textX, y);
+						if(puzzle.getPuzzleType()==PuzzleType.MISSING) {
+							puzzle.drawMissing(g2, line, textX, y);
+						} else {
+							g2.drawString(line, textX, y);
+						}
 						y += gp.tileSize/3;
 					}
 				} else {
 					length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 					textX = x + (int)(gp.tileSize*1.5) - length/2;
-					g2.drawString(text, textX, y);
+					puzzle.drawMissing(g2, text, textX, y);
 					y+=gp.tileSize/3;
 				}
 			} catch (Exception e) {

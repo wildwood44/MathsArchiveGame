@@ -1,6 +1,6 @@
 package mae.game.object;
 
-import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -35,12 +35,10 @@ public class Obj_Stairs extends Object {
 			else {image = idle2;}
 			break;
 		}
-		g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		if(isSelected && gp.currentMap.getMapType() == MapType.LEVEL && opened) {
 			drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
 		}
-        g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}
 	public void setPuzzle(Puzzle puzzle) {
 		if(floor == 0) {
@@ -94,6 +92,7 @@ public class Obj_Stairs extends Object {
 		drawSpeechBubble(g2,x,y);
 		int length, textX;
 		try {
+			g2.setColor(Color.white);
 			length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 			textX = x + (int)(gp.tileSize*1.5) - length/2;
 			g2.drawString(text, textX, y+gp.tileSize);

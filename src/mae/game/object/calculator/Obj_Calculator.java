@@ -1,4 +1,4 @@
-package mae.game.object;
+package mae.game.object.calculator;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,11 +6,13 @@ import java.awt.Rectangle;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
+import mae.game.object.Object;
+import mae.game.object.SumType;
 import mae.game.puzzle.Puzzle;
 
 public class Obj_Calculator extends Object {
 	GamePanel gp;
-	public final static int objId = 12;
+	public final static int objId = 20;
 	public boolean open = false;
 	public int stage = 1;
 	public String input = "";
@@ -102,7 +104,7 @@ public class Obj_Calculator extends Object {
 	}
 	
 	public String getAnswer() {
-		String problem = input+input2+input3+"=?";
+		String problem = input+" "+input3+"=?";
 		Puzzle p = new Puzzle(gp, problem, sum);
 		if (problem.contains("√")) {
 			ans  = p.findAlgebra(1);

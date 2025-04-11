@@ -1,4 +1,4 @@
-package mae.game.object;
+package mae.game.object.calculator;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,17 +6,18 @@ import java.awt.Rectangle;
 
 import mae.game.EntityType;
 import mae.game.GamePanel;
+import mae.game.object.Object;
 
-public class Obj_Calculator_Button extends Object {
+public class Obj_Calculator_Button_Multi extends Object {
 	GamePanel gp;
-	public final static int objId = 13;
+	public final static int objId = 26;
 	public int btnId;
 	private String btnTxt;
 	public boolean open = false;
 	public int input = 0;
 	public boolean correct = true;
 
-	public Obj_Calculator_Button(GamePanel gp) {
+	public Obj_Calculator_Button_Multi(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
 		this.enId = objId;
@@ -32,8 +33,8 @@ public class Obj_Calculator_Button extends Object {
 		size = gp.tileSize/2;
 		x = gp.tileSize/2;
 		solidAreaDefaultX = x;
-		//for(int lock: unlock) {
-		//}
+		btnId = 3;
+		btnTxt = "*";
 	}
 	
 	public void setButton(int id, String value) {
@@ -48,27 +49,10 @@ public class Obj_Calculator_Button extends Object {
 
 	public void interact() {
 		Obj_Calculator cal = (Obj_Calculator) gp.obj[20][1];
-		Obj_Calculator_Button btn = (Obj_Calculator_Button) gp.obj[20][3];
 		if(cal.stage == 0) {
 			cal.reset();
-		} else if(btnId==0) {
-			if(btn.btnId == 1) {
-				btn.input++;
-				if(btn.input > 9) {
-					btn.input = 0;
-				}
-			}
-		} else if(btnId==1) {
-			cal.getInput(input);
-		} else if(btnId==2) {
-			cal.getDigit();
 		} else if(btnId==3) {
 			cal.getSum(btnTxt);
-		} else if(btnId==4) {
-			if(cal.stage == 5) {
-				cal.getAnswer();
-				cal.stage=0;
-			}
 		}
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;

@@ -26,7 +26,7 @@ public class Map {
 		this.maxWorldCol = maxWorldCol;
 		this.maxWorldRow = maxWorldRow;
 		worldWidth = this.maxWorldCol * gp.tileSize;
-		worldHeight = this.maxWorldRow * gp.tileSize;
+		worldHeight = 3 * gp.tileSize;
 	}
 
 	public int getId() {

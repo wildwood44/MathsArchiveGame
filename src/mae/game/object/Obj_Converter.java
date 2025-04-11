@@ -39,10 +39,12 @@ public class Obj_Converter extends Object {
 			}
 			gp.kc[slot1].locked = false;
 			slot1 = -1;
+			gp.currentCard = gp.kc[gp.currentCard].nextCard(9);
 		}
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
+		gp.keyH.numberPressed = false;
 	}
 	
 	@Override

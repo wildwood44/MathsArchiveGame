@@ -13,7 +13,7 @@ import mae.game.puzzle.Puzzle_85;
 public class Obj_Cage extends Object {
 	GamePanel gp;
 	Graphics2D g2;
-	public final static int objId = 2;
+	public final static int objId = 16;
 	public boolean open = false;
 	public int input = 0;
 	public boolean correct = true;
@@ -32,7 +32,6 @@ public class Obj_Cage extends Object {
 		}
 		solidArea = new Rectangle(0, 0, gp.tileSize*2, gp.tileSize*2);
 		size = gp.tileSize;
-		puzzle = new Puzzle_85(gp);
 	}
 
 	public void interact() {

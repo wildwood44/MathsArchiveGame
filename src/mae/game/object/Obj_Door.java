@@ -1,6 +1,5 @@
 package mae.game.object;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -145,6 +144,6 @@ public class Obj_Door extends Object {
 				drawSpeech(g2, tempScreenX - gp.tileSize, tempScreenY - gp.tileSize);
 			}
 		}
-	    g2.setComposite(AlphaComposite.SrcOver.derive(1f));
+	    //g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}
 }

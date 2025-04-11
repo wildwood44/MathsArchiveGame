@@ -38,6 +38,9 @@ public class SaveLoad {
 			ds.currentMap = gp.currentMap.getId();
 			ds.worldX = gp.player.worldX;
 			ds.worldY = gp.player.worldY;
+			//Items
+			ds.mapItemId = new int[gp.items.length];
+			ds.mapItemOpened = new boolean[gp.items.length];
 			//Object on map
 			ds.mapObjectId = new int[gp.maxMap][gp.obj[1].length];
 			ds.mapObjectEnId = new int[gp.maxMap][gp.obj[1].length];
@@ -81,6 +84,15 @@ public class SaveLoad {
 						ds.mapNpcWorldY[mapNum][i] = gp.npc[mapNum][i].worldY;
 						ds.mapNpcDirection[mapNum][i] = gp.npc[mapNum][i].direction;
 					}
+				}
+			}
+			//Items
+			for(int i = 0; i < 2; i++) {
+				if(gp.items[i] == null) {
+					ds.mapItemId[i] = -1;
+				} else {
+					ds.mapItemId[i] = gp.items[i].id;
+					ds.mapItemOpened[i] = gp.items[i].opened;
 				}
 			}
 			oos.writeObject(ds);
@@ -140,6 +152,15 @@ public class SaveLoad {
 						gp.npc[mapNum][i].worldY = ds.mapNpcWorldY[mapNum][i];
 						gp.npc[mapNum][i].direction = ds.mapNpcDirection[mapNum][i];
 					}
+				}
+			}
+			//Items
+			for(int i = 0; i < 1; i++) {
+				if(ds.mapItemId[i] < 0) {
+					gp.items[i] = null;
+				} else {
+					gp.items[i] = gp.eGenerator.getItem(ds.mapItemId[i]);
+					gp.items[i].opened = ds.mapItemOpened[i];
 				}
 			}
 		} catch (Exception e) {

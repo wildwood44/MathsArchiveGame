@@ -9,6 +9,7 @@ import mae.game.Entity;
 import mae.game.GamePanel;
 
 public class NPC extends Entity {
+	NPCState npcState = NPCState.NormalState;
 	
 	public NPC(GamePanel gp) {
 		super(gp);
@@ -52,4 +53,27 @@ public class NPC extends Entity {
 	}
 	
 	public void getImage() {}
+	
+	public void update() {
+		setAction();
+		collisionOn = false;
+		gp.cChecker.checkTile(this);
+		if(!collisionOn) {
+			switch(direction) {
+			case "up": worldY -= speed; break;
+			case "down": worldY += speed; break;
+			case "left": worldX -= speed; break;
+			case "right": worldX += speed; break;
+			}
+		}
+		spriteCounter++;
+		if (spriteCounter > 4) {
+			if(spriteNum == 1) {
+				spriteNum = 2;
+			} else if (spriteNum == 2) {
+				spriteNum = 1;
+			}
+			spriteCounter = 0;
+		}
+	}
 }

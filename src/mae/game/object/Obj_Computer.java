@@ -30,7 +30,7 @@ public class Obj_Computer extends Object {
 
 	public void interact() {
 		moving = true;
-		startDialogue(this, 0);
+		startDialogue(this, gp.currentCard);
 		gp.keyH.enterPressed = false;
 		gp.keyH.upPressed = false;
 		gp.keyH.downPressed = false;
@@ -115,14 +115,62 @@ public class Obj_Computer extends Object {
 	}
 	public void setDialogue() {
 		dialogue[0][0] = "Hello I am INFORMATION TERMINAL please input query: ";
-		dialogue[0][1] = "1:Collection";
+		dialogue[0][1] = "1: Collection";
 		dialogue[0][2] = "2: Math puzzles";
-		dialogue[0][3] = "3: Exit";
-		dialogue[0][4] = "4:Collection";
-		dialogue[0][5] = "5: Math puzzles";
-		dialogue[0][6] = "6: Exit";
-		dialogue[0][7] = "7:Collection";
-		dialogue[0][8] = "8: Math puzzles";
+		dialogue[0][3] = "3: Owners";
+		dialogue[0][4] = "4: Key cards";
+		dialogue[0][5] = "5: Skeleton Key Card";
+		dialogue[0][6] = "6: Floors";
+		dialogue[0][7] = "7: Help";
+		dialogue[0][8] = "8: …";
 		dialogue[0][9] = "9: Exit";
+		dialogue[1][0] = "These archives contain plants and alien species";
+		dialogue[1][1] = "from across the universe.";
+		dialogue[1][2] = "All part of the master's collection.";
+		dialogue[2][0] = "One of the masters loves to create math problems,";
+		dialogue[2][1] = "so they are used for all the locks.";
+		dialogue[3][0] = "If you need help take the device on the pedestal.";
+		dialogue[3][1] = "It can give you hints on how to solve the puzzles.";
+		dialogue[4][0] = "Get the key cards.";
+		dialogue[4][1] = "There should be nine.";
+		dialogue[4][2] = "They are used to open doors maching the";
+		dialogue[4][3] = "corresponding answer to a puzzle.";
+		dialogue[5][0] = "You have the skeleton key card!";
+		dialogue[5][1] = "If you find a converter you can use it";
+		dialogue[5][2] = "and other key cards to change this card's value.";
+		dialogue[6][0] = "Each floor has a maths theme: ";
+		dialogue[6][1] = "1: Addition and Subtraction";
+		dialogue[6][2] = "2: Multiplication and Division";
+		dialogue[6][3] = "3: Decimals and Negatives";
+		dialogue[6][4] = "4: Percentages";
+		dialogue[6][5] = "5: Fractions";
+		dialogue[6][6] = "6: Graphs and Transformations";
+		dialogue[6][7] = "7: Conversion";
+		dialogue[6][8] = "8: Geometry and Trigonometry";
+		dialogue[6][9] = "9: Statistics";
+		dialogue[6][10] = "10: Probability";
+		dialogue[6][11] = "11: Algebra";
+		dialogue[6][12] = "And 12: Radicals";
+		dialogue[7][0] = "There are 144 staff including the two masters,";
+		dialogue[7][1] = "each is assigned an ID.";
+		dialogue[7][2] = "Each staff member will go to each room";
+		dialogue[7][3] = "and change its open/closed status.";
+		dialogue[7][4] = "So Staff ID:1 will open every room.";
+		dialogue[7][5] = "Staff ID:2 will close every second room.";
+		dialogue[7][6] = "Staff ID:3 will change the status of every third room.";
+		dialogue[7][7] = "Etc.";
+		dialogue[7][8] = "The rooms left open are low-security rooms";
+		dialogue[7][9] = "that don’t contain any living collection pieces";
+		dialogue[7][10] = "but will contain something useful.";
+		dialogue[8][0] = "[ERROR DATA NOT AVAILABLE]";
+		dialogue[9][0] = "There are 144 staff including the two masters,";
+		dialogue[9][1] = "each is assigned an ID.";
+		dialogue[9][2] = "Each staff member will go to each room";
+		dialogue[9][3] = "and change its open/closed status.";
+		dialogue[9][4] = "So Staff ID:1 will open every room.";
+		dialogue[9][5] = "Staff ID:2 will close every second room.";
+		dialogue[9][6] = "Staff ID:3 will change the status of every third room.";
+		dialogue[9][7] = "Etc.";
+		dialogue[9][8] = "The exit is in one of the rooms visited twice by staff";
 	}
 }

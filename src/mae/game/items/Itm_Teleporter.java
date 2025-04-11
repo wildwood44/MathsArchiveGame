@@ -1,16 +1,14 @@
 package mae.game.items;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 import mae.game.GamePanel;
 import mae.game.GameState;
 
 public class Itm_Teleporter extends Item {
 	GamePanel gp;
-	private int id = 1;
+	public final static int id = 1;
 
 	public Itm_Teleporter(GamePanel gp) {
 		super(gp);

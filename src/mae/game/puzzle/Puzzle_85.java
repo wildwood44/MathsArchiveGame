@@ -85,7 +85,6 @@ public class Puzzle_85 extends Puzzle {
 	}
 	
 	public void interact() {
-		System.out.println(input);
 		if(gp.keyH.numberPressed) {
 			if(input==1) {
 				input++;
@@ -113,7 +112,7 @@ public class Puzzle_85 extends Puzzle {
 				if(gp.npc[gp.currentMap.getId()][0] == null) {
 					gp.npc[gp.currentMap.getId()][0] = new Prisoner_85(gp);
 					gp.npc[gp.currentMap.getId()][0].worldX = (int)(gp.tileSize*12.5);
-					gp.npc[gp.currentMap.getId()][0].worldY = gp.tileSize*3;
+					gp.npc[gp.currentMap.getId()][0].worldY = (gp.tileSize*3)-1;
 					gp.npc[gp.currentMap.getId()][0].direction = direction;
 				}
 			} else {

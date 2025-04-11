@@ -4,6 +4,16 @@ import mae.game.GamePanel;
 import mae.game.items.Itm_Helper;
 import mae.game.items.Itm_Teleporter;
 import mae.game.items.KeyCard;
+import mae.game.object.calculator.Obj_Calculator;
+import mae.game.object.calculator.Obj_Calculator_Button;
+import mae.game.object.calculator.Obj_Calculator_Button_Divide;
+import mae.game.object.calculator.Obj_Calculator_Button_Equal;
+import mae.game.object.calculator.Obj_Calculator_Button_Minus;
+import mae.game.object.calculator.Obj_Calculator_Button_Multi;
+import mae.game.object.calculator.Obj_Calculator_Button_Num;
+import mae.game.object.calculator.Obj_Calculator_Button_Plus;
+import mae.game.object.calculator.Obj_Calculator_Button_Up;
+import mae.game.object.calculator.Obj_Calculator_Button_dot;
 import mae.game.tile.Map;
 import mae.game.tile.MapType;
 
@@ -26,7 +36,6 @@ public class AssetSetter {
 		//GENERATE ROOMS
 		int j = 0, floor =  0;
 		for(int i = levels; i < 156; i++) {
-			System.out.println(i + " " + floor);
 			gp.maps[i] = new Map(gp, MapType.ROOM, i, floor, "Room " + (i - 11), 15, 4);
 			j++;
 			if(j>=levels) {
@@ -134,50 +143,42 @@ public class AssetSetter {
 		gp.obj[room][i].worldX = 6 * gp.tileSize;
 		gp.obj[room][i].worldY = 2 * gp.tileSize;
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Up(gp);
 		gp.obj[room][i].worldX = 5 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(0,"Up");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Num(gp);
 		gp.obj[room][i].worldX = (int)(5.5 * gp.tileSize);
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(1,"0");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_dot(gp);
 		gp.obj[room][i].worldX = 6 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(2,".");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Plus(gp);
 		gp.obj[room][i].worldX = (int)(6.5 * gp.tileSize);
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(3,"+");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Minus(gp);
 		gp.obj[room][i].worldX = 7 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(3,"-");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Multi(gp);
 		gp.obj[room][i].worldX = (int)(7.5 * gp.tileSize);
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(3,"*");
 		i++;
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Divide(gp);
 		gp.obj[room][i].worldX = 8 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(3,"/");
 		i++;
 		/*gp.obj[room][i] = new Obj_Calculator_Button(gp);
 		gp.obj[room][i].worldX = (int)(8.5 * gp.tileSize);
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		gp.obj[room][i].setButton(2,"√");
 		i++;*/
-		gp.obj[room][i] = new Obj_Calculator_Button(gp);
+		gp.obj[room][i] = new Obj_Calculator_Button_Equal(gp);
 		gp.obj[room][i].worldX = 9 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
-		gp.obj[room][i].setButton(4,"=");
 		i=1;
 		room = levels + 10;
 		//Room 11
@@ -224,9 +225,9 @@ public class AssetSetter {
 		floor++;
 		room = levels + 24;
 		//Room 25
-		gp.obj[room][i] = new Obj_Coming_Soon(gp);
-		gp.obj[room][i].worldX = 5 * gp.tileSize;
-		gp.obj[room][i].worldY = 2 * gp.tileSize;
+		gp.obj[room][i] = new Obj_Computer_Medical(gp);
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = 1 * gp.tileSize;
 		room = levels + 28;
 		//Room 29
 		gp.obj[room][i] = new Obj_Console(gp);
@@ -251,9 +252,9 @@ public class AssetSetter {
 		floor++;
 		room = levels + 35;
 		//Room 36
-		gp.obj[room][i] = new Obj_Coming_Soon(gp);
-		gp.obj[room][i].worldX = 5 * gp.tileSize;
-		gp.obj[room][i].worldY = 2 * gp.tileSize;
+		gp.obj[room][i] = new Obj_Computer_Seccurity(gp);
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = 1 * gp.tileSize;
 		room++;
 		//Room 37
 		gp.obj[room][i] = new Obj_Console(gp);
