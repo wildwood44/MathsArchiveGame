@@ -64,20 +64,28 @@ public class PuzzleSetter {
 		problems[11][11] = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
 		//problems[11][11] = new Puzzle(gp, "√12=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
 		problems[16][1] = new Puzzle(gp, "13 ?=11", SumType.MINUS);
+		problems[23][1] = new Puzzle_12(gp);
 		problems[28][1] = new Puzzle(gp, "3 3=?", SumType.DIVIDE);
 		problems[30][1] = new Puzzle(gp, "? 6=24", SumType.MULTI);
+		problems[31][1] = new Puzzle_20(gp);
+		problems[35][1] = new Puzzle_24(gp);
+		problems[37][1] = new Puzzle_26(gp);
 		problems[40][1] = new Puzzle(gp, "? 4=0.75", SumType.DIVIDE);
 		problems[48][1] = new Puzzle(gp, "20% of 20=?", SumType.PERSN, PuzzleType.PERCENTAGE);
+		problems[50][1] = new Puzzle_39(gp);
 		problems[54][1] = new Puzzle(gp, "50% of 10=?", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[58][1] = new Puzzle(gp, "Decrease 24 by 75%=?", SumType.PERSN, PuzzleType.D_PERCENTAGE);
+		problems[62][1] = new Puzzle_51(gp);
 		problems[70][1] = new Puzzle(gp, "3/5 1/2=a/b", 2, SumType.MINUS, PuzzleType.FRACTION);
 		problems[72][1] = new Puzzle(gp, "Rotate90(2,3)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
+		problems[73][1] = new Puzzle_62(gp);
 		problems[82][1] = new Puzzle(gp, "Rotate180(-1,-2)=(a,b)", 2, SumType.EQUAL, PuzzleType.GRAPH);
 		problems[90][1] = new Puzzle(gp, "7000g=?kg", SumType.EQUAL, PuzzleType.WEIGHT);
 		problems[94][1] = new Puzzle(gp, "42000000mg=?kg", SumType.EQUAL, PuzzleType.WEIGHT);
 		problems[96][1] = new Puzzle_85(gp);
 		problems[100][1] = new Puzzle(gp, "Square=(115,145,70,?)", SumType.PLUS, PuzzleType.GEOMATRY);
 		problems[108][1] = new Puzzle(gp, "range(18,22,14,12,15,16)=?", SumType.EQUAL, PuzzleType.STAT);
+		problems[110][1] = new Puzzle_99(gp);
 		problems[112][1] = new Puzzle(gp, "mode(7,2,13,7,3,5,11,1)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[114][1] = new Puzzle(gp, "mean(4,5,6,7,8)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[118][1] = new Puzzle(gp, "medium(7,8,2,4,2)=?", SumType.EQUAL, PuzzleType.STAT);
@@ -91,6 +99,33 @@ public class PuzzleSetter {
 			return problems[floor][room];
 		}
 		return new Puzzle(gp, "X", SumType.MULTI);
+	}
+	
+	public int totalPuzzle() {
+		int total = 0;
+		for(int i = 0; i < problems.length; i++) {
+			for(int j = 0; j < problems[i].length; j++) {
+				if(problems[i][j] != null) {
+					total++;
+				}
+			}
+		}
+		return total;
+	}
+	
+	public int totalCompletePuzzle() {
+		int total = 0;
+		for(int i = 0; i < problems.length; i++) {
+			for(int j = 0; j < problems[i].length; j++) {
+				if(problems[i][j] != null) {
+					if(problems[i][j].opened) {
+						System.out.println("Ping");
+						total++;
+					}
+				}
+			}
+		}
+		return total;
 	}
 	
 	public String getPuzzleText(int floor, int room) {

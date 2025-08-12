@@ -9,7 +9,6 @@ import mae.game.Entity;
 import mae.game.EventHandler;
 import mae.game.GamePanel;
 import mae.game.GameState;
-import mae.game.items.Item;
 import mae.game.tile.TileManager;
 
 public class CutsceneManager {
@@ -35,9 +34,28 @@ public class CutsceneManager {
 	public void draw(Graphics2D g2) {
 		this.g2 = g2;
 		switch (sceneNum) {
-			case 1 : scene_ending(); break;
+			case 1 : start_game(); break;
+			case 2 : scene_ending(); break;
 		}
 
+	}
+	
+	private void start_game() {
+		if (scenePhase == 0) {
+			drawBlackBackground(1f);
+			gp.tileM.draw(g2);
+			drawStage();
+			gp.player.draw(g2);
+			scenePhase++;
+		} else if (scenePhase == 1) {
+			gp.ui.message = "Use A and D keys to move.";
+			gp.gameState = GameState.notifyState;
+			scenePhase++;
+		} else if (scenePhase == 2) {
+			gp.gameState = GameState.playState;
+			gp.s.gameStart = false;
+			scenePhase++;
+		} 
 	}
 
 	//End Credits
@@ -79,6 +97,18 @@ public class CutsceneManager {
 				scenePhase++;
 			}
 		} else if (scenePhase == 5) {
+			drawBlackBackground(1f);
+			y = gp.screenHeight + gp.tileSize;
+			drawString(1f, 30f, y, gp.score.points+"\n"+gp.score.timer+"\n"+gp.score.getTotalCompletion(), 40);
+			scenePhase++;
+		} else if (scenePhase == 6) {
+			drawBlackBackground(1f);
+			y--; 
+			drawString(1f, 30f, y, "Score: "+gp.score.points+"\nTime taken: "+gp.score.elapsedTime()+"\nCompletion: "+gp.score.getTotalCompletion(), 40);
+			if(counterReached(800)) {
+				scenePhase++;
+			}
+		} else if (scenePhase == 7) {
 			System.exit(0);
 		}
 	}

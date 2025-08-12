@@ -40,6 +40,7 @@ public class Obj_Skeleton_Card_Gen extends Object {
 			case MINUS: gp.kc[0].setValue(slot1 - slot2); break;
 			case MULTI: gp.kc[0].setValue(slot1 * slot2); break;
 			case DIVIDE: gp.kc[0].setValue((double)slot1 / (double)slot2); break;
+			case DECIMAL: gp.kc[0].setValue((double)slot1 + ((double)slot2/10)); break;
 			default: gp.kc[0].setValue(slot1 + (slot2*10));
 			}
 			gp.kc[slot1].locked = false;

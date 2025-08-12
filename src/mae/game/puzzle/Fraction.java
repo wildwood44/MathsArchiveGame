@@ -5,8 +5,11 @@ import java.awt.Graphics2D;
 public class Fraction {
 	private String numerator, denominator;
 	private double numerator2, denominator2 = 1;
+	private double whole = 0;
+	private boolean wholeNumber = false;
 	private double value;
 	private String text;
+	private boolean hidden = false;
 	
 	public Fraction(String value) {
 		numerator = "0";
@@ -20,6 +23,14 @@ public class Fraction {
 		String[] ss = text.split("/");
 	    numerator = ss[0];
 	    denominator = ss[1];
+	    while(convert(numerator) >= convert(denominator) &&
+	    	convert(denominator) != 0 && convert(numerator) != 0) {
+	    	whole++;
+	    	if(convert(denominator) == convert(numerator)) {
+	    		wholeNumber = true;
+	    	}
+	    	numerator = ""+(convert(numerator) - convert(denominator));
+	    }
 	}
 	
 	public int getNumerator() {
@@ -32,6 +43,18 @@ public class Fraction {
 	
 	public double getValue() {
 		return value;
+	}
+	
+	public int getWhole() {
+		return (int) whole;
+	}
+	
+	public boolean isWhole() {
+		return wholeNumber;
+	}
+	
+	public void hideFraction(boolean hidden) {
+		this.hidden = hidden;
 	}
 	
 	public String convertDecToFrac(double decimal) {
@@ -67,14 +90,21 @@ public class Fraction {
     }
 	
 	public void printFraction(Graphics2D g2, int x, int y) {
-		if(getNumerator()==0) {
-			g2.drawString("a", x, y+16);
-			g2.drawString("-", x, y+32);
-			g2.drawString("b", x, y+48);
-		} else {
-			g2.drawString(getNumerator()+"", x, y+16);
-			g2.drawString("-", x, y+32);
-			g2.drawString(getDenominator()+"", x, y+48);
+		int textX = x;
+		if(whole!=0) {
+			g2.drawString(getWhole()+"", textX, y+32);
+			textX=textX+20;
+		}
+		if(!wholeNumber) {
+			if(getNumerator()==0 || hidden) {
+				g2.drawString("a", textX, y+16);
+				g2.drawString("-", textX, y+32);
+				g2.drawString("b", textX, y+48);
+			} else {
+				g2.drawString(getNumerator()+"", textX, y+16);
+				g2.drawString("-", textX, y+32);
+				g2.drawString(getDenominator()+"", textX, y+48);
+			}
 		}
 	}
     // Function to convert String to integer

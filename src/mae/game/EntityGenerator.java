@@ -15,6 +15,9 @@ import mae.game.object.Obj_Console;
 import mae.game.object.Obj_Converter;
 import mae.game.object.Obj_Door;
 import mae.game.object.Obj_Exit;
+import mae.game.object.Obj_Graffiti_Clue;
+import mae.game.object.Obj_Graffiti_Enter;
+import mae.game.object.Obj_Graffiti_Help;
 import mae.game.object.Obj_Map;
 import mae.game.object.Obj_Moon_Pedestal;
 import mae.game.object.Obj_Skeleton_Card_Gen;
@@ -67,6 +70,9 @@ public class EntityGenerator {
 		case Obj_Calculator_Button_Multi.objId: obj = new Obj_Calculator_Button_Multi(gp);break;//26
 		case Obj_Calculator_Button_Divide.objId: obj = new Obj_Calculator_Button_Divide(gp);break;//27
 		case Obj_Calculator_Button_Equal.objId: obj = new Obj_Calculator_Button_Equal(gp);break;//28
+		case Obj_Graffiti_Enter.objId: obj = new Obj_Graffiti_Enter(gp);break;//30
+		case Obj_Graffiti_Help.objId: obj = new Obj_Graffiti_Help(gp);break;//31
+		case Obj_Graffiti_Clue.objId: obj = new Obj_Graffiti_Clue(gp);break;//32
 		//default
 		}
 		return obj;

@@ -55,12 +55,14 @@ public class EventHandler {
 	}
 
 	public void checkCutscene() {
-		if(gp.s.credits) {
-			credits(1);
+		if(gp.s.gameStart) {
+			cutscene(1);
+		} else if(gp.s.credits) {
+			cutscene(2);
 		}
 	}
 
-	public void credits(int read) {
+	public void cutscene(int read) {
 		gp.gameState = GameState.cutsceneState;
 		CutsceneManager cm = gp.csManager;
 		cm.sceneNum = read;

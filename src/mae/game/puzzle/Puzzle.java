@@ -2,6 +2,7 @@ package mae.game.puzzle;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import mae.game.Entity;
@@ -179,7 +180,6 @@ public class Puzzle extends Entity {
 	}
 	
 	public double findFraction(int input) {
-		//Wrong - needs fixing
 	    String regex = "[ \\=]";
 	    String[] ss = text.split(regex);
 	    Fraction f1 = new Fraction(ss[0]);
@@ -868,6 +868,11 @@ public class Puzzle extends Entity {
     	//return count;
     }
     
+    public static boolean isWhole(double input) {
+    	if(input % 1 == 0) { return true; }
+    	else { return false; }
+    }
+    
     public static boolean isEven(double input) {
     	if(input % 2 == 0) { return true; }
     	else { return false; }
@@ -886,6 +891,21 @@ public class Puzzle extends Entity {
             }
         }
         return true;
+    }
+    public static int largestPos(double[] arr) {
+    	// Initialize maximum element 
+        double max = arr[0]; 
+        int pos = 0;
+      	// Traversing and comparing max element
+        for (int i = 0; i < arr.length; i++) {
+         // If current element is greater than max
+            if (arr[i] > max) {
+                // Then update max element
+                max = arr[i]; 
+                pos = i;
+            }
+        }
+        return pos; 
     }
 	
 	public String printPuzzle() {
@@ -911,7 +931,7 @@ public class Puzzle extends Entity {
 		}
 		return false;
 	}
-    // Function to convert String to integer
+    // Function to convert String to double
     public static double convert(String str)
     {
     	double foo;

@@ -100,7 +100,6 @@ public class Puzzle_85 extends Puzzle {
 			}
 		} if(gp.keyH.enterPressed) {
 			wholeNumber = convert(input1+input2+input3);
-			System.out.println(wholeNumber);
 			if(question==1 && wholeNumber==ans1) {
 				gp.playSE(2);
 				isCorrect=true;
@@ -109,11 +108,13 @@ public class Puzzle_85 extends Puzzle {
 				gp.playSE(2);
 				isCorrect=true;
 				opened = true;
+				gp.score.addPoints(5);
 				if(gp.npc[gp.currentMap.getId()][0] == null) {
 					gp.npc[gp.currentMap.getId()][0] = new Prisoner_85(gp);
 					gp.npc[gp.currentMap.getId()][0].worldX = (int)(gp.tileSize*12.5);
 					gp.npc[gp.currentMap.getId()][0].worldY = (gp.tileSize*3)-1;
 					gp.npc[gp.currentMap.getId()][0].direction = direction;
+					gp.score.addPoints(10);
 				}
 			} else {
 				gp.playSE(3);

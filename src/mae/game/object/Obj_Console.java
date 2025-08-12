@@ -51,8 +51,10 @@ public class Obj_Console extends Object {
 						break;
 					}
 				}
+				gp.score.addPoints(1);
 				input = 0;
 				opened = true;
+				puzzle.opened = true;
 			} else {
 				isWrong = true;
 				gp.playSE(3);

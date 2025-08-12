@@ -47,6 +47,7 @@ public class Obj_Door extends Object {
 				gp.playSE(4);
 				moving = true;
 				input = 0;
+				puzzle.opened = true;
 			//If input(s) are incorrect
 			} else {
 				correct = true;
@@ -90,6 +91,7 @@ public class Obj_Door extends Object {
 				} else if (spriteNum == 2) {
 					spriteNum = 3;
 				} else if (spriteNum == 3) {
+					gp.score.addPoints(1);
 					spriteNum = 4;
 					moving = false;
 					opened = true;

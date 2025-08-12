@@ -31,7 +31,7 @@ import mae.game.puzzle.PuzzleSetter;
 
 public class GamePanel extends JPanel implements Runnable {
 	//SCREEN SETTINGS
-	final int originalTileSize = 16; // 16x16 tile
+	public final int originalTileSize = 16; // 16x16 tile
 	final int scale = 4;
 	public final int tileSize = originalTileSize * scale;  // 64x64 tile
 	public final int maxScreenCol = 12;
@@ -69,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
 	int playerSpeed = 4;
 	public int loadingProgress = 0;
 	public GameState gameState;
+	public Score score;
 	public boolean cutsceneOn = false;
 	public Map currentMap;
 	public Integer selectedObj;
@@ -88,8 +89,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	final int[] squared = {1,4,9,16,25,36,49,64,81,100,121,144};
 	//Testing
-	public boolean testDoor = false;
-	public boolean testKey = false;
+	public boolean testDoor = true;
+	public boolean testKey = true;
 	public int startFloor = 0;
 
 	public GamePanel() {
@@ -120,6 +121,7 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM = new TileManager(this);
 		eHandler = new EventHandler(this);
 		cChecker = new CollisionChecker(this);
+		score = new Score(this);
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		//playMusic(31);

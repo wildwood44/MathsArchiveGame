@@ -19,6 +19,7 @@ public class Obj_Exit extends Obj_Door {
 			moving = true;
 		} 
 		else if (opened){
+			gp.score.stopTimer();
 			gp.s.credits = true;
 		}
 		gp.keyH.enterPressed = false;

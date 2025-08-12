@@ -393,6 +393,20 @@ public class KeyHandler implements KeyListener {
 				gp.ui.selectedObject.interact();
 			}
 			break;
+		case KeyEvent.VK_LEFT :
+		case KeyEvent.VK_A :
+			leftPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
+		case KeyEvent.VK_RIGHT :
+		case KeyEvent.VK_D :
+			rightPressed = true;
+			if (gp.ui.selectedObject != null) {
+				gp.ui.selectedObject.interact();
+			}
+			break;
 		}
 	}
 	
