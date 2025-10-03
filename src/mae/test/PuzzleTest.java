@@ -156,6 +156,9 @@ public class PuzzleTest {
 		puzzle = new Puzzle(gp, "√12=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
 		assertEquals(puzzle.isCorrect(2), true);
 		assertEquals(puzzle.isCorrect(3), true);
+		puzzle = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		assertEquals(puzzle.isCorrect(5), true);
+		assertEquals(puzzle.isCorrect(2), true);
 	}
 	@Test
 	public void findGraph() {

@@ -63,16 +63,21 @@ public class PuzzleSetter {
 		problems[11][6] = new Puzzle(gp, "√289", SumType.EQUAL, PuzzleType.RADICAL);
 		problems[11][11] = new Puzzle(gp, "8√4=?", SumType.EQUAL, PuzzleType.RADICAL);
 		//problems[11][11] = new Puzzle(gp, "√12=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
-		problems[16][1] = new Puzzle(gp, "13 ?=11", SumType.MINUS);
+		//problems[16][1] = new Puzzle(gp, "13 ?=11", SumType.MINUS);
+		problems[16][1] = new Puzzle_5(gp);
+		problems[17][1] = new Puzzle_6(gp);
+		problems[21][1] = new Puzzle_10(gp);
 		problems[23][1] = new Puzzle_12(gp);
 		problems[28][1] = new Puzzle(gp, "3 3=?", SumType.DIVIDE);
 		problems[30][1] = new Puzzle(gp, "? 6=24", SumType.MULTI);
 		problems[31][1] = new Puzzle_20(gp);
+		problems[33][1] = new Puzzle_22(gp);
 		problems[35][1] = new Puzzle_24(gp);
 		problems[37][1] = new Puzzle_26(gp);
 		problems[40][1] = new Puzzle(gp, "? 4=0.75", SumType.DIVIDE);
 		problems[48][1] = new Puzzle(gp, "20% of 20=?", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[50][1] = new Puzzle_39(gp);
+		problems[51][1] = new Puzzle_40(gp);
 		problems[54][1] = new Puzzle(gp, "50% of 10=?", SumType.PERSN, PuzzleType.PERCENTAGE);
 		problems[58][1] = new Puzzle(gp, "Decrease 24 by 75%=?", SumType.PERSN, PuzzleType.D_PERCENTAGE);
 		problems[62][1] = new Puzzle_51(gp);
@@ -90,8 +95,10 @@ public class PuzzleSetter {
 		problems[114][1] = new Puzzle(gp, "mean(4,5,6,7,8)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[118][1] = new Puzzle(gp, "medium(7,8,2,4,2)=?", SumType.EQUAL, PuzzleType.STAT);
 		problems[124][1] = new Puzzle(gp, "odd(1,2,3,4,5,6)=?0%", SumType.EQUAL, PuzzleType.PROBABIL);
+		problems[141][1] = new Puzzle_130(gp);
 		problems[142][1] = new Puzzle(gp, "x*x*x*x=x?", SumType.MULTI, PuzzleType.ALGEBRA);
 		problems[148][1] = new Puzzle(gp, "√50=a√b", 2, SumType.EQUAL, PuzzleType.RADICAL);
+		problems[150][1] = new Puzzle_139(gp);
 	}
 	
 	public Puzzle getPuzzle(int floor, int room) {

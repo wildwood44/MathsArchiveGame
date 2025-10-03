@@ -50,9 +50,7 @@ public class Puzzle_51 extends Puzzle {
 			values[i] = values[i].setScale(1, RoundingMode.HALF_UP);
 			fraction[i] = new Fraction(values[i].toString());
 			hidden[i] = false;
-			System.out.println("fac "+fraction[i].getNumerator());
 		}
-		System.out.println(differnce +" dif");
 		//Hide random value
 		for(int i = 0; i < hide.length; i++) {
 			hide[i] = (int) (Math.round(Math.random()*(values.length-1)));
@@ -72,8 +70,7 @@ public class Puzzle_51 extends Puzzle {
 
 	public void drawPuzzle(Graphics2D g2) {
 		//Factors
-		DecimalFormat format = new DecimalFormat("0.#");
-		//Fraction faction = new Fraction("0.5");
+		//DecimalFormat format = new DecimalFormat("0.#");
 		x = gp.tileSize * 2;
 		y = (int)(gp.tileSize * 0.25);
 		g2.setFont(g2.getFont().deriveFont(0, 50.0F));
@@ -87,7 +84,6 @@ public class Puzzle_51 extends Puzzle {
 		if(hidden[current]) {
 			fraction[current].printFraction(g2, gp.tileSize*5, gp.tileSize*3);
 		} else {
-			//faction = new Fraction(values[current]+"");
 			fraction[current].printFraction(g2, gp.tileSize*5, gp.tileSize*3);
 		}
 		g2.drawLine(gp.tileSize*4, gp.tileSize*4, gp.tileSize*8, gp.tileSize*4);
@@ -131,7 +127,6 @@ public class Puzzle_51 extends Puzzle {
 				input2[current]++;
 			} else if(input2[current]==1) {
 				lower[current] = input[current];
-				System.out.println(fraction[current].getNumerator() +"/"+fraction[current].getDenominator());
 				if(convert(upper[current])==fraction[current].getNumerator() &&
 					convert(lower[current])==fraction[current].getDenominator()) {
 					hidden[current] = false;

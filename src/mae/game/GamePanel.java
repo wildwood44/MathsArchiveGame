@@ -201,7 +201,7 @@ public class GamePanel extends JPanel implements Runnable {
 			gameState == GameState.saveState || gameState == GameState.optionsState||
 			gameState == GameState.notifyState || gameState == GameState.loadingState ||
 			gameState == GameState.talkingState || gameState == GameState.fastTravelState||
-			gameState == GameState.puzzleState) {
+			gameState == GameState.helpState || gameState == GameState.puzzleState) {
 			ui.draw(g2);
 		// CUTSCENE
 		} else if (gameState == GameState.cutsceneState) {

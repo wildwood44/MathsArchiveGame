@@ -1,6 +1,7 @@
 package mae.game.object;
 
 import mae.game.GamePanel;
+import mae.game.GameState;
 
 public class Obj_Exit extends Obj_Door {
 	GamePanel gp;
@@ -13,7 +14,10 @@ public class Obj_Exit extends Obj_Door {
 	}
 
 	public void interact() {
-		if(!opened) {
+		if(!puzzle.opened) {
+			gp.gameState = GameState.puzzleState;
+			gp.ui.selectedObject = puzzle;
+		}else if(!opened) {
 			gp.playSE(4);
 			opened = true;
 			moving = true;

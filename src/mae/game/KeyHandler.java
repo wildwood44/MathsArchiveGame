@@ -36,6 +36,8 @@ public class KeyHandler implements KeyListener {
 			notificationState(code);
 		} else if (gp.gameState == GameState.talkingState) {
 			dialogueState(code);
+		} else if (gp.gameState == GameState.helpState) {
+			helpState(code);
 		} else if (gp.gameState == GameState.saveState) {
 			saveState(code);
 		} else if (gp.gameState == GameState.optionsState) {
@@ -120,12 +122,16 @@ public class KeyHandler implements KeyListener {
 	public void	menuState(int code) {
 		switch (code) {
 		case KeyEvent.VK_ENTER :
-			if (gp.ui.playerSlotCol == 0) { //Save game
+			if (gp.ui.playerSlotCol == 0) { //Help
+				gp.gameState = GameState.helpState;
+			} else if (gp.ui.playerSlotCol == 1) { //Save game
 				gp.gameState = GameState.saveState;
-			} else if (gp.ui.playerSlotCol == 1) { //Open options
+			} else if (gp.ui.playerSlotCol == 2) { //Fast-Travel
+				gp.gameState = GameState.fastTravelState;
+			} else if (gp.ui.playerSlotCol == 3) { //Open options
 				gp.gameState = GameState.optionsState;
 				gp.ui.resetSlots();
-			} else if (gp.ui.playerSlotCol == 2) { //Quit game
+			} else if (gp.ui.playerSlotCol == 4) { //Quit game
 				gp.gameState = GameState.titleState;
 				gp.ui.commandNum = 0;
 				gp.restart();
@@ -137,12 +143,24 @@ public class KeyHandler implements KeyListener {
 		case KeyEvent.VK_UP :
 		case KeyEvent.VK_W :
 			//gp.playSE(2);
-			gp.ui.playerSlotCol = getNext(gp.ui.playerSlotCol, 2);
+			gp.ui.playerSlotCol = getNext(gp.ui.playerSlotCol, 4);
 			break;
 		case KeyEvent.VK_DOWN :
 		case KeyEvent.VK_S :
 			//gp.playSE(2);
-			gp.ui.playerSlotCol = getPrev(gp.ui.playerSlotCol, 2);
+			gp.ui.playerSlotCol = getPrev(gp.ui.playerSlotCol, 4);
+		}
+	}
+	
+	public void helpState(int code) {
+		switch (code) {
+		case KeyEvent.VK_ESCAPE :
+			gp.ui.resetSlots();
+			gp.gameState = GameState.menuState;
+			break;
+		case KeyEvent.VK_ENTER :
+			enterPressed = true;
+			break;
 		}
 	}
 	
@@ -223,7 +241,7 @@ public class KeyHandler implements KeyListener {
 		switch (code) {
 		case KeyEvent.VK_ESCAPE :
 			gp.ui.resetSlots();
-			gp.gameState = GameState.playState;
+			gp.gameState = GameState.menuState;
 			break;
 		case KeyEvent.VK_ENTER: 
 			enterPressed = true;

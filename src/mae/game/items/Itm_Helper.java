@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import mae.game.Entity;
 import mae.game.GamePanel;
 import mae.game.GameState;
 
@@ -16,64 +17,9 @@ public class Itm_Helper extends Item {
 		super(gp);
 		this.gp = gp;
 		this.enId = id;
-		getImage();
 		setDialogue();
-		image = idle1;
 		x = gp.screenWidth/3;
 		y = (4 * gp.tileSize) + 5;
-	}
-	
-	public void getImage() {
-		idle1 = setup(("/res/objects/helper1"), gp.tileSize*2, gp.tileSize*2);
-		idle2 = setup(("/res/objects/helper2"), gp.tileSize*2, gp.tileSize*2);
-	}
-
-	public void draw(Graphics2D g2) {
-		if(spriteNum==1) {
-			image = idle1;
-		}if(spriteNum==2) {
-			image = idle2;
-		}
-		g2.drawImage(image, x, y, null);
-        g2.setComposite(AlphaComposite.SrcOver.derive(1f));
-    	//DRAW SPEECH BUBBLE
-		if(gp.gameState == GameState.talkingState) {
-			//update();
-			drawSpeech(g2, x - gp.tileSize/2, y - gp.tileSize*4);
-		}
-	}
-
-	public void update() {
-		collisionOn = false;
-		if(isSelected) {
-			spriteCounter++;
-			if (spriteCounter > 10) {
-				if(spriteNum == 1) {
-					spriteNum = 2;
-				} else if (spriteNum == 2) {
-					spriteNum = 1;
-				}
-				spriteCounter=0;
-			}
-		}
-	}
-	public void drawSpeechBubble(Graphics2D g2, int x, int y) {
-		BufferedImage sb_tl = setup("/res/speechbubble/speech-bubble_large", gp.tileSize*4, gp.tileSize*4);
-		g2.drawImage(sb_tl, x-gp.tileSize/2, y, null);
-	}
-	public void drawSpeech(Graphics2D g2, int x, int y) {			
-		int textY = y + 48;
-		int length, textX;
-		//Draw box
-		drawSpeechBubble(g2,x,y);
-		g2.setColor(Color.WHITE);
-		g2.setFont(g2.getFont().deriveFont(1, 12.0F));
-		for (String line : gp.ui.breakLines(dialogue[dialogueSet][dialogueIndex],20," ")) {
-			length = (int) g2.getFontMetrics().getStringBounds(line, g2).getWidth();
-			textX = x + (int)(gp.tileSize*1.5) - length/2;
-			g2.drawString(line, textX, textY);
-			textY += 20;
-		}
 	}
 	public void setDialogue() {
 		dialogue[0][0] = "Addition is when you bring too amounts together.";
@@ -147,11 +93,17 @@ public class Itm_Helper extends Item {
 	}
 	
 	public void use() {
-		if(opened) {
+		//if(opened) {
 			if(dialogue[gp.currentMap.getFloor()][dialogueIndex]!=null) {
 				startDialogue(this, gp.currentMap.getFloor());
 			}
-		}
+		//}
 		
+	}
+
+	public void startDialogue(Entity object, int setNum) {
+		GamePanel gp = this.gp;
+		gp.ui.selectedObject = object;
+		dialogueSet = setNum;
 	}
 }

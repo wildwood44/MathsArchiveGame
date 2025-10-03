@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import mae.game.items.Itm_Helper;
 import mae.game.npc.NPC;
 
 public class UI {
@@ -85,6 +86,10 @@ public class UI {
 		
 		else if (gp.gameState == GameState.menuState) {
 			drawMenuBarScreen();
+		}
+
+		else if (gp.gameState == GameState.helpState) {
+			drawHelperScreen();
 		}
 
 		else if (gp.gameState == GameState.saveState) {
@@ -193,10 +198,39 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(0, 22.0F));
 		g2.setColor(Color.white);
 		g2.setStroke(new BasicStroke());
-		g2.drawString("Save", 30, gp.tileSize);
-		g2.drawString("Options", 30, (int) (gp.tileSize * 1.75D));
-		g2.drawString("Quit", 30, (int) (gp.tileSize * 2.5D));
+		g2.drawString("Help", 30, gp.tileSize);
+		g2.drawString("Save", 30, (int) (gp.tileSize * 1.75D));
+		g2.drawString("Fast-Travel", 30, (int) (gp.tileSize * 2.5D));
+		g2.drawString("Options", 30, (int) (gp.tileSize * 3.25D));
+		g2.drawString("Quit", 30, (int) (gp.tileSize * 4));
 		g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+	}
+	public void drawHelperScreen() {	
+		selectedObject = gp.items[0];
+		gp.items[0].use();
+		g2.setColor(Color.black);
+		int x = 0, y = gp.tileSize*4, width = gp.maxWorldRow * gp.tileSize, height = gp.maxWorldCol * (gp.tileSize/2);	
+		int textY = y + 48;
+		int length, textX;
+		g2.fillRect(x, y, width, height);
+		g2.setColor(Color.WHITE);
+		g2.setFont(g2.getFont().deriveFont(1, 22.0F));
+		System.out.println(selectedObject.dialogue[selectedObject.dialogueSet][selectedObject.dialogueIndex] + " " + selectedObject.dialogueIndex);
+		if (selectedObject.dialogue[selectedObject.dialogueSet][selectedObject.dialogueIndex] != null) {
+			for (String line : breakLines(selectedObject.dialogue[gp.currentMap.getFloor()][selectedObject.dialogueIndex],55," ")) {
+				length = (int) g2.getFontMetrics().getStringBounds(line, g2).getWidth();
+				textX = x + (int)(gp.tileSize*0.5);
+				g2.drawString(line, textX, textY);
+				textY += 20;
+			}
+		} else {
+			gp.gameState = GameState.menuState;
+			selectedObject.dialogueIndex=0;
+		}
+		if(gp.keyH.enterPressed) {
+			selectedObject.dialogueIndex++;
+			gp.keyH.enterPressed = false;
+		}
 	}
 	
 	public void drawSaveScreen() {

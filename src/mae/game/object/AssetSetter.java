@@ -134,22 +134,30 @@ public class AssetSetter {
 		gp.obj[room][i] = new Obj_Map(gp);
 		gp.obj[room][i].worldX = 5 * gp.tileSize;
 		gp.obj[room][i].worldY = 1 * gp.tileSize;
-		room++;
 		//Room 5
+		room++;
 		gp.obj[room][i] = new Obj_Console(gp);
 		gp.obj[room][i].floor = floor;
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 2 * gp.tileSize;
 		gp.obj[room][i].lock(156);
 		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room, i));
-		room = levels + 6;
+		//Room 6
+		room++;
+		gp.obj[room][i] = new Obj_Puzzle_6(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 5 * gp.tileSize;
+		gp.obj[room][i].worldY = gp.tileSize-gp.originalTileSize;
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
 		//Room 7
+		room++;
 		gp.obj[room][i] = new Obj_Card_Holder(gp);
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		gp.obj[room][i].lock(2);
-		room = levels + 8;
 		//Room 9
+		room = levels + 8;
 		gp.obj[room][i] = new Obj_Calculator(gp);
 		gp.obj[room][i].worldX = 6 * gp.tileSize;
 		gp.obj[room][i].worldY = 2 * gp.tileSize;
@@ -191,8 +199,16 @@ public class AssetSetter {
 		gp.obj[room][i].worldX = 9 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		i=1;
-		room = levels + 10;
-		//Room 11
+		//Room 10
+		room++;
+		gp.obj[room][i] = new Obj_Puzzle_10(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = (int)(0.5 * gp.tileSize);
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
+		//Room 11;
+		room++;
 		gp.obj[room][i] = new Obj_Card_Holder(gp);
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
@@ -242,8 +258,16 @@ public class AssetSetter {
 		gp.obj[room][i].worldY = gp.tileSize/2;
 		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
 		gp.obj[room][i].lock(156);
+		//Room 22
+		room = levels + 21;;
+		gp.obj[room][i] = new Obj_Puzzle_22(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = (int)(0.5 * gp.tileSize);
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
 		//Room 23
-		room = levels + 22;
+		room++;
 		gp.obj[room][i] = new Obj_Card_Holder(gp);
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
@@ -320,14 +344,22 @@ public class AssetSetter {
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
 		gp.obj[room][i].lock(156);
+		//Room 40
+		room++;
+		gp.obj[room][i] = new Obj_Puzzle_40(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = 2 * gp.tileSize;
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
 		//Room 41
-		room = levels + 40;
+		room++;
 		gp.obj[room][i] = new Obj_Card_Holder(gp);
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		gp.obj[room][i].lock(6);
-		room = levels + 42;
 		//Room 43
+		room = levels + 42;
 		gp.obj[room][i] = new Obj_Console(gp);
 		gp.obj[room][i].floor = floor;
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
@@ -544,8 +576,16 @@ public class AssetSetter {
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 3 * gp.tileSize;
 		gp.obj[room][i].lock(9);
-		room = levels + 130;
+		//Room 130
+		room = levels + 129;;
+		gp.obj[room][i] = new Obj_Puzzle_130(gp);
+		gp.obj[room][i].floor = floor;
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = (int)(0.5 * gp.tileSize);
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		gp.obj[room][i].lock(156);
 		//Room 131
+		room++;
 		gp.obj[room][i] = new Obj_Console(gp);
 		gp.obj[room][i].floor = floor;
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
@@ -569,6 +609,28 @@ public class AssetSetter {
 		gp.obj[room][i].floor = floor;
 		gp.obj[room][i].worldX = 12 * gp.tileSize;
 		gp.obj[room][i].worldY = 2 * gp.tileSize;
+		gp.obj[room][i].setPuzzle(gp.ps.getPuzzle(room,i));
+		i++;
+		gp.obj[room][i] = new Obj_Skeleton_Card_Gen(gp);
+		gp.obj[room][i].worldX = 4 * gp.tileSize;
+		gp.obj[room][i].worldY = 3 * gp.tileSize;
+		gp.obj[room][i].setSumType(SumType.PLUS);
+		i++;
+		gp.obj[room][i] = new Obj_Skeleton_Card_Gen(gp);
+		gp.obj[room][i].worldX = 6 * gp.tileSize;
+		gp.obj[room][i].worldY = 3 * gp.tileSize;
+		gp.obj[room][i].setSumType(SumType.MULTI);
+		i++;
+		gp.obj[room][i] = new Obj_Skeleton_Card_Gen(gp);
+		gp.obj[room][i].worldX = 8 * gp.tileSize;
+		gp.obj[room][i].worldY = 3 * gp.tileSize;
+		gp.obj[room][i].setSumType(SumType.DIVIDE);
+		i++;
+		gp.obj[room][i] = new Obj_Skeleton_Card_Gen(gp);
+		gp.obj[room][i].worldX = 10 * gp.tileSize;
+		gp.obj[room][i].worldY = 3 * gp.tileSize;
+		gp.obj[room][i].setSumType(SumType.TEN);
+		i=0;
 		room = levels + 143;
 		//Room 144
 		gp.obj[room][i] = new Obj_Converter(gp);
